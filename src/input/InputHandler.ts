@@ -25,6 +25,8 @@ export class InputHandler {
   private lastActionTime: Map<InputAction, number>;
   private touchStartY: number | null = null;
   private touchStartX: number | null = null;
+  private touchStartTime: number = 0;
+  private lastTapTime: number = 0;
   private repeatIntervals: Map<string, ReturnType<typeof setInterval | typeof setTimeout>> = new Map();
 
   constructor(controls?: ControlsConfig) {
@@ -131,6 +133,7 @@ export class InputHandler {
 
     this.touchStartX = touch.clientX;
     this.touchStartY = touch.clientY;
+    this.touchStartTime = Date.now();
   }
 
   /**
@@ -147,7 +150,8 @@ export class InputHandler {
     const deltaX = touch.clientX - this.touchStartX;
     const deltaY = touch.clientY - this.touchStartY;
 
-    const threshold = 30;
+    // Adaptive threshold based on screen size (smaller on mobile)
+    const threshold = window.innerWidth < 576 ? 20 : 30;
 
     // Horizontal swipe
     if (Math.abs(deltaX) > threshold && Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -164,6 +168,12 @@ export class InputHandler {
       this.executeAction('moveDown');
       this.touchStartY = touch.clientY;
     }
+    
+    // Vertical swipe up for rotate
+    if (deltaY < -threshold && Math.abs(deltaY) > Math.abs(deltaX)) {
+      this.executeAction('rotate');
+      this.touchStartY = touch.clientY;
+    }
   }
 
   /**
@@ -177,10 +187,21 @@ export class InputHandler {
 
     const deltaX = Math.abs(touch.clientX - this.touchStartX);
     const deltaY = Math.abs(touch.clientY - this.touchStartY);
+    const touchDuration = Date.now() - this.touchStartTime;
+    const now = Date.now();
+    const timeSinceLastTap = now - this.lastTapTime;
 
-    // If it's a tap (not a swipe)
-    if (deltaX < 10 && deltaY < 10) {
-      this.executeAction('rotate');
+    // If it's a tap (not a swipe) and quick
+    if (deltaX < 15 && deltaY < 15 && touchDuration < 300) {
+      // Double tap detection (within 400ms)
+      if (timeSinceLastTap < 400) {
+        this.executeAction('hardDrop');
+        this.lastTapTime = 0; // Reset to avoid triple tap
+      } else {
+        // Single tap = rotate
+        this.executeAction('rotate');
+        this.lastTapTime = now;
+      }
     }
 
     this.touchStartX = null;
