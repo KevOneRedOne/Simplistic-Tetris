@@ -9,6 +9,16 @@
 
 [🎮 Play Live Demo](https://simplistic-tetris-v2.netlify.app) | [📝 Original Version](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris)
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="./public/tetrispresentation.png" alt="Game Start Screen" width="600">
+  <p><em>Modern start screen with game mode selection</em></p>
+  
+  <img src="./public/tetrisgame.png" alt="Gameplay" width="600">
+  <p><em>Gameplay with next piece preview, hold system, and statistics</em></p>
+</div>
+
 ## 🎯 Project Overview
 
 This project is a complete modern rewrite of my original Tetris game. Built with TypeScript, Vite, and modern web technologies, it's designed to be playable anywhere, anytime. It demonstrates:
@@ -125,8 +135,8 @@ src/
 
 ```bash
 # Clone the repository
-git clone https://github.com/KevOneRedOne/tetris-v2.git
-cd tetris-v2
+git clone https://github.com/KevOneRedOne/Simplistic-Tetris.git
+cd Simplistic-Tetris
 
 # Install dependencies
 npm install
@@ -270,7 +280,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Kevin Alves**
 - GitHub: [@KevOneRedOne](https://github.com/KevOneRedOne)
-- Project Link: [https://github.com/KevOneRedOne/tetris-v2](https://github.com/KevOneRedOne/tetris-v2)
+- Project Link: [https://github.com/KevOneRedOne/Simplistic-Tetris](https://github.com/KevOneRedOne/Simplistic-Tetris)
 
 ---
 
