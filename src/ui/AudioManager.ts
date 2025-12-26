@@ -30,6 +30,21 @@ export class AudioManager {
   }
 
   /**
+   * Resume AudioContext (required for mobile browsers)
+   * Must be called after user interaction
+   */
+  public async resumeAudioContext(): Promise<void> {
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      try {
+        await this.audioContext.resume();
+        console.log('AudioContext resumed successfully');
+      } catch (e) {
+        console.warn('Failed to resume AudioContext:', e);
+      }
+    }
+  }
+
+  /**
    * Play simple beep sound (synthesized)
    */
   private playBeep(frequency: number, duration: number, type: OscillatorType = 'square'): void {

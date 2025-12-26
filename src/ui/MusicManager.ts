@@ -158,6 +158,21 @@ export class MusicManager {
     }, duration * 1000);
   }
 
+  /**
+   * Resume AudioContext (required for mobile browsers)
+   * Must be called after user interaction
+   */
+  public async resumeAudioContext(): Promise<void> {
+    if (this.audioContext && this.audioContext.state === 'suspended') {
+      try {
+        await this.audioContext.resume();
+        console.log('MusicManager AudioContext resumed successfully');
+      } catch (e) {
+        console.warn('Failed to resume MusicManager AudioContext:', e);
+      }
+    }
+  }
+
   public play(): void {
     if (this.isPlaying) {
       return;
