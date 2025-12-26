@@ -1,4 +1,4 @@
-# Tetris Modern V2 - Migration Plan
+# Simplistic Tetris V2 - Migration Plan
 
 ## Overview
 
