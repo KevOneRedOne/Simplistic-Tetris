@@ -21,6 +21,11 @@
     "game",
     "vite"
   ],
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "author": "KevOneRedOne",
   "license": "MIT",
   "devDependencies": {
