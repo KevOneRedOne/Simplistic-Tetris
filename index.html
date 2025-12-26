@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Simplistic Tetris V2 - Play Tetris anywhere, anytime. Modern TypeScript rewrite with multiple game modes." />
+    <meta name="keywords" content="Tetris, TypeScript, Game, Canvas, JavaScript, Simplistic Tetris" />
+    <meta name="author" content="KevOneRedOne" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Simplistic Tetris V2 - Modern TypeScript Game" />
+    <meta property="og:description" content="Play Tetris anywhere, anytime. Modern rewrite with Classic & Ultra modes!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://simplistic-tetris-v2.netlify.app/" />
+    <meta property="og:image" content="https://simplistic-tetris-v2.netlify.app/tetris128px.png" />
+    
+    <title>Simplistic Tetris V2</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  </head>
+  
+  <body>
+    <!-- Header -->
+    <header class="game-header">
+      <div class="header-container">
+        <div class="header-logo">
+          <img src="/tetris128px.png" alt="Tetris">
+        </div>
+        <div class="header-title">
+          <h1>Simplistic JS Tetris V2</h1>
+        </div>
+        <div class="header-author">
+          <p>by <a href="https://github.com/KevOneRedOne" target="_blank">KevOneRedOne</a></p>
+        </div>
+      </div>
+    </header>
+    
+    <div class="app-container">
+      <div class="game-layout">
+        <!-- Left Panel: High Scores -->
+        <aside class="side-panel left-panel">
+          <h2 id="highscores-title">🏆 HIGH SCORES</h2>
+          <p id="highscores-mode" style="font-size: 0.7rem; opacity: 0.7; margin-top: -0.5rem; margin-bottom: 1rem;">Classic Mode</p>
+          <ol id="highScores" style="padding-left: 1.5rem; font-size: 0.8rem;"></ol>
+        </aside>
+        
+        <!-- Main Game Area -->
+        <main class="game-canvas-container">
+          <canvas id="tetris" width="400" height="800"></canvas>
+        </main>
+        
+        <!-- Right Panel: Stats & Preview -->
+        <aside class="side-panel right-panel">
+          <h2>TETRIS</h2>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <span class="label">Mode:</span>
+              <span class="value" id="mode">CLASSIC</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">Score:</span>
+              <span class="value" id="score">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">Lines:</span>
+              <span class="value" id="lines">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">Level:</span>
+              <span class="value" id="level">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label">Time:</span>
+              <span class="value" id="timer">0:00</span>
+            </div>
+          </div>
+          
+          <!-- Preview Pieces -->
+          <div class="preview-row">
+            <div class="preview-container">
+              <h3>Next</h3>
+              <canvas id="next-canvas" width="100" height="100"></canvas>
+            </div>
+            
+            <div class="preview-container">
+              <h3>Hold</h3>
+              <canvas id="hold-canvas" width="100" height="100"></canvas>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="game-footer">
+      <div class="footer-content">
+        <!-- Audio Controls -->
+        <div class="footer-section audio-controls">
+          <h3>🎵 AUDIO</h3>
+          <div class="audio-buttons">
+            <button id="music-toggle" class="icon-button" title="Toggle Music">
+              <span class="iconify" data-icon="mdi:music" data-width="24"></span>
+              <span class="button-label">Music</span>
+            </button>
+            <button id="sound-toggle" class="icon-button" title="Toggle Sound">
+              <span class="iconify" data-icon="mdi:volume-high" data-width="24"></span>
+              <span class="button-label">Sound</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Controls Info -->
+        <div class="footer-section controls">
+          <h3>🎮 CONTROLS</h3>
+          <div class="controls-grid">
+            <div class="control-item">
+              <span class="key">⬅️ ➡️</span>
+              <span class="desc">Move</span>
+            </div>
+            <div class="control-item">
+              <span class="key">⬆️ Z</span>
+              <span class="desc">Rotate</span>
+            </div>
+            <div class="control-item">
+              <span class="key">⬇️ S</span>
+              <span class="desc">Soft Drop</span>
+            </div>
+            <div class="control-item">
+              <span class="key">Space</span>
+              <span class="desc">Hard Drop</span>
+            </div>
+            <div class="control-item">
+              <span class="key">C</span>
+              <span class="desc">Hold</span>
+            </div>
+            <div class="control-item">
+              <span class="key">ESC</span>
+              <span class="desc">Pause</span>
+            </div>
+            <div class="control-item">
+              <span class="key">Enter</span>
+              <span class="desc">Restart</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Info -->
+        <div class="footer-section footer-info">
+          <h3>ℹ️ INFO</h3>
+          <p>Modern TypeScript rewrite</p>
+          <p>Version 2.0.0</p>
+          <p><a href="https://github.com/KevOneRedOne/tetris-v2" target="_blank">GitHub Repository</a></p>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Game Over Modal (will be created dynamically) -->
+    
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>⏸️ Paused</h2>
+        <p style="margin: 1rem 0;">Game is paused. Press ESC to continue.</p>
+        <div class="modal-buttons">
+          <button class="game-button" onclick="location.reload()">🔄 Restart</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Game Over Modal (created dynamically) -->
+    <div id="game-over-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>💀 Game Over</h2>
+        <div class="stats" style="margin: 1.5rem 0;">
+          <p>Score: <span id="game-over-score">0</span></p>
+          <p>Lines: <span id="game-over-lines">0</span></p>
+          <p>Level: <span id="game-over-level">0</span></p>
+          <p>Time: <span id="game-over-time">0:00</span></p>
+        </div>
+        <div class="modal-buttons">
+          <button class="game-button" onclick="location.reload()">🔄 Play Again</button>
+        </div>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
