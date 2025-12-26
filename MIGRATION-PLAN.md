@@ -4,46 +4,6 @@
 
 Complete refactor of Tetris project in vanilla TypeScript with modern architecture, Vitest tests, UX improvements (animations, themes, sounds), and optimized Netlify deployment.
 
-## Architecture
-
-```
-src/
-├── core/              # Game engine (pure logic)
-│   ├── Board.ts
-│   ├── Tetromino.ts
-│   ├── GameEngine.ts
-│   ├── CollisionDetector.ts
-│   ├── ScoringSystem.ts
-│   └── GameModes.ts
-├── rendering/         # Canvas rendering
-│   ├── CanvasRenderer.ts
-│   ├── AnimationEngine.ts
-│   └── ThemeManager.ts
-├── input/
-│   └── InputHandler.ts
-├── ui/
-│   ├── UIManager.ts
-│   ├── AudioManager.ts
-│   ├── MusicManager.ts
-│   ├── HighScoreManager.ts
-│   └── FPSCounter.ts
-├── i18n/              # Internationalization
-│   ├── i18n.ts
-│   └── locales/
-│       ├── fr.ts
-│       └── en.ts
-├── types/
-│   └── index.ts
-├── constants/
-│   └── config.ts
-├── styles/
-│   ├── main.scss
-│   ├── abstracts/
-│   ├── base/
-│   └── components/
-└── main.ts
-```
-
 ## Comparison: Before vs After
 
 ### Before (V1 - Vanilla JS)
@@ -59,9 +19,9 @@ graph TD
     C --> G[Mixed Logic:<br/>Game + Rendering + UI]
     D --> G
     
-    style G fill:#ffcccc
-    style B fill:#ffe6cc
-    style C fill:#ffe6cc
+    style G fill:#f5b5b5,stroke:#c77,stroke-width:2px,color:#333
+    style B fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
+    style C fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
 ```
 
 **Characteristics:**
@@ -107,12 +67,12 @@ graph TD
     
     H[Tests] --> C
     
-    style C fill:#ccffcc
-    style D fill:#ccf0ff
-    style E fill:#ffe6ff
-    style F fill:#fff4cc
-    style G fill:#ffccff
-    style H fill:#ccccff
+    style C fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style D fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style E fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style F fill:#f4c790,stroke:#d6a86f,stroke-width:2px,color:#333
+    style G fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style H fill:#8b9dc3,stroke:#6a7fa8,stroke-width:2px,color:#fff
 ```
 
 **Characteristics:**
@@ -123,6 +83,82 @@ graph TD
 - Integrated FPS counter
 - Multi-language (FR/EN)
 - Optimized Vite build
+
+## Project Structure
+
+```mermaid
+graph TB
+    subgraph "src/"
+        subgraph "core/ - Game Engine"
+            C1[Board.ts]
+            C2[Tetromino.ts]
+            C3[GameEngine.ts]
+            C4[CollisionDetector.ts]
+            C5[ScoringSystem.ts]
+            C6[GameModes.ts]
+        end
+        
+        subgraph "rendering/ - Canvas"
+            R1[CanvasRenderer.ts]
+            R2[AnimationEngine.ts]
+            R3[ThemeManager.ts]
+        end
+        
+        subgraph "ui/ - User Interface"
+            U1[UIManager.ts]
+            U2[AudioManager.ts]
+            U3[MusicManager.ts]
+            U4[HighScoreManager.ts]
+            U5[FPSCounter.ts]
+        end
+        
+        subgraph "input/"
+            I1[InputHandler.ts]
+        end
+        
+        subgraph "i18n/ - Internationalization"
+            L1[i18n.ts]
+            L2[locales/fr.ts]
+            L3[locales/en.ts]
+        end
+        
+        subgraph "config/"
+            CF1[types/index.ts]
+            CF2[constants/config.ts]
+        end
+        
+        subgraph "styles/ - SCSS"
+            S1[main.scss]
+            S2[abstracts/]
+            S3[base/]
+            S4[components/]
+        end
+        
+        M[main.ts]
+    end
+    
+    T[tests/] -.-> C3
+    
+    style C1 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C2 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C3 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C4 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C5 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C6 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style R1 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style R2 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style R3 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style U1 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U2 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U3 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U4 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U5 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style I1 fill:#f4c790,stroke:#d6a86f,stroke-width:2px,color:#333
+    style L1 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style L2 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style L3 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style T fill:#8b9dc3,stroke:#6a7fa8,stroke-width:2px,color:#fff
+```
 
 ## Tech Stack
 
