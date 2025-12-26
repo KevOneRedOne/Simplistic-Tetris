@@ -1,13 +1,16 @@
-# 🎮 Simplistic Tetris V2 - Modern TypeScript Edition
+# 🎮 Simplistic Tetris V2
 
-![Simplistic Tetris V2](https://img.shields.io/badge/Simplistic%20Tetris-V2-blue?style=for-the-badge)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> Refonte complète de mon projet Tetris original. Je voulais moderniser ce projet fun et pouvoir lancer une partie de Tetris n'importe où, n'importe quand.
+> **Modern rewrite of my [original Tetris project](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris).** Rebuilding a fun project to create a production-ready game playable anywhere, anytime, while showcasing clean architecture and modern development practices.
 
-[🎮 Play Live Demo](https://simplistic-tetris-v2.netlify.app) | [📝 Original Version](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris)
+[🎮 **Play Live Demo**](https://simplistic-tetris-v2.netlify.app) | [📝 Original Version](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris) | [📚 Documentation](./docs/)
+
+---
 
 ## 📸 Screenshots
 
@@ -19,112 +22,201 @@
   <p><em>Gameplay with next piece preview, hold system, and statistics</em></p>
 </div>
 
-## 🎯 Project Overview
+---
 
-This project is a complete modern rewrite of my original Tetris game. Built with TypeScript, Vite, and modern web technologies, it's designed to be playable anywhere, anytime. It demonstrates:
+## ✨ Key Features
 
-- **Refactor legacy code** into a clean, maintainable architecture
-- **Apply SOLID principles** and design patterns
-- **Write testable code** with proper separation of concerns
-- **Implement modern UX features** that enhance gameplay
-- **Build production-ready applications** with proper tooling
+- 🎮 **Two Game Modes** - Classic (infinite) and Ultra (2-minute challenge)
+- 👻 **Ghost Piece** - See where your piece will land
+- 💾 **Hold System** - Save a piece for later use
+- 🎨 **4 Themes** - Classic, Dark, Neon, Retro
+- 🌍 **i18n Support** - French and English with extensible system
+- 📱 **Fully Responsive** - Touch controls for mobile devices
+- 🎵 **Audio System** - Background music and sound effects
+- 📊 **FPS Counter** - Real-time performance monitoring
+- 🏆 **High Scores** - Persistent leaderboard per game mode
 
-## ✨ What's New in V2
+---
 
-### 🏗️ Architecture & Code Quality
+## 🏗️ Architecture Evolution
 
-- **Full TypeScript rewrite** with strict mode enabled
-- **Clean architecture** separating game engine, rendering, and UI logic
-- **Event-driven design** for loose coupling between modules
-- **Unit tests** with Vitest for critical game logic
-- **ESLint & Prettier** configuration for code quality
+### From Monolith to Modular
 
-### 🎮 Game Features
+<details>
+<summary><strong>🔴 Before (V1 - Vanilla JS)</strong> - Click to view diagram</summary>
 
-- **Classic Mode**: Play until game over, increase speed with levels
-- **Ultra Mode**: 2-minute challenge for maximum points
-- **Ghost Piece**: See where your piece will land
-- **Hold System**: Save a piece for later use
-- **Preview**: See the next piece coming
-- **Combos & Achievements**: Special moves reward extra points
-
-### 🎨 User Experience
-
-- **4 Themes**: Classic, Dark, Neon, Retro
-- **Smooth Animations**: Particle effects for line clears and events
-- **Responsive Design**: Works on desktop and mobile
-- **Touch Controls**: Swipe gestures for mobile play
-- **Sound Effects**: Optional audio feedback
-- **Internationalization**: French and English support
-
-### 🛠️ Technical Stack
-
-- **Language**: TypeScript 5.x (strict mode)
-- **Build Tool**: Vite 6.x
-- **Testing**: Vitest
-- **Styling**: SCSS with BEM methodology
-- **Deployment**: Netlify with optimized build
-- **Code Quality**: ESLint, Prettier
-
-## 📊 Before & After Comparison
-
-| Aspect | V1 (Original) | V2 (Modern Rewrite) |
-|--------|---------------|---------------------|
-| **Language** | Vanilla JavaScript | TypeScript (strict) |
-| **Architecture** | Mixed concerns | Clean, separated layers |
-| **Testing** | None | Unit tests with Vitest |
-| **Styling** | Basic CSS | SCSS with design system |
-| **Build** | None | Vite with optimizations |
-| **Features** | 1 game mode | 2 modes + extras |
-| **i18n** | French only | FR/EN with extensible system |
-| **Themes** | 1 theme | 4 themes |
-| **Mobile** | Basic | Full touch support |
-| **Code Lines** | ~600 | ~3000+ (modular) |
-
-## 🏛️ Architecture
-
-```
-src/
-├── core/              # Game engine (pure logic)
-│   ├── Board.ts         - Grid state management
-│   ├── Tetromino.ts     - Piece definitions & factory
-│   ├── GameEngine.ts    - Main game orchestrator
-│   ├── CollisionDetector.ts - Collision logic
-│   ├── ScoringSystem.ts - Points & levels
-│   └── GameModes.ts     - Mode configurations
-│
-├── rendering/         # Visual layer
-│   ├── CanvasRenderer.ts - Canvas drawing
-│   ├── AnimationEngine.ts - Particle effects
-│   └── ThemeManager.ts   - Theme switching
-│
-├── input/             # User input
-│   └── InputHandler.ts  - Keyboard & touch
-│
-├── ui/                # UI Management
-│   ├── UIManager.ts        - DOM updates
-│   ├── AudioManager.ts     - Sound effects
-│   └── HighScoreManager.ts - Score persistence
-│
-├── i18n/              # Internationalization
-│   ├── i18n.ts         - Translation system
-│   └── locales/        - Language files
-│
-└── styles/            # SCSS architecture
-    ├── abstracts/      - Variables & mixins
-    ├── base/           - Reset & typography
-    └── main.scss       - Main stylesheet
+```mermaid
+graph TD
+    A[index.html] --> B[main.js]
+    B --> C[Piece.js]
+    B --> D[tetrominoes.js]
+    B --> E[fps.js]
+    B --> F[styles.css]
+    
+    C --> G[Mixed Logic:<br/>Game + Rendering + UI]
+    D --> G
+    
+    style G fill:#f5b5b5,stroke:#c77,stroke-width:2px,color:#333
+    style B fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
+    style C fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
 ```
 
-### Design Patterns Used
+**Characteristics:**
+- ❌ Vanilla JavaScript (no typing)
+- ❌ Mixed concerns in single files
+- ❌ No test coverage
+- ❌ Basic CSS styling
+- ❌ Manual FPS counter
+- ❌ French only
 
-- **Factory Pattern**: Tetromino creation
-- **Observer Pattern**: Event-driven game events
-- **Singleton Pattern**: i18n, ThemeManager
-- **Strategy Pattern**: Game modes
-- **Module Pattern**: Organized file structure
+</details>
 
-## 🚀 Getting Started
+<details>
+<summary><strong>🟢 After (V2 - TypeScript Modern)</strong> - Click to view diagram</summary>
+
+```mermaid
+graph TD
+    A[index.html] --> B[main.ts]
+    
+    B --> C[Core Layer]
+    B --> D[Rendering Layer]
+    B --> E[UI Layer]
+    B --> F[Input Layer]
+    B --> G[i18n Layer]
+    
+    C --> C1[GameEngine.ts]
+    C --> C2[Board.ts]
+    C --> C3[Tetromino.ts]
+    C --> C4[CollisionDetector.ts]
+    C --> C5[ScoringSystem.ts]
+    C --> C6[GameModes.ts]
+    
+    D --> D1[CanvasRenderer.ts]
+    D --> D2[AnimationEngine.ts]
+    D --> D3[ThemeManager.ts]
+    
+    E --> E1[UIManager.ts]
+    E --> E2[AudioManager.ts]
+    E --> E3[HighScoreManager.ts]
+    E --> E4[FPSCounter.ts]
+    
+    F --> F1[InputHandler.ts]
+    
+    G --> G1[i18n.ts]
+    G --> G2[locales/]
+    
+    H[Tests] --> C
+    
+    style C fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style D fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style E fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style F fill:#f4c790,stroke:#d6a86f,stroke-width:2px,color:#333
+    style G fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style H fill:#8b9dc3,stroke:#6a7fa8,stroke-width:2px,color:#fff
+```
+
+**Characteristics:**
+- ✅ TypeScript strict mode
+- ✅ Clean separation of concerns
+- ✅ Unit tests (Vitest)
+- ✅ Modern SCSS architecture
+- ✅ Integrated FPS counter
+- ✅ Multi-language (FR/EN)
+- ✅ Optimized Vite build
+
+</details>
+
+### Project Structure
+
+<details>
+<summary><strong>📁 Detailed File Organization</strong> - Click to expand</summary>
+
+```mermaid
+graph TB
+    subgraph "src/"
+        subgraph "core/ - Game Engine"
+            C1[Board.ts]
+            C2[Tetromino.ts]
+            C3[GameEngine.ts]
+            C4[CollisionDetector.ts]
+            C5[ScoringSystem.ts]
+            C6[GameModes.ts]
+        end
+        
+        subgraph "rendering/ - Canvas"
+            R1[CanvasRenderer.ts]
+            R2[AnimationEngine.ts]
+            R3[ThemeManager.ts]
+        end
+        
+        subgraph "ui/ - User Interface"
+            U1[UIManager.ts]
+            U2[AudioManager.ts]
+            U3[MusicManager.ts]
+            U4[HighScoreManager.ts]
+            U5[FPSCounter.ts]
+        end
+        
+        subgraph "input/"
+            I1[InputHandler.ts]
+        end
+        
+        subgraph "i18n/ - Internationalization"
+            L1[i18n.ts]
+            L2[locales/fr.ts]
+            L3[locales/en.ts]
+        end
+        
+        subgraph "config/"
+            CF1[types/index.ts]
+            CF2[constants/config.ts]
+        end
+        
+        subgraph "styles/ - SCSS"
+            S1[main.scss]
+            S2[abstracts/]
+            S3[base/]
+            S4[components/]
+        end
+        
+        M[main.ts]
+    end
+    
+    T[tests/] -.-> C3
+    
+    style C1 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C2 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C3 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C4 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C5 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style C6 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
+    style R1 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style R2 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style R3 fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
+    style U1 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U2 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U3 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U4 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style U5 fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
+    style I1 fill:#f4c790,stroke:#d6a86f,stroke-width:2px,color:#333
+    style L1 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style L2 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style L3 fill:#c9a0dc,stroke:#a67bc8,stroke-width:2px,color:#fff
+    style T fill:#8b9dc3,stroke:#6a7fa8,stroke-width:2px,color:#fff
+```
+
+**Design Patterns:**
+- 🏭 Factory Pattern (Tetromino creation)
+- 👁️ Observer Pattern (Event-driven game events)
+- 🔒 Singleton Pattern (i18n, ThemeManager)
+- 🎯 Strategy Pattern (Game modes)
+- 📦 Module Pattern (Organized file structure)
+
+</details>
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -144,59 +236,112 @@ npm install
 # Start development server
 npm run dev
 
-# Build for production
-npm run build
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
+# Open http://localhost:5173
 ```
 
-### Development
+### Available Scripts
 
 ```bash
-# Start dev server with hot reload
-npm run dev
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Format code
-npm run format
+npm run dev          # Start dev server with HMR
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm test             # Run unit tests
+npm run test:ui      # Run tests with UI
+npm run lint         # Lint code
+npm run format       # Format code with Prettier
 ```
+
+---
 
 ## 🎮 How to Play
 
 ### Keyboard Controls
 
-- **← →** : Move left/right
-- **↑** or **Z** : Rotate piece
-- **↓** or **S** : Soft drop
-- **Space** : Hard drop
-- **C** or **Shift** : Hold piece
-- **Esc** or **P** : Pause game
-- **Enter** : Restart game
+| Key | Action |
+|-----|--------|
+| **← →** | Move left/right |
+| **↑** or **Z** | Rotate piece |
+| **↓** or **S** | Soft drop |
+| **Space** | Hard drop |
+| **C** or **Shift** | Hold piece |
+| **Esc** or **P** | Pause game |
+| **Enter** | Restart game |
 
 ### Mobile Controls
 
-- **Swipe left/right** : Move piece
-- **Swipe down** : Soft drop
-- **Tap** : Rotate piece
+- **Swipe left/right**: Move piece
+- **Swipe down**: Soft drop  
+- **Tap**: Rotate piece
 
 ### Game Modes
 
-**Classic Mode**: Traditional Tetris. Play until game over. Clear lines to level up and increase falling speed.
+- **🎮 Classic Mode**: Traditional Tetris. Play until game over. Clear lines to level up.
+- **⚡ Ultra Mode**: Time attack. Score maximum points in 2 minutes!
 
-**Ultra Mode**: Time attack mode. Score as many points as possible in 2 minutes!
+---
+
+## 🛠️ Tech Stack
+
+<details>
+<summary><strong>Core Technologies</strong></summary>
+
+- **TypeScript 5.x** - Strict mode for type safety
+- **Vite 6.x** - Fast build tool with HMR
+- **Vitest** - Unit testing framework
+- **SCSS** - CSS preprocessor with modules
+- **Canvas API** - Game rendering
+
+</details>
+
+<details>
+<summary><strong>Development Tools</strong></summary>
+
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Commitlint** - Conventional commits
+- **Netlify** - Deployment platform
+
+</details>
+
+<details>
+<summary><strong>Architecture Principles</strong></summary>
+
+1. **Separation of Concerns** - Game logic, rendering, and UI are independent
+2. **Testability** - Pure functions and dependency injection
+3. **Immutability** - Game state updates create new objects
+4. **Event-Driven** - Loose coupling through event emitters
+5. **SOLID Principles** - Single responsibility, open for extension
+
+</details>
+
+---
+
+## 📊 Comparison Table
+
+| Feature | V1 (Original) | V2 (Modern) |
+|---------|---------------|-------------|
+| **Language** | Vanilla JS | TypeScript (strict) |
+| **Architecture** | Mixed concerns | Clean, separated layers |
+| **Testing** | None | Unit tests (Vitest) |
+| **Styling** | Basic CSS | SCSS + Design system |
+| **Build** | None | Vite with optimizations |
+| **Game Modes** | 1 | 2 (Classic + Ultra) |
+| **i18n** | French only | FR/EN extensible |
+| **Themes** | 1 | 4 themes |
+| **Mobile** | Basic | Full touch support |
+| **Code Lines** | ~600 | ~3000+ (modular) |
+| **Performance** | Good | Optimized (60 FPS) |
+
+---
+
+## 📚 Documentation
+
+- [📖 Migration Plan](./docs/MIGRATION-PLAN.md) - Detailed migration process from V1 to V2
+- [🎵 Music Setup](./docs/MUSIC_SETUP.md) - How to add custom background music
+
+---
 
 ## 🧪 Testing
-
-The project includes unit tests for critical game logic:
 
 ```bash
 # Run all tests
@@ -209,82 +354,55 @@ npm run test:ui
 npm run test:coverage
 ```
 
-Test coverage focuses on:
+**Test Coverage:**
 - Board state management
 - Collision detection
 - Scoring calculations
 - Tetromino rotations
 
-## 📝 Technical Decisions
+---
 
-### Why TypeScript?
+## 📈 Performance
 
-TypeScript provides type safety, better IDE support, and catches errors at compile time. The strict mode ensures maximum type coverage.
+- ✅ **Lighthouse Score**: 90+ across all metrics
+- ✅ **Bundle Size**: < 150KB gzipped
+- ✅ **First Load**: < 1s on 3G
+- ✅ **Frame Rate**: Consistent 60 FPS
 
-### Why Vite?
-
-Vite offers fast HMR, optimized builds, and excellent DX. It's perfect for modern frontend projects.
-
-### Why Custom i18n?
-
-A lightweight custom solution keeps bundle size small while providing exactly what we need. Easy to understand and extend.
-
-### Architecture Philosophy
-
-The codebase follows these principles:
-
-1. **Separation of Concerns**: Game logic, rendering, and UI are independent
-2. **Testability**: Pure functions and dependency injection enable testing
-3. **Immutability**: Game state updates create new objects
-4. **Event-Driven**: Loose coupling through event emitters
-5. **SOLID Principles**: Single responsibility, open for extension
+---
 
 ## 🚀 Deployment
 
-The project is configured for Netlify deployment:
+The project is configured for **Netlify** with automatic deployments:
 
-```toml
-[build]
-  command = "npm run build"
-  publish = "dist"
-```
-
-Features:
-- Automatic deploys on push to main
+- Push to `main` → Auto-deploy
 - Optimized asset caching
 - Security headers configured
 - SPA redirects handled
 
-## 📈 Performance
-
-- **Lighthouse Score**: 90+ across all metrics
-- **Bundle Size**: < 150KB gzipped
-- **First Load**: < 1s on 3G
-- **60 FPS**: Smooth gameplay on all devices
+---
 
 ## 🤝 Contributing
 
-This is a portfolio project, but suggestions and feedback are welcome! Feel free to open an issue.
+This is a portfolio project, but suggestions and feedback are welcome! Feel free to open an issue or submit a pull request.
+
+---
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- Original project by [Average-JS-Enjoyers](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris)
-- Inspired by classic Tetris and modern game implementations
-- Thanks to the open-source community for tools and libraries
+---
 
 ## 📫 Contact
 
 **Kevin Alves**
-- GitHub: [@KevOneRedOne](https://github.com/KevOneRedOne)
-- Project Link: [https://github.com/KevOneRedOne/Simplistic-Tetris](https://github.com/KevOneRedOne/Simplistic-Tetris)
+
+[![GitHub](https://img.shields.io/badge/GitHub-KevOneRedOne-181717?style=for-the-badge&logo=github)](https://github.com/KevOneRedOne)
+[![Project](https://img.shields.io/badge/Project-Simplistic%20Tetris-blue?style=for-the-badge)](https://github.com/KevOneRedOne/Simplistic-Tetris)
 
 ---
 
 ⭐ **Star this repo** if you found it interesting or useful for your learning journey!
 
 *This project demonstrates my growth as a developer and my ability to refactor legacy code into modern, production-ready applications.*
-
