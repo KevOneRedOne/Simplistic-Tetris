@@ -12,6 +12,7 @@ import { UIManager } from '@ui/UIManager';
 import { AudioManager } from '@ui/AudioManager';
 import { HighScoreManager } from '@ui/HighScoreManager';
 import { MusicManager } from '@ui/MusicManager';
+import { FPSCounter } from '@ui/FPSCounter';
 import { i18n } from '@i18n/i18n';
 import { GameEventType, GameMode } from '@/types/index';
 
@@ -25,6 +26,7 @@ class TetrisGame {
   private audioManager!: AudioManager;
   private highScoreManager!: HighScoreManager;
   private musicManager!: MusicManager;
+  private fpsCounter!: FPSCounter;
   
   private animationFrameId: number | null = null;
   private lastFrameTime: number = 0;
@@ -45,6 +47,7 @@ class TetrisGame {
     this.audioManager = new AudioManager();
     this.highScoreManager = new HighScoreManager();
     this.musicManager = new MusicManager();
+    this.fpsCounter = new FPSCounter();
     
     // Initialize canvas renderer
     const canvas = document.getElementById('tetris') as HTMLCanvasElement;
@@ -281,6 +284,9 @@ class TetrisGame {
   private gameLoop = (): void => {
     const currentTime = performance.now();
     const deltaTime = currentTime - this.lastFrameTime;
+    
+    // Update FPS counter
+    this.fpsCounter.update();
     
     // Update game engine
     this.gameEngine.update(deltaTime);
