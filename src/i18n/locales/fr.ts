@@ -40,6 +40,7 @@ export default {
     enterName: 'Entrez votre nom :',
     welcome: 'Bienvenue ! Choisissez votre mode et commencez à jouer. Les contrôles sont affichés en bas de page.',
     controlsHint: 'Utilisez les flèches ⬅️➡️ pour déplacer, ⬆️ pour pivoter, ⬇️ pour accélérer',
+    audioEnabled: '🔊 Audio activé',
   },
   controls: {
     keyboard: 'Clavier',

@@ -6,6 +6,15 @@
   @include flex-center;
   padding: $spacing-md;
   flex: 1;
+  
+  // Reduce padding on mobile to maximize game space
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-sm;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xs;
+  }
 }
 
 .game-layout {
@@ -14,21 +23,42 @@
   gap: $spacing-lg;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
   
+  // Tablet: Stack vertically
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: 1fr;
     justify-items: center;
+    gap: $spacing-md;
+  }
+  
+  // Mobile: Reduce gap further
+  @media (max-width: $breakpoint-md) {
+    gap: $spacing-sm;
   }
 }
 
 .game-canvas-container {
   position: relative;
+  width: 100%;
+  max-width: 400px; // Max size on desktop
+  margin: 0 auto;
   
   #tetris {
     border: 3px solid var(--color-primary);
     border-radius: $border-radius-base;
     box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), $shadow-xl;
     background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  // Reduce border on small screens
+  @media (max-width: $breakpoint-sm) {
+    #tetris {
+      border-width: 2px;
+    }
   }
 }
 
@@ -38,6 +68,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   max-width: 280px;
+  width: 100%;
   
   h2 {
     font-size: $font-size-lg;
@@ -45,17 +76,31 @@
     color: var(--color-primary);
     text-shadow: 0 0 10px var(--color-primary);
     text-align: center;
+    
+    @media (max-width: $breakpoint-md) {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-sm;
+    }
   }
   
   &.left-panel {
     max-height: 800px;
     overflow-y: auto;
+    
+    @media (max-width: $breakpoint-lg) {
+      max-height: none; // No scroll on mobile
+    }
   }
   
   &.right-panel {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+  }
+  
+  // Full width on mobile
+  @media (max-width: $breakpoint-lg) {
+    max-width: 400px;
   }
 }
 

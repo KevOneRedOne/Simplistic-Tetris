@@ -16,6 +16,28 @@ import { FPSCounter } from '@ui/FPSCounter';
 import { i18n } from '@i18n/i18n';
 import { GameEventType, GameMode } from '@/types/index';
 
+/**
+ * Debounce utility function
+ */
+function debounce<T extends (...args: unknown[]) => void>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  return function executedFunction(...args: Parameters<T>) {
+    const later = () => {
+      timeout = null;
+      func(...args);
+    };
+    
+    if (timeout !== null) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(later, wait);
+  };
+}
+
 class TetrisGame {
   private gameEngine!: GameEngine;
   private renderer!: CanvasRenderer;
@@ -30,6 +52,8 @@ class TetrisGame {
   
   private animationFrameId: number | null = null;
   private lastFrameTime: number = 0;
+  private resizeHandler!: () => void;
+  private currentMode: GameMode = GameMode.CLASSIC; // Store current game mode
   
   constructor() {
     this.init().catch(console.error);
@@ -58,6 +82,9 @@ class TetrisGame {
     this.renderer = new CanvasRenderer(canvas);
     this.animationEngine = new AnimationEngine();
     
+    // Setup responsive canvas
+    this.setupResponsiveCanvas();
+    
     // Setup music toggle button
     this.setupMusicToggle();
     
@@ -66,6 +93,30 @@ class TetrisGame {
     
     // Show mode selection
     this.showModeSelection();
+  }
+  
+  /**
+   * Setup responsive canvas resize handler
+   */
+  private setupResponsiveCanvas(): void {
+    // Initial auto-resize
+    this.renderer.autoResize();
+    
+    // Setup debounced resize handler
+    this.resizeHandler = debounce(() => {
+      this.renderer.autoResize();
+      
+      // Re-render current state if game is active
+      if (this.gameEngine) {
+        const state = this.gameEngine.getState();
+        const ghostPiece = this.gameEngine.getGhostPosition();
+        this.renderer.render(state.board, state.currentPiece, ghostPiece);
+      }
+    }, 250);
+    
+    // Listen to window resize and orientation change
+    window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('orientationchange', this.resizeHandler);
   }
   
   private setupMusicToggle(): void {
@@ -182,7 +233,10 @@ class TetrisGame {
     });
   }
   
-  private startGame(mode: GameMode): void {
+  private async startGame(mode: GameMode): Promise<void> {
+    // Store current mode
+    this.currentMode = mode;
+    
     // Initialize game engine
     this.gameEngine = new GameEngine(mode);
     
@@ -192,6 +246,25 @@ class TetrisGame {
     
     // Display high scores for current mode
     this.updateHighScoresDisplay(mode);
+    
+    // Resume audio contexts (required for mobile browsers after user interaction)
+    try {
+      await Promise.all([
+        this.audioManager.resumeAudioContext(),
+        this.musicManager.resumeAudioContext()
+      ]);
+      
+      // Notify user on mobile that audio is now enabled
+      if ('ontouchstart' in window && window.innerWidth < 768) {
+        this.uiManager.showNotification(
+          i18n.t('messages.audioEnabled') || '🔊 Audio activé',
+          'success',
+          2000
+        );
+      }
+    } catch (error) {
+      console.warn('Failed to resume audio:', error);
+    }
     
     // Start music
     this.musicManager.play();
@@ -361,7 +434,31 @@ class TetrisGame {
     // Show game over modal
     setTimeout(() => {
       this.uiManager.showGameOver(data.score, data.lines, data.level, data.duration);
+      
+      // Setup "Play Again" button
+      this.setupPlayAgainButton();
     }, 1500);
+  }
+  
+  /**
+   * Setup Play Again button after game over
+   */
+  private setupPlayAgainButton(): void {
+    const playAgainButton = document.getElementById('play-again-button');
+    if (playAgainButton) {
+      // Remove existing listeners
+      const newButton = playAgainButton.cloneNode(true) as HTMLElement;
+      playAgainButton.parentNode?.replaceChild(newButton, playAgainButton);
+      
+      // Add new listener
+      newButton.addEventListener('click', () => {
+        // Hide game over modal
+        this.uiManager.hideModal('game-over-modal');
+        
+        // Restart game with same mode
+        this.restart(this.currentMode);
+      });
+    }
   }
   
   private updateHighScoresDisplay(mode: GameMode): void {

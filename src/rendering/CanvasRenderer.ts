@@ -211,6 +211,33 @@ export class CanvasRenderer {
   }
 
   /**
+   * Auto-resize canvas based on container size (responsive)
+   */
+  public autoResize(): void {
+    const container = this.canvas.parentElement;
+    if (!container) return;
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+
+    // Calculate optimal cell size based on container
+    const maxWidthBasedSize = Math.floor(containerWidth / BOARD_COLS);
+    const maxHeightBasedSize = Math.floor(containerHeight / BOARD_ROWS);
+    
+    // Use the smaller of the two to ensure it fits
+    const optimalCellSize = Math.min(
+      maxWidthBasedSize,
+      maxHeightBasedSize,
+      CELL_SIZE // Don't exceed default max size
+    );
+
+    // Only resize if there's a significant change (avoid constant redraws)
+    if (Math.abs(this.cellSize - optimalCellSize) > 1) {
+      this.resize(optimalCellSize);
+    }
+  }
+
+  /**
    * Get canvas dimensions
    */
   public getDimensions(): { width: number; height: number } {

@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Simplistic Tetris V2 - Play Tetris anywhere, anytime. Modern TypeScript rewrite with multiple game modes." />
     <meta name="keywords" content="Tetris, TypeScript, Game, Canvas, JavaScript, Simplistic Tetris" />
     <meta name="author" content="KevOneRedOne" />
@@ -186,7 +186,7 @@
           <p>Time: <span id="game-over-time">0:00</span></p>
         </div>
         <div class="modal-buttons">
-          <button class="game-button" onclick="location.reload()">🔄 Play Again</button>
+          <button id="play-again-button" class="game-button">🔄 Play Again</button>
         </div>
       </div>
     </div>

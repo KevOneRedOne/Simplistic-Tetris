@@ -28,12 +28,28 @@
     text-align: center;
     position: relative;
     transition: opacity $transition-base, transform $transition-base;
+    max-height: 90vh;
+    overflow-y: auto;
+    
+    // Reduce padding on mobile
+    @media (max-width: $breakpoint-md) {
+      padding: $spacing-lg;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      padding: $spacing-md;
+      width: 95%;
+    }
     
     h2 {
       font-size: $font-size-2xl;
       margin-bottom: $spacing-md;
       color: var(--color-primary);
       text-shadow: 0 0 20px var(--color-primary);
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: $font-size-xl;
+      }
     }
     
     .modal-buttons {
@@ -88,6 +104,11 @@
       border-left: 3px solid var(--color-primary);
       border-radius: $border-radius-sm;
       text-align: left;
+      
+      @media (max-width: $breakpoint-sm) {
+        font-size: $font-size-xs;
+        padding: $spacing-sm $spacing-md;
+      }
     }
     
     .modal-section-title {
@@ -119,6 +140,11 @@
       justify-content: center;
       transition: all $transition-fast;
       
+      @media (max-width: $breakpoint-sm) {
+        min-height: 120px;
+        padding: $spacing-md;
+      }
+      
       &:hover {
         transform: translateY(-5px) scale(1.02);
       }
@@ -126,12 +152,20 @@
       .mode-icon {
         font-size: 2.5rem;
         margin-bottom: $spacing-xs;
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: 2rem;
+        }
       }
       
       .mode-title {
         font-size: $font-size-lg;
         font-weight: bold;
         margin-bottom: $spacing-xs;
+        
+        @media (max-width: $breakpoint-sm) {
+          font-size: $font-size-base;
+        }
       }
       
       .mode-desc {

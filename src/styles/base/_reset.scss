@@ -13,6 +13,12 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  // Prevent zoom on orientation change
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  // Better touch scrolling
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -35,6 +41,8 @@ body {
 
 button {
   font-family: inherit;
+  // Prevent double-tap zoom on buttons
+  touch-action: manipulation;
 }
 
 img {
@@ -60,5 +68,14 @@ ul, ol {
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
+  // Prevent zoom on input focus on iOS
+  font-size: 16px;
+}
+
+// Prevent pinch-to-zoom on game canvas
+canvas {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 

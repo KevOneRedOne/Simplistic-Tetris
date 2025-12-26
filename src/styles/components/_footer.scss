@@ -10,6 +10,15 @@
   box-shadow: 0 -4px 20px rgba(0, 255, 255, 0.3);
   position: relative;
   width: 100%;
+  
+  // Compact on mobile
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-sm;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xs $spacing-sm;
+  }
 }
 
 .footer-content {
@@ -31,6 +40,11 @@
     font-size: $font-size-base;
     margin-bottom: $spacing-sm;
     text-shadow: 0 0 10px var(--color-primary);
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: $font-size-sm;
+      margin-bottom: $spacing-xs;
+    }
   }
   
   &.audio-controls {
@@ -102,6 +116,12 @@
   gap: $spacing-xs;
   flex: 1;
   min-width: 80px;
+  
+  // Touch-friendly on mobile
+  @media (max-width: $breakpoint-md) {
+    min-height: 44px; // iOS HIG recommendation
+    padding: $spacing-xs $spacing-sm;
+  }
   
   .iconify {
     color: var(--color-primary);

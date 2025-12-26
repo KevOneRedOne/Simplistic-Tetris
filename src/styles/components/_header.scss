@@ -7,6 +7,15 @@
   border-bottom: 2px solid var(--color-primary);
   padding: $spacing-md $spacing-lg;
   box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+  
+  // Compact on mobile
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-sm $spacing-md;
+  }
+  
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xs $spacing-sm;
+  }
 }
 
 .header-container {
@@ -31,6 +40,13 @@
     
     @media (max-width: $breakpoint-md) {
       margin: 0 auto;
+      width: 50px;
+      height: 50px;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      width: 40px;
+      height: 40px;
     }
   }
 }
@@ -49,6 +65,10 @@
     
     @media (max-width: $breakpoint-md) {
       font-size: 1rem;
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.75rem;
     }
   }
 }

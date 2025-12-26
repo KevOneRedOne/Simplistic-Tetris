@@ -40,6 +40,7 @@ export default {
     enterName: 'Enter your name:',
     welcome: 'Welcome! Choose your game mode and start playing. Controls are displayed at the bottom of the page.',
     controlsHint: 'Use arrow keys ⬅️➡️ to move, ⬆️ to rotate, ⬇️ to accelerate',
+    audioEnabled: '🔊 Audio enabled',
   },
   controls: {
     keyboard: 'Keyboard',
