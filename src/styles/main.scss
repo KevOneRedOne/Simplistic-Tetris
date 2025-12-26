@@ -1,0 +1,23 @@
+@use 'abstracts' as *;
+@use 'base/reset';
+@use 'components';
+
+// Main SCSS file - Modern Sass architecture with @use modules
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+// Responsive
+@media (max-width: $breakpoint-md) {
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  #tetris {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .notification {
+    right: $spacing-sm;
+    left: $spacing-sm;
+  }
+}

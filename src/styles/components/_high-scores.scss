@@ -1,0 +1,45 @@
+// High Scores Component
+@use '../abstracts/variables' as *;
+
+.side-panel {
+  ol {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      padding: $spacing-xs $spacing-sm;
+      margin-bottom: $spacing-xs;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: $border-radius-sm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      
+      &.no-scores {
+        opacity: 0.5;
+        font-style: italic;
+        justify-content: center;
+      }
+      
+      .rank {
+        color: var(--color-accent);
+        font-weight: bold;
+        margin-right: $spacing-sm;
+        min-width: 1.5rem;
+      }
+      
+      .name {
+        flex: 1;
+        color: var(--color-text);
+      }
+      
+      .score {
+        color: var(--color-primary);
+        font-weight: bold;
+        margin-left: $spacing-sm;
+      }
+    }
+  }
+}
+
