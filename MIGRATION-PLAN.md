@@ -2,7 +2,22 @@
 
 ## Overview
 
-Complete refactor of Tetris project in vanilla TypeScript with modern architecture, Vitest tests, UX improvements (animations, themes, sounds), and optimized Netlify deployment.
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white)
+
+**Modern rewrite of my original Tetris project  [Simplistic-Javascript-Tetris](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris).** 
+
+This project demonstrates my growth as a developer by rebuilding a fun project from scratch with modern technologies and best practices. The goal was to create a production-ready Tetris game that I could play anywhere, anytime, while showcasing clean architecture, TypeScript mastery, and professional development practices.
+
+### Key objectives:
+- ♻️ **Refactor legacy code** into a maintainable architecture
+- 🏗️ **Apply modern patterns** (separation of concerns, SOLID principles)
+- ✅ **Add testing** for critical game logic
+- 🎨 **Enhance UX** with animations, themes, and responsive design
+- 🌍 **Internationalization** (FR/EN support)
+- 🚀 **Optimize deployment** with CI/CD on Netlify
 
 ## Comparison: Before vs After
 
@@ -207,7 +222,7 @@ graph TB
 <summary><strong>📋 Detailed Migration Tasks</strong> (click to expand)</summary>
 
 ### Setup & Configuration ✅
-- [x] Initialize tetris-v2 project with Vite, TypeScript, Vitest, SCSS
+- [x] Initialize Simplistic-Tetris project with Vite, TypeScript, Vitest, SCSS
 - [x] Configure tsconfig, vite.config, netlify.toml, ESLint, Prettier
 - [x] Define TypeScript types and game constants
 
