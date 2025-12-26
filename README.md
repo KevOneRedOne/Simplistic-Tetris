@@ -31,7 +31,7 @@
 - 💾 **Hold System** - Save a piece for later use
 - 🎨 **4 Themes** - Classic, Dark, Neon, Retro
 - 🌍 **i18n Support** - French and English with extensible system
-- 📱 **Fully Responsive** - Touch controls for mobile devices
+- 📱 **Fully Responsive** - Adaptive touch controls with gesture support for mobile
 - 🎵 **Audio System** - Background music and sound effects
 - 📊 **FPS Counter** - Real-time performance monitoring
 - 🏆 **High Scores** - Persistent leaderboard per game mode
@@ -269,9 +269,13 @@ npm run format       # Format code with Prettier
 
 ### Mobile Controls
 
-- **Swipe left/right**: Move piece
-- **Swipe down**: Soft drop  
-- **Tap**: Rotate piece
+- **Swipe left/right** ⬅️➡️: Move piece
+- **Swipe down** ⬇️: Soft drop
+- **Swipe up** ⬆️: Rotate piece
+- **Single tap** 👆: Rotate piece
+- **Double tap** 👆👆: Hard drop
+
+> 📱 **Full mobile support** with adaptive swipe sensitivity! See [Mobile Controls Guide](./docs/MOBILE-CONTROLS.md) for details.
 
 ### Game Modes
 
@@ -338,6 +342,7 @@ npm run format       # Format code with Prettier
 
 - [📖 Migration Plan](./docs/MIGRATION-PLAN.md) - Detailed migration process from V1 to V2
 - [🎵 Music Setup](./docs/MUSIC_SETUP.md) - How to add custom background music
+- [📱 Mobile Features](./docs/MOBILE-FEATURES.md) - Complete guide to touch controls, responsive design, and mobile optimization
 
 ---
 
