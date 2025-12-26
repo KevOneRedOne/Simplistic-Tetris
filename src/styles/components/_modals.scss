@@ -26,6 +26,8 @@
     width: 90%;
     color: white;
     text-align: center;
+    position: relative;
+    transition: opacity $transition-base, transform $transition-base;
     
     h2 {
       font-size: $font-size-2xl;
@@ -143,6 +145,39 @@
       margin-top: $spacing-lg;
       padding-top: $spacing-md;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  // Modal close button
+  .modal-close {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    border-radius: 50%;
+    font-weight: 300;
+    
+    &:hover {
+      background: rgba(255, 0, 0, 0.3);
+      border-color: rgba(255, 0, 0, 0.8);
+      color: white;
+      transform: rotate(90deg) scale(1.1);
+    }
+    
+    &:active {
+      transform: rotate(90deg) scale(0.95);
     }
   }
 }

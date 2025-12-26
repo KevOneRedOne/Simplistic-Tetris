@@ -116,6 +116,18 @@ export class UIManager {
     if (modal) {
       modal.classList.add('active');
       modal.style.display = 'flex';
+      
+      // Add close button handler if not already added
+      const closeButton = modal.querySelector('.modal-close');
+      if (closeButton && !closeButton.hasAttribute('data-listener')) {
+        closeButton.setAttribute('data-listener', 'true');
+        closeButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Completely hide the modal to view the game
+          modal.classList.remove('active');
+          modal.style.display = 'none';
+        });
+      }
     }
   }
 

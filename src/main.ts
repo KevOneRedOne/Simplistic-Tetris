@@ -132,6 +132,7 @@ class TetrisGame {
     
     modal.innerHTML = `
       <div class="modal-content start-modal">
+        <button class="modal-close" aria-label="Close">&times;</button>
         <div class="modal-logo">
           <img src="/tetris128px.png" alt="Tetris" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
         </div>
@@ -162,6 +163,13 @@ class TetrisGame {
     `;
     
     document.body.appendChild(modal);
+    
+    // Close button handler - just hide, don't remove so game can still be started
+    const closeButton = modal.querySelector('.modal-close');
+    closeButton?.addEventListener('click', () => {
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+    });
     
     document.getElementById('mode-classic')?.addEventListener('click', () => {
       this.startGame(GameMode.CLASSIC);
