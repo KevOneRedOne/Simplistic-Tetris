@@ -117,6 +117,9 @@ export class UIManager {
       modal.classList.add('active');
       modal.style.display = 'flex';
       
+      // Prevent background scroll
+      document.body.style.overflow = 'hidden';
+      
       // Add close button handler if not already added
       const closeButton = modal.querySelector('.modal-close');
       if (closeButton && !closeButton.hasAttribute('data-listener')) {
@@ -126,6 +129,12 @@ export class UIManager {
           // Completely hide the modal to view the game
           modal.classList.remove('active');
           modal.style.display = 'none';
+          
+          // Re-enable background scroll
+          const openModals = document.querySelectorAll('.modal.active');
+          if (openModals.length === 0) {
+            document.body.style.overflow = '';
+          }
         });
       }
     }
@@ -139,6 +148,12 @@ export class UIManager {
     if (modal) {
       modal.classList.remove('active');
       modal.style.display = 'none';
+      
+      // Re-enable background scroll if no other modals are open
+      const openModals = document.querySelectorAll('.modal.active');
+      if (openModals.length === 0) {
+        document.body.style.overflow = '';
+      }
     }
   }
 

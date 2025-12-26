@@ -8,24 +8,52 @@ import type { HighScore } from '@/types/index';
 import { MAX_HIGH_SCORES, PLAYER_NAME_MAX_LENGTH, STORAGE_KEYS } from '@constants/config';
 
 export class HighScoreManager {
+  private isLocalStorageAvailable: boolean;
+  private fallbackScores: Map<string, HighScore[]> = new Map();
+
+  constructor() {
+    this.isLocalStorageAvailable = this.checkLocalStorage();
+  }
+
+  /**
+   * Check if localStorage is available (can be blocked in private mode on mobile)
+   */
+  private checkLocalStorage(): boolean {
+    try {
+      const testKey = '__tetris_storage_test__';
+      localStorage.setItem(testKey, 'test');
+      localStorage.removeItem(testKey);
+      return true;
+    } catch (e) {
+      console.warn('localStorage is not available. High scores will not persist.', e);
+      return false;
+    }
+  }
+
   /**
    * Get high scores for a specific game mode
    */
   public getHighScores(mode: GameMode): HighScore[] {
     const key = this.getStorageKey(mode);
 
-    try {
-      const stored = localStorage.getItem(key);
-      if (!stored) {
-        return [];
-      }
+    // Try localStorage first
+    if (this.isLocalStorageAvailable) {
+      try {
+        const stored = localStorage.getItem(key);
+        if (!stored) {
+          return [];
+        }
 
-      const scores = JSON.parse(stored) as HighScore[];
-      return this.validateHighScores(scores);
-    } catch (e) {
-      console.error('Failed to load high scores:', e);
-      return [];
+        const scores = JSON.parse(stored) as HighScore[];
+        return this.validateHighScores(scores);
+      } catch (e) {
+        console.error('Failed to load high scores from localStorage:', e);
+        // Fall through to memory fallback
+      }
     }
+
+    // Fallback to in-memory storage
+    return this.fallbackScores.get(key) || [];
   }
 
   /**
@@ -174,16 +202,26 @@ export class HighScoreManager {
   }
 
   /**
-   * Save high scores to localStorage
+   * Save high scores to localStorage (or memory fallback)
    */
   private saveHighScores(mode: GameMode, scores: HighScore[]): void {
     const key = this.getStorageKey(mode);
 
-    try {
-      localStorage.setItem(key, JSON.stringify(scores));
-    } catch (e) {
-      console.error('Failed to save high scores:', e);
+    // Try localStorage first
+    if (this.isLocalStorageAvailable) {
+      try {
+        localStorage.setItem(key, JSON.stringify(scores));
+        return;
+      } catch (e) {
+        console.error('Failed to save high scores to localStorage:', e);
+        // If localStorage fails (quota exceeded), disable it and use fallback
+        this.isLocalStorageAvailable = false;
+      }
     }
+
+    // Fallback to in-memory storage
+    this.fallbackScores.set(key, scores);
+    console.warn('High scores saved to memory only (will not persist after page reload)');
   }
 
   /**
