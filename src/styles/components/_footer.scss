@@ -10,6 +10,9 @@
   box-shadow: 0 -4px 20px rgba(0, 255, 255, 0.3);
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   // Compact on mobile
   @media (max-width: $breakpoint-md) {
@@ -73,6 +76,103 @@
         color: var(--color-accent);
         text-decoration: underline;
       }
+    }
+  }
+}
+
+.footer-support {
+  display: flex;
+  gap: $spacing-sm;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-xs;
+
+  @media (max-width: $breakpoint-sm) {
+    gap: $spacing-xs;
+  }
+}
+
+.support-button {
+  @include button-base;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-sm;
+  font-size: $font-size-xs;
+  text-decoration: none;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-height: 36px;
+
+  .button-text {
+    display: inline-block;
+  }
+
+  // Touch-friendly on mobile
+  @media (max-width: $breakpoint-md) {
+    min-height: 44px;
+    padding: $spacing-xs $spacing-md;
+    font-size: 0.65rem;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    font-size: 0.6rem;
+    padding: $spacing-xs $spacing-sm;
+    min-width: auto;
+    flex: 1;
+    justify-content: center;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Buy Me a Coffee button
+  &.support-button-coffee {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 152, 0, 0.2));
+    border: 1px solid rgba(255, 193, 7, 0.6);
+    color: #ffc107;
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.3), rgba(255, 152, 0, 0.3));
+      border-color: #ffc107;
+      box-shadow: 0 4px 12px rgba(255, 193, 7, 0.5);
+    }
+  }
+
+  // Issues button
+  &.support-button-issues {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.2), rgba(244, 67, 54, 0.2));
+    border: 1px solid rgba(255, 87, 34, 0.6);
+    color: #ff5722;
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.3), rgba(244, 67, 54, 0.3));
+      border-color: #ff5722;
+      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.5);
+    }
+  }
+
+  // Contribute button
+  &.support-button-contribute {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.5);
     }
   }
 }

@@ -263,10 +263,10 @@ npm run format       # Format code with Prettier
 | Key                | Action          |
 | ------------------ | --------------- |
 | **← →**            | Move left/right |
-| **↑** or **Z**     | Rotate piece    |
-| **↓** or **S**     | Soft drop       |
+| **↑**              | Rotate piece    |
+| **↓**              | Soft drop       |
 | **Space**          | Hard drop       |
-| **C** or **Shift** | Hold piece      |
+| **Shift**          | Hold piece      |
 | **Esc** or **P**   | Pause game      |
 | **Enter**          | Restart game    |
 
@@ -394,6 +394,25 @@ The project is configured for **Netlify** with automatic deployments:
 ## 🤝 Contributing
 
 This is a portfolio project, but suggestions and feedback are welcome! Feel free to open an issue or submit a pull request.
+
+### How to Contribute
+
+1. 🐛 **Report Bugs**: Use the [bug report template](.github/ISSUE_TEMPLATE/bug_report.md)
+2. 💡 **Suggest Features**: Use the [feature request template](.github/ISSUE_TEMPLATE/feature_request.md)
+3. 🔧 **Submit PRs**: Follow the [pull request template](.github/pull_request_template.md)
+
+For more details, see our [Contributing Guide](CONTRIBUTING.md).
+
+---
+
+## ☕ Support
+
+If you enjoy this game, consider supporting the project:
+
+- [☕ Buy me a coffee](https://buymeacoffee.com/kevoneredone) - Support with a small donation
+- [🐛 Report an issue](https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose) - Help improve the game
+- [🔧 Contribute](https://github.com/KevOneRedOne/Simplistic-Tetris) - Submit a pull request
+- [💬 Discussions](https://github.com/KevOneRedOne/Simplistic-Tetris/discussions) - Ask questions and share ideas
 
 ---
 

@@ -75,16 +75,27 @@
 
   h2 {
     font-family: 'Press Start 2P', cursive;
-    font-size: $font-size-base;
+    font-size: 0.9rem; // Fixed size to ensure consistency across languages
     margin-bottom: $spacing-sm;
     color: var(--color-primary);
     text-shadow: 0 0 10px var(--color-primary);
     text-align: center;
     text-transform: uppercase;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    // Align emoji icons consistently - emojis are part of the text content
+    // Use flexbox to ensure proper vertical alignment
+    white-space: nowrap;
 
     @media (max-width: $breakpoint-md) {
-      font-size: $font-size-sm;
+      font-size: 0.75rem;
       margin-bottom: $spacing-xs;
+      gap: 0.4rem;
     }
   }
 
@@ -95,6 +106,12 @@
     text-align: center;
     margin-bottom: $spacing-xs;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    line-height: 1.4;
+    white-space: nowrap;
   }
 
   &.left-panel {

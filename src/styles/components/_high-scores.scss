@@ -110,6 +110,12 @@
     text-align: center;
     margin-bottom: $spacing-xs;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    line-height: 1.4;
+    white-space: nowrap;
   }
 
   .audio-buttons {

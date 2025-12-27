@@ -95,6 +95,9 @@ export default {
     no: 'No',
     playAgain: 'Play Again',
     save: 'Save',
+    tip: 'Buy me a coffee',
+    contribute: 'Contribute',
+    issues: 'Report an issue',
   },
   achievements: {
     tetris: 'TETRIS!',

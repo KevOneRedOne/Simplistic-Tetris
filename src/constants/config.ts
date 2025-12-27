@@ -93,10 +93,10 @@ export const TIME_WARNINGS = [30, 10, 5];
 export const DEFAULT_CONTROLS: ControlsConfig = {
   moveLeft: ['ArrowLeft', 'q', 'Q'],
   moveRight: ['ArrowRight', 'd', 'D'],
-  moveDown: ['ArrowDown', 's', 'S'],
-  rotate: ['ArrowUp', 'z', 'Z'],
+  moveDown: ['ArrowDown'],
+  rotate: ['ArrowUp'],
   hardDrop: [' '], // space
-  hold: ['Shift', 'c', 'C'],
+  hold: ['Shift'],
   pause: ['Escape', 'p', 'P'],
   restart: ['Enter', 'r', 'R'],
 };

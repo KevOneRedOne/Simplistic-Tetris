@@ -276,8 +276,8 @@ class TetrisGame {
           // Match emojis at the start of the text
           const emojiMatch = currentText.match(/^([\p{Emoji}\s]+)/u);
           if (emojiMatch && emojiMatch[1]) {
-            // For buttons, keep normal case; for headings, use uppercase
-            if (element.tagName === 'BUTTON') {
+            // For buttons and links, keep normal case; for headings, use uppercase
+            if (element.tagName === 'BUTTON' || element.tagName === 'A') {
               element.textContent = emojiMatch[1].trim() + ' ' + translation;
             } else {
               element.textContent = emojiMatch[1].trim() + ' ' + translation.toUpperCase();

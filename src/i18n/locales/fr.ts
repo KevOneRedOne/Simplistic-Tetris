@@ -97,6 +97,9 @@ export default {
     restart: 'Redémarrer',
     playAgain: 'Rejouer',
     save: 'Sauvegarder',
+    tip: 'Offrir un café',
+    contribute: 'Contribuer',
+    issues: 'Signaler un bug',
   },
   achievements: {
     tetris: 'TETRIS !',
