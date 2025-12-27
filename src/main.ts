@@ -3,7 +3,7 @@
  */
 
 import { GameEventType, GameMode } from '@/types/index';
-import { MAX_HIGH_SCORES } from '@constants/config';
+import { APP_VERSION, MAX_HIGH_SCORES } from '@constants/config';
 import { GameEngine } from '@core/GameEngine';
 import { i18n } from '@i18n/i18n';
 import { InputHandler } from '@input/InputHandler';
@@ -26,8 +26,8 @@ function debounce<T extends (...args: unknown[]) => void>(
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
-  return function executedFunction(...args: Parameters<T>) {
-    const later = () => {
+  return function executedFunction(...args: Parameters<T>): void {
+    const later = (): void => {
       timeout = null;
       func(...args);
     };
@@ -135,15 +135,17 @@ class TetrisGame {
     this.updateLanguageButton();
 
     // Add click handler
-    languageButton.addEventListener('click', async () => {
-      const currentLocale = i18n.getLocale();
-      const newLocale = currentLocale === 'en' ? 'fr' : 'en';
+    languageButton.addEventListener('click', () => {
+      void (async (): Promise<void> => {
+        const currentLocale = i18n.getLocale();
+        const newLocale = currentLocale === 'en' ? 'fr' : 'en';
 
-      await i18n.setLocale(newLocale);
-      this.updateLanguageButton();
-      this.initializeHTMLTranslations(); // Re-translate all elements first
-      this.updateModalsTranslations(); // Then update modals (overrides data-i18n with proper emoji handling)
-      this.setupMusicCredits(); // Update credits if needed
+        await i18n.setLocale(newLocale);
+        this.updateLanguageButton();
+        this.initializeHTMLTranslations(); // Re-translate all elements first
+        this.updateModalsTranslations(); // Then update modals (overrides data-i18n with proper emoji handling)
+        this.setupMusicCredits(); // Update credits if needed
+      })();
     });
   }
 
@@ -183,7 +185,7 @@ class TetrisGame {
       const closeButton = modeModal.querySelector('.modal-close');
 
       if (title) title.textContent = i18n.t('game.title');
-      if (subtitle) subtitle.textContent = i18n.t('game.subtitle');
+      if (subtitle) subtitle.textContent = i18n.t('game.subtitle', { version: APP_VERSION });
       if (description) description.textContent = i18n.t('game.description');
       if (sectionTitle) sectionTitle.textContent = i18n.t('modes.selectMode');
       if (classicTitle) classicTitle.textContent = i18n.t('modes.classic');
@@ -491,7 +493,7 @@ class TetrisGame {
           <img src="/icons/android-chrome-192x192.png" alt="Tetris" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
         </div>
         <h2 class="modal-title">${i18n.t('game.title')}</h2>
-        <p class="modal-subtitle">${i18n.t('game.subtitle')}</p>
+        <p class="modal-subtitle">${i18n.t('game.subtitle', { version: APP_VERSION })}</p>
         <p class="modal-description">
           ${i18n.t('game.description')}
         </p>
@@ -526,12 +528,12 @@ class TetrisGame {
     });
 
     document.getElementById('mode-classic')?.addEventListener('click', () => {
-      this.startGame(GameMode.CLASSIC);
+      void this.startGame(GameMode.CLASSIC);
       modal.remove();
     });
 
     document.getElementById('mode-ultra')?.addEventListener('click', () => {
-      this.startGame(GameMode.ULTRA);
+      void this.startGame(GameMode.ULTRA);
       modal.remove();
     });
   }

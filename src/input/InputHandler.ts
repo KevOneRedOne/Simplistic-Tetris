@@ -213,14 +213,18 @@ export class InputHandler {
    * Check if key is a game control key
    */
   private isGameKey(key: string): boolean {
-    return Object.values(this.controls).some((keys) => keys.includes(key));
+    const controlValues: readonly string[][] = Object.values(this.controls) as string[][];
+    return controlValues.some((keys: string[]) => keys.includes(key));
   }
 
   /**
    * Get action for a given key
    */
   private getActionForKey(key: string): InputAction | null {
-    for (const [action, keys] of Object.entries(this.controls)) {
+    const controlEntries: Array<[string, string[]]> = Object.entries(this.controls) as Array<
+      [string, string[]]
+    >;
+    for (const [action, keys] of controlEntries) {
       if (keys.includes(key)) {
         return action as InputAction;
       }

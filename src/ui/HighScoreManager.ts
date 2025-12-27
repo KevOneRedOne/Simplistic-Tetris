@@ -194,10 +194,8 @@ export class HighScoreManager {
 
     // Render last attempt if it exists and is not already in the high scores
     if (lastAttempt) {
-      const isInHighScores = scores.some(
-        (s) => s.timestamp === lastAttempt.timestamp
-      );
-      
+      const isInHighScores = scores.some((s) => s.timestamp === lastAttempt.timestamp);
+
       if (!isInHighScores) {
         html += `
           <li class="high-score-item last-attempt">

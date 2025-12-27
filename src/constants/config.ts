@@ -4,6 +4,10 @@
 
 import type { ControlsConfig, GameModeConfig } from '@/types/index';
 import { GameMode } from '@/types/index';
+import packageJson from '../../package.json';
+
+// App version from package.json
+export const APP_VERSION = packageJson.version;
 
 // Board dimensions
 export const BOARD_ROWS = 20;

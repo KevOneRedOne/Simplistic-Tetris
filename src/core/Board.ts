@@ -135,7 +135,7 @@ export function clearLines(board: BoardGrid, lineIndices: number[]): BoardGrid {
     newBoard.splice(lineIndex, 1);
 
     // Add a new empty line at the top
-    const emptyLine: CellValue[] = new Array(BOARD_COLS).fill(VACANT_COLOR);
+    const emptyLine: CellValue[] = Array.from({ length: BOARD_COLS }, () => VACANT_COLOR);
     newBoard.unshift(emptyLine);
   }
 

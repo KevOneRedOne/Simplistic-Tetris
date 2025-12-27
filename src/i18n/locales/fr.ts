@@ -4,8 +4,8 @@
 
 export default {
   game: {
-    title: 'SIMPLISTIC TETRIS V2',
-    subtitle: 'Modern TypeScript rewrite • Version 2.0.0',
+    title: 'SIMPLISTIC TETRIS',
+    subtitle: 'Modern TypeScript rewrite • Version {version}',
     description:
       "Refonte complète de mon projet Tetris original. Je voulais moderniser ce projet fun et pouvoir lancer une partie de Tetris n'importe où, n'importe quand. Architecture TypeScript propre, design responsive, et expérience utilisateur optimisée.",
     play: 'Jouer',

@@ -30,7 +30,7 @@ export class I18n {
       if (stored && this.isSupportedLocale(stored)) {
         return stored as SupportedLocale;
       }
-    } catch (e) {
+    } catch {
       // Ignore storage errors
     }
 
@@ -59,8 +59,10 @@ export class I18n {
     }
 
     try {
-      const module = await import(`./locales/${locale}.ts`);
-      this.translations.set(locale, module.default as TranslationObject);
+      const module = (await import(`./locales/${locale}.ts`)) as {
+        default: TranslationObject;
+      };
+      this.translations.set(locale, module.default);
     } catch (e) {
       console.error(`Failed to load translations for ${locale}:`, e);
     }
@@ -136,7 +138,7 @@ export class I18n {
     // Save to localStorage
     try {
       localStorage.setItem(STORAGE_KEYS.LANGUAGE, locale);
-    } catch (e) {
+    } catch {
       // Ignore storage errors
     }
   }

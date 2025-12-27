@@ -96,7 +96,7 @@ export class ThemeManager {
     // Store theme in localStorage
     try {
       localStorage.setItem('tetris_v2_theme', this.currentTheme.name);
-    } catch (e) {
+    } catch {
       // Ignore storage errors
     }
   }
@@ -127,7 +127,7 @@ export class ThemeManager {
       if (savedTheme && THEMES[savedTheme]) {
         this.setTheme(savedTheme);
       }
-    } catch (e) {
+    } catch {
       // Ignore storage errors
     }
   }
