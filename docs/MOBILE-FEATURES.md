@@ -2,7 +2,7 @@
 
 ![Mobile](https://img.shields.io/badge/Mobile-Optimized-00C853?style=for-the-badge&logo=android&logoColor=white)
 ![Touch](https://img.shields.io/badge/Touch-Enabled-2196F3?style=for-the-badge&logo=gesture&logoColor=white)
-![Responsive](https://img.shields.io/badge/Responsive-100%25-FF6F00?style=for-the-badge&logo=responsive&logoColor=white)
+
 
 > **Play Tetris anywhere, anytime.** Full mobile support with intuitive touch controls and adaptive responsive design.
 
@@ -140,41 +140,7 @@ graph TD
 ```
 
 Scores saved to memory are lost on page reload but game remains fully playable.
-
----
-
-## ⚡ Performance Optimizations
-
-| Optimization | Impact |
-|--------------|--------|
-| **Reduced Animations** | +15 FPS on low-end devices |
-| **Lower Pixel Ratio** | +10 FPS (cap at 2x on mobile) |
-| **Debounced Resize** | Smoother orientation changes |
-| **Touch-Action CSS** | Faster gesture recognition |
-
----
-
-## ✅ Testing Checklist
-
-### Devices
-- [ ] iPhone SE (375x667) - Smallest iOS
-- [ ] iPhone 12/13 (390x844) - Standard iOS
-- [ ] Galaxy S21 (360x800) - Standard Android
-- [ ] iPad (768x1024) - Standard tablet
-
-### Features
-- [ ] All touch gestures work
-- [ ] Canvas scales correctly
-- [ ] No horizontal scroll
-- [ ] Audio starts after interaction
-- [ ] Scores save (localStorage or memory)
-- [ ] 60 FPS on modern devices
-
-### Browsers
-- [ ] Safari iOS 15+
-- [ ] Chrome Android
-- [ ] Samsung Internet
-
+ 
 ---
 
 ## 🐛 Known Issues
