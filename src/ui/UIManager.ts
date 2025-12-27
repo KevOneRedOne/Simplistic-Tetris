@@ -160,7 +160,14 @@ export class UIManager {
   /**
    * Show game over modal
    */
-  public showGameOver(score: number, lines: number, level: number, duration: number): void {
+  public showGameOver(
+    score: number,
+    lines: number,
+    level: number,
+    duration: number,
+    isHighScore: boolean = false,
+    minScoreRequired?: number
+  ): void {
     const modal = this.getElement('game-over-modal');
     if (!modal) {
       console.error('Game over modal not found');
@@ -172,11 +179,35 @@ export class UIManager {
     const linesEl = document.getElementById('game-over-lines');
     const levelEl = document.getElementById('game-over-level');
     const timeEl = document.getElementById('game-over-time');
+    const inputContainer = document.getElementById('high-score-input-container');
+    const nameInput = document.getElementById('player-name-input') as HTMLInputElement;
+    const notHighScoreMessage = document.getElementById('not-high-score-message');
+    const notHighScoreText = document.getElementById('not-high-score-text');
 
     if (scoreEl) scoreEl.textContent = Math.round(score).toString();
     if (linesEl) linesEl.textContent = lines.toString();
     if (levelEl) levelEl.textContent = level.toString();
     if (timeEl) timeEl.textContent = formatTime(duration);
+
+    // Always show high score input (to save last attempt even if not a high score)
+    if (inputContainer) {
+      inputContainer.style.display = 'block';
+    }
+
+    // Show/hide not high score message
+    if (notHighScoreMessage && notHighScoreText) {
+      if (!isHighScore && minScoreRequired !== undefined && minScoreRequired > 0) {
+        // The message will be set by the caller using i18n
+        notHighScoreMessage.style.display = 'block';
+      } else {
+        notHighScoreMessage.style.display = 'none';
+      }
+    }
+
+    // Clear and focus input if it's a high score
+    if (isHighScore && nameInput) {
+      nameInput.value = '';
+    }
 
     this.showModal('game-over-modal');
   }

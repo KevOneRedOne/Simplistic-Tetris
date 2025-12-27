@@ -168,23 +168,117 @@ export class HighScoreManager {
    */
   public renderHighScores(mode: GameMode, containerElement: HTMLElement): void {
     const scores = this.getHighScores(mode);
+    const lastAttempt = this.getLastAttempt(mode);
 
-    if (scores.length === 0) {
+    let html = '';
+
+    if (scores.length === 0 && !lastAttempt) {
       containerElement.innerHTML = '<li class="no-scores">No scores yet</li>';
       return;
     }
 
-    containerElement.innerHTML = scores
-      .map(
-        (score, index) => `
-        <li class="high-score-item">
-          <span class="rank">${index + 1}.</span>
-          <span class="name">${score.playerName}</span>
-          <span class="score">${score.score}</span>
-        </li>
-      `
-      )
-      .join('');
+    // Render high scores
+    if (scores.length > 0) {
+      html += scores
+        .map(
+          (score, index) => `
+          <li class="high-score-item">
+            <span class="rank">${index + 1}.</span>
+            <span class="name">${score.playerName}</span>
+            <span class="score">${score.score}</span>
+          </li>
+        `
+        )
+        .join('');
+    }
+
+    // Render last attempt if it exists and is not already in the high scores
+    if (lastAttempt) {
+      const isInHighScores = scores.some(
+        (s) => s.timestamp === lastAttempt.timestamp
+      );
+      
+      if (!isInHighScores) {
+        html += `
+          <li class="high-score-item last-attempt">
+            <span class="rank">—</span>
+            <span class="name">${lastAttempt.playerName}</span>
+            <span class="score">${lastAttempt.score}</span>
+          </li>
+        `;
+      }
+    }
+
+    containerElement.innerHTML = html;
+  }
+
+  /**
+   * Save last attempt (even if not a high score)
+   */
+  public saveLastAttempt(
+    mode: GameMode,
+    playerName: string,
+    score: number,
+    lines: number,
+    level: number
+  ): void {
+    const lastAttempt: HighScore = {
+      playerName: this.sanitizePlayerName(playerName),
+      score: Math.round(score),
+      lines,
+      level,
+      mode,
+      timestamp: Date.now(),
+    };
+
+    const key = this.getLastAttemptStorageKey(mode);
+
+    if (this.isLocalStorageAvailable) {
+      try {
+        localStorage.setItem(key, JSON.stringify(lastAttempt));
+      } catch (e) {
+        console.error('Failed to save last attempt to localStorage:', e);
+        this.fallbackScores.set(key, [lastAttempt]);
+      }
+    } else {
+      this.fallbackScores.set(key, [lastAttempt]);
+    }
+  }
+
+  /**
+   * Get last attempt for a game mode
+   */
+  public getLastAttempt(mode: GameMode): HighScore | null {
+    const key = this.getLastAttemptStorageKey(mode);
+
+    if (this.isLocalStorageAvailable) {
+      try {
+        const stored = localStorage.getItem(key);
+        if (!stored) {
+          return null;
+        }
+        return JSON.parse(stored) as HighScore;
+      } catch (e) {
+        console.error('Failed to load last attempt from localStorage:', e);
+        return this.fallbackScores.get(key)?.[0] || null;
+      }
+    } else {
+      return this.fallbackScores.get(key)?.[0] || null;
+    }
+  }
+
+  /**
+   * Get storage key for last attempt
+   */
+  private getLastAttemptStorageKey(mode: GameMode): string {
+    switch (mode) {
+      case GameMode.CLASSIC:
+        return STORAGE_KEYS.LAST_ATTEMPT_CLASSIC;
+      case GameMode.ULTRA:
+        return STORAGE_KEYS.LAST_ATTEMPT_ULTRA;
+      default:
+        return 'tetris_v2_last_attempt_unknown';
+    }
   }
 
   /**

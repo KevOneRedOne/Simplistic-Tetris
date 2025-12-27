@@ -26,17 +26,14 @@
   margin: 0 auto;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: $spacing-xs;
 
   @media (max-width: $breakpoint-md) {
     padding: 0 $spacing-sm;
   }
-}
-
-.footer-content {
-  flex-direction: column;
-  gap: $spacing-xs;
 }
 
 .footer-copyright {

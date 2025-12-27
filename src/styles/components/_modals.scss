@@ -44,13 +44,59 @@
     }
 
     h2 {
-      font-size: $font-size-2xl;
+      font-family: $font-family-pixel;
+      font-size: 1.3rem; // Same size as .modal-title for consistency
       margin-bottom: $spacing-md;
       color: var(--color-primary);
       text-shadow: 0 0 20px var(--color-primary);
+      letter-spacing: 2px;
+      line-height: 1.8;
 
       @media (max-width: $breakpoint-sm) {
-        font-size: $font-size-xl;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    // High score input container
+    #high-score-input-container {
+      margin: $spacing-lg 0;
+      padding: $spacing-md;
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid var(--color-primary);
+      border-radius: $border-radius-base;
+
+      label {
+        display: block;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-sm;
+        color: var(--color-primary);
+        text-shadow: 0 0 10px var(--color-primary);
+      }
+
+      #player-name-input {
+        width: 100%;
+        padding: $spacing-md;
+        font-size: 1.2rem;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: $font-family-pixel;
+        background: rgba(0, 0, 0, 0.5);
+        border: 2px solid var(--color-primary);
+        border-radius: $border-radius-base;
+        color: white;
+        transition: all $transition-fast;
+
+        &:focus {
+          outline: none;
+          border-color: var(--color-accent);
+          box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+      }
+
+      #save-score-button {
+        margin-top: $spacing-md;
+        width: 100%;
       }
     }
 
@@ -114,11 +160,14 @@
     }
 
     .modal-section-title {
+      font-family: $font-family-pixel;
       font-size: $font-size-lg;
       color: var(--color-secondary);
       margin-bottom: $spacing-md;
       margin-top: $spacing-lg;
       text-shadow: 0 0 10px var(--color-secondary);
+      letter-spacing: 1px;
+      line-height: 1.6;
     }
 
     .modal-buttons {

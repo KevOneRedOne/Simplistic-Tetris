@@ -132,6 +132,8 @@ export const DEFAULT_AUDIO_SETTINGS = {
 export const STORAGE_KEYS = {
   HIGH_SCORES_CLASSIC: 'tetris_v2_highscores_classic',
   HIGH_SCORES_ULTRA: 'tetris_v2_highscores_ultra',
+  LAST_ATTEMPT_CLASSIC: 'tetris_v2_last_attempt_classic',
+  LAST_ATTEMPT_ULTRA: 'tetris_v2_last_attempt_ultra',
   SETTINGS: 'tetris_v2_settings',
   THEME: 'tetris_v2_theme',
   LANGUAGE: 'tetris_v2_language',
@@ -139,7 +141,7 @@ export const STORAGE_KEYS = {
 
 // i18n
 export const SUPPORTED_LANGUAGES = ['fr', 'en'] as const;
-export const DEFAULT_LANGUAGE = 'fr';
+export const DEFAULT_LANGUAGE = 'en';
 
 // Performance
 export const TARGET_FPS = 60;

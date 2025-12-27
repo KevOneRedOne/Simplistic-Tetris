@@ -24,6 +24,25 @@
           justify-content: center;
         }
 
+        &.last-attempt {
+          background: rgba(255, 255, 0, 0.1);
+          border: 1px solid rgba(255, 255, 0, 0.3);
+          opacity: 0.8;
+          font-style: italic;
+
+          .rank {
+            color: rgba(255, 255, 0, 0.7);
+          }
+
+          .name {
+            color: rgba(255, 255, 255, 0.9);
+          }
+
+          .score {
+            color: rgba(255, 255, 0, 0.9);
+          }
+        }
+
         .rank {
           color: var(--color-accent);
           font-weight: bold;
