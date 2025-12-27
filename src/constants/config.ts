@@ -28,6 +28,7 @@ export const TETROMINO_COLORS = {
 } as const;
 
 // Speed levels (level -> drop interval in ms)
+// Adjusted for better playability - slower progression after level 12
 export const LEVEL_SPEEDS: Record<number, number> = {
   0: 750,
   1: 700,
@@ -41,20 +42,20 @@ export const LEVEL_SPEEDS: Record<number, number> = {
   9: 300,
   10: 250,
   11: 200,
-  12: 150,
-  13: 100,
-  14: 95,
-  15: 90,
-  16: 85,
-  17: 80,
-  18: 75,
-  19: 70,
-  20: 65,
-  21: 60,
-  22: 55,
-  23: 50,
-  24: 45,
-  25: 40,
+  12: 180, // Slower than before (was 150)
+  13: 165, // More gradual decrease
+  14: 150,
+  15: 140,
+  16: 130,
+  17: 120,
+  18: 115,
+  19: 110,
+  20: 105,
+  21: 100, // Minimum speed cap for playability
+  22: 100,
+  23: 100,
+  24: 100,
+  25: 100, // Cap at 100ms for maximum playability
 };
 
 // Scoring
