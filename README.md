@@ -22,9 +22,21 @@
 
 <div align="center">
 
-![Game Screenshot](./public/images/tetrisgame.png)
+![Game Screenshot](./public/images/game-view.png)
 
 </div>
+
+<details>
+<summary><strong>📸 More Screenshots</strong> - Click to expand</summary>
+
+<div align="center">
+
+![Game Mode Selection](./public/images/game-mode.png)
+<p><em>Game mode selection screen</em></p>
+
+</div>
+
+</details>
 
 <div align="center">
 
@@ -36,26 +48,6 @@ If you enjoy this game, please consider supporting the project. Your support hel
 
 </div>
 
----
-
-## 📋 Table of Contents
-
-- [About The Project](#-about-the-project)
-  - [Key Features](#-key-features)
-  - [Built With](#-built-with)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#-usage)
-  - [How to Play](#-how-to-play)
-  - [Game Modes](#-game-modes)
-- [Architecture](#-architecture)
-- [Documentation](#-documentation)
-- [Testing](#-testing)
-- [Contributing](#-contributing)
-- [Support](#-support)
-- [License](#-license)
-- [Contact](#-contact)
 
 ---
 
