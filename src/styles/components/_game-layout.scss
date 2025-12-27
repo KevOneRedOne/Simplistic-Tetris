@@ -7,6 +7,13 @@
   padding: $spacing-md;
   flex: 1;
   min-height: 0; // Allow flex container to shrink
+  // Force 90% scale on browser
+  zoom: 0.9;
+  // Fallback for Firefox and other browsers that don't support zoom
+  @supports not (zoom: 1) {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
 
   // Enlarge padding for large screens (tall displays)
   @media (min-height: 1300px) {
