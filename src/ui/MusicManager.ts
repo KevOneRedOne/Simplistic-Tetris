@@ -93,11 +93,14 @@ export class MusicManager {
 
   private initAudioContext(): void {
     try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioContextClass =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      this.audioContext = new AudioContextClass();
       this.masterGain = this.audioContext.createGain();
       this.masterGain.connect(this.audioContext.destination);
       this.masterGain.gain.value = 0.3; // Default volume
-    } catch (e) {
+    } catch {
       console.warn('Web Audio API not supported');
     }
   }
@@ -166,7 +169,6 @@ export class MusicManager {
     if (this.audioContext && this.audioContext.state === 'suspended') {
       try {
         await this.audioContext.resume();
-        console.log('MusicManager AudioContext resumed successfully');
       } catch (e) {
         console.warn('Failed to resume MusicManager AudioContext:', e);
       }

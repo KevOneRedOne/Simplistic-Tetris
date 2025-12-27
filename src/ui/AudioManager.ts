@@ -23,8 +23,11 @@ export class AudioManager {
    */
   private initAudioContext(): void {
     try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    } catch (e) {
+      const AudioContextClass =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      this.audioContext = new AudioContextClass();
+    } catch {
       console.warn('Web Audio API not supported');
     }
   }
@@ -37,7 +40,6 @@ export class AudioManager {
     if (this.audioContext && this.audioContext.state === 'suspended') {
       try {
         await this.audioContext.resume();
-        console.log('AudioContext resumed successfully');
       } catch (e) {
         console.warn('Failed to resume AudioContext:', e);
       }
