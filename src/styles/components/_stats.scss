@@ -4,9 +4,19 @@
 .stats {
   margin-bottom: $spacing-lg;
 
-  // Reduce margin on medium screens (laptops 14")
-  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+  // Enlarge for large screens (tall displays)
+  @media (min-height: 1300px) {
+    margin-bottom: $spacing-xl;
+  }
+
+  // Reduce margin for screens with limited height (830px and below)
+  @media (max-height: 830px) {
     margin-bottom: $spacing-sm;
+  }
+
+  // Very aggressive margin reduction for very small height screens (734px and below)
+  @media (max-height: 734px) {
+    margin-bottom: $spacing-xs;
   }
 
   @media (max-width: $breakpoint-md) {
@@ -21,10 +31,22 @@
     font-size: 0.85rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    // Reduce padding on medium screens
-    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    // Enlarge for large screens (tall displays)
+    @media (min-height: 1300px) {
+      padding: $spacing-sm 0;
+      font-size: 1rem;
+    }
+
+    // Reduce padding for screens with limited height (830px and below)
+    @media (max-height: 830px) {
       padding: 0.3rem 0;
       font-size: 0.8rem;
+    }
+
+    // Very aggressive reduction for very small height screens (734px and below)
+    @media (max-height: 734px) {
+      padding: 0.2rem 0;
+      font-size: 0.75rem;
     }
 
     @media (max-width: $breakpoint-sm) {
@@ -43,6 +65,11 @@
       color: var(--color-primary);
       font-weight: bold;
       font-size: 1rem;
+
+      // Enlarge for large screens (tall displays)
+      @media (min-height: 1300px) {
+        font-size: 1.2rem;
+      }
 
       @media (max-width: $breakpoint-sm) {
         font-size: 0.9rem;

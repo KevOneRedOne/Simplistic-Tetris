@@ -14,9 +14,14 @@
   justify-content: center;
   align-items: center;
 
-  // Reduce padding on medium screens (laptops 14")
-  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+  // Reduce padding for screens with limited height (830px and below)
+  @media (max-height: 830px) {
     padding: $spacing-sm;
+  }
+
+  // Very aggressive padding reduction for very small height screens (734px and below)
+  @media (max-height: 734px) {
+    padding: $spacing-xs;
   }
 
   // Compact on mobile

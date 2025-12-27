@@ -12,9 +12,19 @@
   justify-content: center;
   align-items: center;
 
-  // Optimize for medium screens (laptops 14") - reduce vertical space
-  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+  // Reduce padding for screens with limited height (830px and below)
+  @media (max-height: 830px) {
     padding: $spacing-sm $spacing-md;
+  }
+
+  // Very aggressive padding reduction for very small height screens (734px and below)
+  @media (max-height: 734px) {
+    padding: $spacing-xs $spacing-sm;
+  }
+
+  // Reduce padding on smaller screens (tablets and small laptops)
+  @media (max-width: $breakpoint-lg) {
+    padding: $spacing-xs $spacing-sm;
   }
 
   // Compact on mobile
@@ -23,7 +33,7 @@
   }
 
   @media (max-width: $breakpoint-sm) {
-    padding: $spacing-xs;
+    padding: 0.25rem $spacing-xs;
   }
 }
 
@@ -37,14 +47,19 @@
   gap: $spacing-md;
 
   // Reduce gap on medium screens
-  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+  @media (max-height: 830px) {
+    gap: $spacing-sm;
+  }
+
+  // Reduce gap on smaller screens
+  @media (max-width: $breakpoint-lg) {
     gap: $spacing-sm;
   }
 
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: $spacing-sm;
+    gap: $spacing-xs;
   }
 }
 
@@ -58,7 +73,7 @@
     height: 50px;
 
     // Reduce size on medium screens
-    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    @media (max-height: 830px) {
       width: 40px;
       height: 40px;
     }
@@ -93,7 +108,7 @@
     line-height: 1.4;
 
     // Reduce size on medium screens
-    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    @media (max-height: 830px) {
       font-size: 1rem;
       line-height: 1.3;
     }
@@ -136,7 +151,7 @@
     height: 40px;
 
     // Reduce size on medium screens
-    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    @media (max-height: 830px) {
       height: 36px;
       padding: $spacing-xs;
     }
@@ -145,7 +160,7 @@
       font-size: 1.2rem;
       line-height: 1;
 
-      @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      @media (max-height: 830px) {
         font-size: 1rem;
       }
     }
@@ -201,7 +216,7 @@
     transition: all $transition-fast;
 
     // Reduce size on medium screens
-    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    @media (max-height: 830px) {
       width: 36px;
       height: 36px;
     }
