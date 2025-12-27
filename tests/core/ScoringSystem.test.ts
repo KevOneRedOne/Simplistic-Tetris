@@ -26,7 +26,7 @@ describe('ScoringSystem', () => {
       const double = calculateLineScore(2, 0);
       const triple = calculateLineScore(3, 0);
       const tetris = calculateLineScore(4, 0);
-      
+
       expect(double).toBeGreaterThan(single);
       expect(triple).toBeGreaterThan(double);
       expect(tetris).toBeGreaterThan(triple);
@@ -35,7 +35,7 @@ describe('ScoringSystem', () => {
     it('should add level bonus to score', () => {
       const scoreLevel0 = calculateLineScore(1, 0);
       const scoreLevel5 = calculateLineScore(1, 5);
-      
+
       expect(scoreLevel5).toBeGreaterThan(scoreLevel0);
     });
   });
@@ -78,7 +78,7 @@ describe('ScoringSystem', () => {
     it('should return true when crossing level threshold', () => {
       const previousLines = LINES_PER_LEVEL - 1;
       const newLines = LINES_PER_LEVEL;
-      
+
       expect(shouldLevelUp(previousLines, newLines)).toBe(true);
     });
 
@@ -97,7 +97,7 @@ describe('ScoringSystem', () => {
     it('should return faster speed for higher levels', () => {
       const speed0 = getDropSpeed(0);
       const speed10 = getDropSpeed(10);
-      
+
       expect(speed10).toBeLessThan(speed0);
     });
 
@@ -119,4 +119,3 @@ describe('ScoringSystem', () => {
     });
   });
 });
-

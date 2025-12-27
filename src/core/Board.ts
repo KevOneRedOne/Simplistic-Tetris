@@ -3,8 +3,8 @@
  * Handles the game grid state and operations
  */
 
-import type { BoardGrid, CellValue, Tetromino, Position } from '@/types/index';
-import { BOARD_ROWS, BOARD_COLS, VACANT_COLOR } from '@constants/config';
+import type { BoardGrid, CellValue, Position, Tetromino } from '@/types/index';
+import { BOARD_COLS, BOARD_ROWS, VACANT_COLOR } from '@constants/config';
 import { getTetrominoOccupiedCells } from './Tetromino';
 
 /**
@@ -14,12 +14,10 @@ export function createBoard(): BoardGrid {
   const board: BoardGrid = [];
 
   for (let row = 0; row < BOARD_ROWS; row++) {
-    board[row] = [];
+    const currentRow: CellValue[] = [];
+    board[row] = currentRow;
     for (let col = 0; col < BOARD_COLS; col++) {
-      if (!board[row]) {
-        board[row] = [];
-      }
-      board[row]![col] = VACANT_COLOR;
+      currentRow[col] = VACANT_COLOR;
     }
   }
 

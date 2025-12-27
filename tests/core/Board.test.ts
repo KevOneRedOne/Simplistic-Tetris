@@ -107,7 +107,7 @@ describe('Board', () => {
       }
 
       const newBoard = clearLines(board, [lastRow]);
-      
+
       // Check that cleared line is now at top and empty
       expect(newBoard[0]?.every((cell) => cell === VACANT_COLOR)).toBe(true);
     });
@@ -128,4 +128,3 @@ describe('Board', () => {
     });
   });
 });
-

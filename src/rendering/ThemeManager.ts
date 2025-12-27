@@ -4,7 +4,7 @@
  */
 
 import type { Theme } from '@/types/index';
-import { THEME_NAMES, DEFAULT_THEME } from '@constants/config';
+import { DEFAULT_THEME, THEME_NAMES } from '@constants/config';
 
 const THEMES: Record<string, Theme> = {
   [THEME_NAMES.CLASSIC]: {
@@ -57,11 +57,26 @@ const THEMES: Record<string, Theme> = {
   },
 };
 
+// Helper function to get a guaranteed theme (always returns a valid theme)
+const getThemeOrFallback = (themeName: string | undefined): Theme => {
+  const theme = THEMES[themeName || DEFAULT_THEME];
+  if (theme) {
+    return theme;
+  }
+  // Fallback to DEFAULT_THEME
+  const fallback = THEMES[DEFAULT_THEME];
+  if (fallback) {
+    return fallback;
+  }
+  // Last resort: return CLASSIC theme (guaranteed to exist)
+  return THEMES[THEME_NAMES.CLASSIC] as Theme;
+};
+
 export class ThemeManager {
   private currentTheme: Theme;
 
   constructor(themeName?: string) {
-    this.currentTheme = THEMES[themeName || DEFAULT_THEME] || THEMES[DEFAULT_THEME]!;
+    this.currentTheme = getThemeOrFallback(themeName);
     this.applyTheme();
   }
 

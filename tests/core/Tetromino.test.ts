@@ -56,7 +56,7 @@ describe('Tetromino', () => {
     it('should rotate tetromino clockwise', () => {
       const tetromino = createTetromino(TetrominoType.I);
       const rotated = rotateTetromino(tetromino);
-      
+
       expect(rotated.rotation).toBe(1);
       expect(rotated.shape).not.toEqual(tetromino.shape);
     });
@@ -64,7 +64,7 @@ describe('Tetromino', () => {
     it('should cycle through all rotations', () => {
       let tetromino = createTetromino(TetrominoType.T);
       const shapes = TETROMINO_SHAPES[TetrominoType.T].shape;
-      
+
       for (let i = 0; i < shapes.length; i++) {
         tetromino = rotateTetromino(tetromino);
         expect(tetromino.rotation).toBe((i + 1) % shapes.length);
@@ -74,9 +74,9 @@ describe('Tetromino', () => {
     it('should not modify original tetromino', () => {
       const original = createTetromino(TetrominoType.L);
       const originalRotation = original.rotation;
-      
+
       rotateTetromino(original);
-      
+
       expect(original.rotation).toBe(originalRotation);
     });
   });
@@ -85,7 +85,7 @@ describe('Tetromino', () => {
     it('should move tetromino horizontally', () => {
       const tetromino = createTetromino(TetrominoType.S);
       const moved = moveTetromino(tetromino, 2, 0);
-      
+
       expect(moved.position.x).toBe(tetromino.position.x + 2);
       expect(moved.position.y).toBe(tetromino.position.y);
     });
@@ -93,7 +93,7 @@ describe('Tetromino', () => {
     it('should move tetromino vertically', () => {
       const tetromino = createTetromino(TetrominoType.J);
       const moved = moveTetromino(tetromino, 0, 3);
-      
+
       expect(moved.position.x).toBe(tetromino.position.x);
       expect(moved.position.y).toBe(tetromino.position.y + 3);
     });
@@ -101,9 +101,9 @@ describe('Tetromino', () => {
     it('should not modify original tetromino', () => {
       const original = createTetromino(TetrominoType.Z);
       const originalPos = { ...original.position };
-      
+
       moveTetromino(original, 1, 1);
-      
+
       expect(original.position).toEqual(originalPos);
     });
   });
@@ -112,7 +112,7 @@ describe('Tetromino', () => {
     it('should return correct occupied cells for O piece', () => {
       const tetromino = createTetromino(TetrominoType.O, { x: 0, y: 0 });
       const cells = getTetrominoOccupiedCells(tetromino);
-      
+
       // O piece has 4 occupied cells
       expect(cells.length).toBe(4);
     });
@@ -120,7 +120,7 @@ describe('Tetromino', () => {
     it('should return correct occupied cells for I piece', () => {
       const tetromino = createTetromino(TetrominoType.I, { x: 0, y: 0 });
       const cells = getTetrominoOccupiedCells(tetromino);
-      
+
       // I piece has 4 occupied cells
       expect(cells.length).toBe(4);
     });
@@ -128,7 +128,7 @@ describe('Tetromino', () => {
     it('should return cells with correct absolute positions', () => {
       const tetromino = createTetromino(TetrominoType.O, { x: 5, y: 10 });
       const cells = getTetrominoOccupiedCells(tetromino);
-      
+
       cells.forEach((cell) => {
         expect(cell.x).toBeGreaterThanOrEqual(5);
         expect(cell.y).toBeGreaterThanOrEqual(10);
@@ -136,4 +136,3 @@ describe('Tetromino', () => {
     });
   });
 });
-
