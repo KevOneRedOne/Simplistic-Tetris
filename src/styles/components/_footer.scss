@@ -34,12 +34,38 @@
   }
 }
 
+.footer-content {
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
 .footer-copyright {
   p {
     font-size: $font-size-xs;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
     text-align: center;
+
+    a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: var(--color-accent);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.footer-credits {
+  p.credits-text {
+    font-size: $font-size-xs;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
 
     a {
       color: var(--color-secondary);

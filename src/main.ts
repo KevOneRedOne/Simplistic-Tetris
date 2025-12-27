@@ -12,7 +12,7 @@ import { ThemeManager } from '@rendering/ThemeManager';
 import { AudioManager } from '@ui/AudioManager';
 import { FPSCounter } from '@ui/FPSCounter';
 import { HighScoreManager } from '@ui/HighScoreManager';
-import { MusicManager } from '@ui/MusicManager';
+import { MusicCredits, MusicManager } from '@ui/MusicManager';
 import { UIManager } from '@ui/UIManager';
 import './styles/main.scss';
 
@@ -70,8 +70,25 @@ class TetrisGame {
     this.uiManager = new UIManager();
     this.audioManager = new AudioManager();
     this.highScoreManager = new HighScoreManager();
-    this.musicManager = new MusicManager();
+
+    // Initialize music manager with Pixabay music
+    const musicCredits: MusicCredits = {
+      source: 'Pixabay',
+      author: 'Gregor Quendel',
+      license: 'Pixabay License',
+      licenseUrl: 'https://pixabay.com/service/license-summary/',
+      trackUrl:
+        'https://pixabay.com/music/lullabies-tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978/',
+    };
+    this.musicManager = new MusicManager(
+      '/tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978.mp3',
+      musicCredits
+    );
+
     this.fpsCounter = new FPSCounter();
+
+    // Setup music credits display
+    this.setupMusicCredits();
 
     // Initialize canvas renderer
     const canvas = document.getElementById('tetris') as HTMLCanvasElement;
@@ -93,6 +110,48 @@ class TetrisGame {
 
     // Show mode selection
     this.showModeSelection();
+  }
+
+  /**
+   * Setup music credits display in footer
+   */
+  private setupMusicCredits(): void {
+    const creditsElement = document.getElementById('music-credits');
+    if (!creditsElement) {
+      return;
+    }
+
+    const credits = this.musicManager.getCredits();
+
+    // Only show credits if using MP3 with credits
+    if (credits && this.musicManager.isUsingMp3()) {
+      const creditsText = creditsElement.querySelector('.credits-text');
+      if (creditsText) {
+        let creditsHtml = `<span>${i18n.t('credits.music')}: `;
+
+        if (credits.author) {
+          creditsHtml += `${i18n.t('credits.musicBy')} ${credits.author} `;
+        }
+
+        creditsHtml += `(${credits.source})`;
+
+        if (credits.licenseUrl) {
+          creditsHtml += ` - <a href="${credits.licenseUrl}" target="_blank" rel="noopener noreferrer">${credits.license}</a>`;
+        } else if (credits.license) {
+          creditsHtml += ` - ${credits.license}`;
+        }
+
+        if (credits.trackUrl) {
+          creditsHtml += ` - <a href="${credits.trackUrl}" target="_blank" rel="noopener noreferrer">${i18n.t('credits.musicSource')}</a>`;
+        }
+
+        creditsHtml += '</span>';
+        creditsText.innerHTML = creditsHtml;
+        creditsElement.style.display = 'block';
+      }
+    } else {
+      creditsElement.style.display = 'none';
+    }
   }
 
   /**

@@ -9,6 +9,20 @@ Recommended sources:
 - **SoundCloud**: https://soundcloud.com/musiqueslibresdedroit/musique-8-bits
 - **Freesound**: https://freesound.org/search/?q=tetris (check CC0 license)
 
+#### ⚠️ Important Legal Considerations
+
+**Pixabay License:**
+- ✅ Free for personal and commercial use
+- ✅ Modification and adaptation allowed
+- ✅ No attribution required (but appreciated)
+- ❌ Cannot sell/redistribute content as-is without significant modification
+
+**Special Note for "Korobeiniki" Arrangements:**
+The melody "Korobeiniki" (Tetris Theme) is a traditional Russian folk song (public domain), but **specific arrangements may be copyrighted**. For example:
+- The arrangement by Gregor Quendel on Pixabay may require a commercial license for commercial projects
+- Check the specific license terms for each arrangement
+- For commercial use, consider acquiring a commercial license from the arranger
+
 ### 2. Place the MP3 File
 
 ```bash
@@ -16,21 +30,42 @@ Recommended sources:
 cp ~/Downloads/tetris-theme.mp3 public/tetris-theme.mp3
 ```
 
-### 3. Update the Code to Use MP3
+### 3. Update the Code to Use MP3 with Credits
 
-In `src/main.ts`, around line ~47, change:
+In `src/main.ts`, around line ~73, replace the music manager initialization:
 
 ```typescript
 // BEFORE (synthesized music)
 this.musicManager = new MusicManager();
 
-// AFTER (use your MP3)
-this.musicManager = new MusicManager('/tetris-theme.mp3');
+// AFTER (use your MP3 with proper credits)
+import { MusicManager, MusicCredits } from '@ui/MusicManager';
+
+// Define music credits (REQUIRED for legal compliance)
+const musicCredits: MusicCredits = {
+  source: 'Pixabay',
+  author: 'Gregor Quendel', // Optional: artist name if available
+  license: 'Pixabay License',
+  licenseUrl: 'https://pixabay.com/service/license-summary/',
+  trackUrl: 'https://pixabay.com/music/lullabies-tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978/', // Optional: link to original track
+};
+
+// Initialize with MP3 and credits
+this.musicManager = new MusicManager('/tetris-theme.mp3', musicCredits);
 ```
 
-### 4. That's it! 🎉
+### 4. Credits Display
 
-The MP3 music will automatically loop.
+The credits will **automatically appear in the footer** when using an MP3 file with credits. This ensures legal compliance and proper attribution.
+
+**Example footer display:**
+```
+Music: Music by Gregor Quendel (Pixabay) - Pixabay License - Source
+```
+
+### 5. That's it! 🎉
+
+The MP3 music will automatically loop and credits will be displayed in the footer.
 
 ## Available Options
 
@@ -44,11 +79,20 @@ this.musicManager = new MusicManager();
 
 ### Use MP3 File
 ```typescript
-this.musicManager = new MusicManager('/tetris-theme.mp3');
+const musicCredits: MusicCredits = {
+  source: 'Pixabay',
+  author: 'Gregor Quendel',
+  license: 'Pixabay License',
+  licenseUrl: 'https://pixabay.com/service/license-summary/',
+  trackUrl: 'https://pixabay.com/music/...',
+};
+this.musicManager = new MusicManager('/tetris-theme.mp3', musicCredits);
 ```
 - ✅ Superior audio quality
 - ✅ Professional music
+- ✅ Automatic credits display in footer
 - ⚠️ Check license requirements
+- ⚠️ **Always include credits for legal compliance**
 
 ## Volume Adjustment
 
@@ -82,4 +126,34 @@ musicManager.setVolume(1.0); // 100%
 ### Music doesn't loop
 - The `MusicManager` handles looping automatically
 - If using custom implementation, set `audio.loop = true`
+
+## Legal Compliance Checklist
+
+When using external music files, ensure you:
+
+- ✅ **Include credits** in the `MusicCredits` object
+- ✅ **Verify license** allows your use case (personal/commercial)
+- ✅ **Check attribution requirements** (some licenses require attribution)
+- ✅ **Display credits** in footer (automatic when using `MusicCredits`)
+- ✅ **Respect license restrictions** (e.g., no redistribution as-is)
+
+### Example: Pixabay Music Setup
+
+```typescript
+// 1. Download MP3 from Pixabay
+// 2. Place in public/ folder
+// 3. Configure credits:
+
+const musicCredits: MusicCredits = {
+  source: 'Pixabay',
+  author: 'Artist Name', // From Pixabay track page
+  license: 'Pixabay License',
+  licenseUrl: 'https://pixabay.com/service/license-summary/',
+  trackUrl: 'https://pixabay.com/music/...', // Link to original track
+};
+
+this.musicManager = new MusicManager('/your-music.mp3', musicCredits);
+```
+
+Credits will automatically appear in the footer, ensuring legal compliance! ✅
 

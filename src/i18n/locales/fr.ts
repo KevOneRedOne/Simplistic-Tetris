@@ -96,4 +96,13 @@ export default {
     linesPerMinute: 'Lignes/min',
     rank: 'Classement',
   },
+  credits: {
+    music: 'Musique',
+    musicBy: 'Musique par',
+    musicSource: 'Source',
+    synthesized: 'Musique synthétisée (Web Audio API)',
+    pixabay: 'Pixabay',
+    license: 'Licence Pixabay',
+    licenseLink: 'https://pixabay.com/service/license-summary/',
+  },
 };

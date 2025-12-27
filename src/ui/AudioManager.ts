@@ -63,7 +63,8 @@ export class AudioManager {
     oscillator.frequency.value = frequency;
     oscillator.type = type;
 
-    gainNode.gain.setValueAtTime(this.settings.volume * 0.3, this.audioContext.currentTime);
+    // Reduced volume for sound effects to balance with background music
+    gainNode.gain.setValueAtTime(this.settings.volume * 0.1, this.audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
 
     oscillator.start(this.audioContext.currentTime);

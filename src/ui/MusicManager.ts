@@ -4,6 +4,14 @@
  * Inspired by Korobeiniki (public domain Russian folk song)
  */
 
+export interface MusicCredits {
+  source: string;
+  author?: string;
+  license: string;
+  licenseUrl?: string;
+  trackUrl?: string;
+}
+
 export class MusicManager {
   private audioContext: AudioContext | null = null;
   private masterGain: GainNode | null = null;
@@ -13,6 +21,7 @@ export class MusicManager {
   private intervalId: number | null = null;
   private audio: HTMLAudioElement | null = null;
   private useMp3 = false;
+  private credits: MusicCredits | null = null;
 
   // Tetris theme melody (simplified version inspired by Korobeiniki)
   // Notes: E5, B4, C5, D5, C5, B4, A4, A4, C5, E5, D5, C5, B4, C5, D5, E5, C5, A4, A4
@@ -76,19 +85,36 @@ export class MusicManager {
     REST: 0,
   };
 
-  constructor(mp3Path?: string) {
+  constructor(mp3Path?: string, credits?: MusicCredits) {
     if (mp3Path) {
       this.useMp3 = true;
+      this.credits = credits || null;
       this.initMp3Audio(mp3Path);
     } else {
+      this.credits = null; // Synthesized music has no credits
       this.initAudioContext();
     }
+  }
+
+  /**
+   * Get music credits information
+   */
+  public getCredits(): MusicCredits | null {
+    return this.credits;
+  }
+
+  /**
+   * Check if using external MP3 file
+   */
+  public isUsingMp3(): boolean {
+    return this.useMp3;
   }
 
   private initMp3Audio(mp3Path: string): void {
     this.audio = new Audio(mp3Path);
     this.audio.loop = true;
-    this.audio.volume = 0.3;
+    // Increased volume for better balance with sound effects
+    this.audio.volume = 0.5;
   }
 
   private initAudioContext(): void {
@@ -99,7 +125,7 @@ export class MusicManager {
       this.audioContext = new AudioContextClass();
       this.masterGain = this.audioContext.createGain();
       this.masterGain.connect(this.audioContext.destination);
-      this.masterGain.gain.value = 0.3; // Default volume
+      this.masterGain.gain.value = 0.5; // Default volume (increased for better balance)
     } catch {
       console.warn('Web Audio API not supported');
     }
@@ -217,9 +243,11 @@ export class MusicManager {
     const normalizedVolume = Math.max(0, Math.min(1, volume));
 
     if (this.useMp3 && this.audio) {
-      this.audio.volume = normalizedVolume * 0.3;
+      // Base volume of 0.5, scaled by normalizedVolume
+      this.audio.volume = normalizedVolume * 0.5;
     } else if (this.masterGain) {
-      this.masterGain.gain.value = normalizedVolume * 0.3;
+      // Base volume of 0.5, scaled by normalizedVolume
+      this.masterGain.gain.value = normalizedVolume * 0.5;
     }
   }
 
