@@ -62,10 +62,7 @@ export class AudioManager {
     oscillator.type = type;
 
     gainNode.gain.setValueAtTime(this.settings.volume * 0.3, this.audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(
-      0.01,
-      this.audioContext.currentTime + duration
-    );
+    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
 
     oscillator.start(this.audioContext.currentTime);
     oscillator.stop(this.audioContext.currentTime + duration);
@@ -261,4 +258,3 @@ export class AudioManager {
     }
   }
 }
-

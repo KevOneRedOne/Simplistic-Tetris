@@ -11,7 +11,7 @@
 .preview-container {
   text-align: center;
   flex: 1;
-  
+
   h3 {
     font-family: 'Press Start 2P', cursive;
     font-size: $font-size-xs;
@@ -19,7 +19,7 @@
     color: var(--color-secondary);
     text-transform: uppercase;
   }
-  
+
   canvas {
     border: 2px solid var(--color-primary);
     border-radius: $border-radius-base;
@@ -30,4 +30,3 @@
     height: 120px;
   }
 }
-

@@ -317,4 +317,3 @@ export function getTetrominoOccupiedCells(tetromino: Tetromino): Position[] {
 
   return cells;
 }
-

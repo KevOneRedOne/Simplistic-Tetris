@@ -1,0 +1,92 @@
+// Notifications Component
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.notification {
+  position: fixed;
+  // Position just below header with spacing (header is ~80-100px + spacing)
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  z-index: $z-index-notification;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-base;
+  font-family: 'Press Start 2P', cursive;
+  font-size: $font-size-xs;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  transition:
+    transform $transition-base,
+    opacity $transition-base;
+  opacity: 0;
+  box-shadow: $shadow-lg;
+  backdrop-filter: blur(10px);
+
+  @media (max-width: $breakpoint-md) {
+    top: 120px;
+    font-size: 0.6rem;
+    padding: $spacing-sm $spacing-md;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    top: 110px;
+    font-size: 0.5rem;
+    padding: $spacing-xs $spacing-sm;
+  }
+
+  &.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  // Type-specific styles
+  &.notification-success {
+    background: rgba(0, 255, 0, 0.2);
+    border: 2px solid rgba(0, 255, 0, 0.6);
+    color: #00ff00;
+    text-shadow:
+      0 0 10px rgba(0, 255, 0, 0.8),
+      0 0 20px rgba(0, 255, 0, 0.5);
+    box-shadow:
+      0 4px 20px rgba(0, 255, 0, 0.3),
+      $shadow-lg;
+  }
+
+  &.notification-error {
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    color: #ff0000;
+    text-shadow:
+      0 0 10px rgba(255, 0, 0, 0.8),
+      0 0 20px rgba(255, 0, 0, 0.5);
+    box-shadow:
+      0 4px 20px rgba(255, 0, 0, 0.3),
+      $shadow-lg;
+  }
+
+  &.notification-warning {
+    background: rgba(255, 165, 0, 0.2);
+    border: 2px solid rgba(255, 165, 0, 0.6);
+    color: #ffa500;
+    text-shadow:
+      0 0 10px rgba(255, 165, 0, 0.8),
+      0 0 20px rgba(255, 165, 0, 0.5);
+    box-shadow:
+      0 4px 20px rgba(255, 165, 0, 0.3),
+      $shadow-lg;
+  }
+
+  &.notification-info {
+    background: rgba(0, 150, 255, 0.2);
+    border: 2px solid rgba(0, 150, 255, 0.6);
+    color: #0096ff;
+    text-shadow:
+      0 0 10px rgba(0, 150, 255, 0.8),
+      0 0 20px rgba(0, 150, 255, 0.5);
+    box-shadow:
+      0 4px 20px rgba(0, 150, 255, 0.3),
+      $shadow-lg;
+  }
+}

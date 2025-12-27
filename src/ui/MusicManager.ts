@@ -37,7 +37,7 @@ export class MusicManager {
     { note: 'A4', duration: 0.25 },
     { note: 'A4', duration: 0.25 },
     { note: 'REST', duration: 0.125 },
-    
+
     { note: 'D5', duration: 0.25 },
     { note: 'F5', duration: 0.125 },
     { note: 'A5', duration: 0.25 },
@@ -60,20 +60,20 @@ export class MusicManager {
 
   // Note frequencies (Hz)
   private noteFrequencies: Record<string, number> = {
-    'C4': 261.63,
-    'D4': 293.66,
-    'E4': 329.63,
-    'F4': 349.23,
-    'G4': 392.00,
-    'A4': 440.00,
-    'B4': 493.88,
-    'C5': 523.25,
-    'D5': 587.33,
-    'E5': 659.25,
-    'F5': 698.46,
-    'G5': 783.99,
-    'A5': 880.00,
-    'REST': 0,
+    C4: 261.63,
+    D4: 293.66,
+    E4: 329.63,
+    F4: 349.23,
+    G4: 392.0,
+    A4: 440.0,
+    B4: 493.88,
+    C5: 523.25,
+    D5: 587.33,
+    E5: 659.25,
+    F5: 698.46,
+    G5: 783.99,
+    A5: 880.0,
+    REST: 0,
   };
 
   constructor(mp3Path?: string) {
@@ -84,7 +84,7 @@ export class MusicManager {
       this.initAudioContext();
     }
   }
-  
+
   private initMp3Audio(mp3Path: string): void {
     this.audio = new Audio(mp3Path);
     this.audio.loop = true;
@@ -108,25 +108,25 @@ export class MusicManager {
     }
 
     const now = this.audioContext.currentTime;
-    
+
     // Create oscillator for main tone
     const oscillator = this.audioContext.createOscillator();
     const gainNode = this.audioContext.createGain();
-    
+
     oscillator.connect(gainNode);
     gainNode.connect(this.masterGain);
-    
+
     // Square wave for retro sound
     oscillator.type = 'square';
     oscillator.frequency.value = frequency;
-    
+
     // ADSR envelope for more natural sound
     gainNode.gain.setValueAtTime(0, now);
     gainNode.gain.linearRampToValueAtTime(0.3, now + 0.01); // Attack
     gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05); // Decay
     gainNode.gain.setValueAtTime(0.2, now + duration - 0.05); // Sustain
     gainNode.gain.linearRampToValueAtTime(0, now + duration); // Release
-    
+
     oscillator.start(now);
     oscillator.stop(now + duration);
   }
@@ -144,11 +144,11 @@ export class MusicManager {
 
     const frequency = this.noteFrequencies[note.note] || 0;
     const duration = (60 / this.tempo) * note.duration;
-    
+
     this.playNote(frequency, duration);
-    
+
     this.currentNoteIndex = (this.currentNoteIndex + 1) % this.melody.length;
-    
+
     // Schedule next note
     if (this.intervalId !== null) {
       clearTimeout(this.intervalId);
@@ -199,12 +199,12 @@ export class MusicManager {
 
   public stop(): void {
     this.isPlaying = false;
-    
+
     if (this.useMp3 && this.audio) {
       this.audio.pause();
       this.audio.currentTime = 0;
     }
-    
+
     if (this.intervalId !== null) {
       clearTimeout(this.intervalId);
       this.intervalId = null;
@@ -213,7 +213,7 @@ export class MusicManager {
 
   public setVolume(volume: number): void {
     const normalizedVolume = Math.max(0, Math.min(1, volume));
-    
+
     if (this.useMp3 && this.audio) {
       this.audio.volume = normalizedVolume * 0.3;
     } else if (this.masterGain) {
@@ -233,4 +233,3 @@ export class MusicManager {
     }
   }
 }
-

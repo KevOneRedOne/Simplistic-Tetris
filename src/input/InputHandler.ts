@@ -27,7 +27,8 @@ export class InputHandler {
   private touchStartX: number | null = null;
   private touchStartTime: number = 0;
   private lastTapTime: number = 0;
-  private repeatIntervals: Map<string, ReturnType<typeof setInterval | typeof setTimeout>> = new Map();
+  private repeatIntervals: Map<string, ReturnType<typeof setInterval | typeof setTimeout>> =
+    new Map();
 
   constructor(controls?: ControlsConfig) {
     this.controls = controls || DEFAULT_CONTROLS;
@@ -68,7 +69,7 @@ export class InputHandler {
     }
 
     const action = this.getActionForKey(key);
-    
+
     // If key is already pressed, don't start another interval
     if (this.pressedKeys.has(key)) {
       return;
@@ -79,7 +80,7 @@ export class InputHandler {
     // Execute action immediately
     if (action) {
       this.executeAction(action);
-      
+
       // Setup repeat for movement actions only
       if (['moveLeft', 'moveRight', 'moveDown'].includes(action)) {
         // Initial delay before repeat starts
@@ -92,10 +93,10 @@ export class InputHandler {
               clearInterval(interval);
             }
           }, 50); // Repeat every 50ms
-          
+
           this.repeatIntervals.set(key, interval);
         }, 150); // Wait 150ms before starting repeat
-        
+
         this.repeatIntervals.set(key + '_initial', initialDelay);
       }
     }
@@ -107,14 +108,14 @@ export class InputHandler {
   private handleKeyUp(event: KeyboardEvent): void {
     const key = event.key;
     this.pressedKeys.delete(key);
-    
+
     // Clear any repeat intervals
     const interval = this.repeatIntervals.get(key);
     if (interval) {
       clearInterval(interval);
       this.repeatIntervals.delete(key);
     }
-    
+
     const initialDelay = this.repeatIntervals.get(key + '_initial');
     if (initialDelay) {
       clearTimeout(initialDelay);
@@ -168,7 +169,7 @@ export class InputHandler {
       this.executeAction('moveDown');
       this.touchStartY = touch.clientY;
     }
-    
+
     // Vertical swipe up for rotate
     if (deltaY < -threshold && Math.abs(deltaY) > Math.abs(deltaX)) {
       this.executeAction('rotate');
@@ -199,7 +200,7 @@ export class InputHandler {
         this.lastTapTime = 0; // Reset to avoid triple tap
       } else {
         // Single tap = rotate
-      this.executeAction('rotate');
+        this.executeAction('rotate');
         this.lastTapTime = now;
       }
     }
@@ -303,7 +304,7 @@ export class InputHandler {
       clearTimeout(interval);
     });
     this.repeatIntervals.clear();
-    
+
     document.removeEventListener('keydown', this.handleKeyDown.bind(this));
     document.removeEventListener('keyup', this.handleKeyUp.bind(this));
     document.removeEventListener('touchstart', this.handleTouchStart.bind(this));
@@ -311,4 +312,3 @@ export class InputHandler {
     document.removeEventListener('touchend', this.handleTouchEnd.bind(this));
   }
 }
-

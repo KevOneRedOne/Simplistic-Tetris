@@ -120,10 +120,7 @@ export class CanvasRenderer {
   /**
    * Draw preview piece (smaller scale)
    */
-  public drawPreviewPiece(
-    tetromino: Tetromino,
-    previewCanvas: HTMLCanvasElement
-  ): void {
+  public drawPreviewPiece(tetromino: Tetromino, previewCanvas: HTMLCanvasElement): void {
     const previewCtx = previewCanvas.getContext('2d');
     if (!previewCtx) return;
 
@@ -192,12 +189,7 @@ export class CanvasRenderer {
   public highlightLines(lineIndices: number[], color = 'white'): void {
     for (const lineIndex of lineIndices) {
       this.ctx.fillStyle = color;
-      this.ctx.fillRect(
-        0,
-        lineIndex * this.cellSize,
-        this.canvas.width,
-        this.cellSize
-      );
+      this.ctx.fillRect(0, lineIndex * this.cellSize, this.canvas.width, this.cellSize);
     }
   }
 
@@ -223,7 +215,7 @@ export class CanvasRenderer {
     // Calculate optimal cell size based on container
     const maxWidthBasedSize = Math.floor(containerWidth / BOARD_COLS);
     const maxHeightBasedSize = Math.floor(containerHeight / BOARD_ROWS);
-    
+
     // Use the smaller of the two to ensure it fits
     const optimalCellSize = Math.min(
       maxWidthBasedSize,
@@ -254,4 +246,3 @@ export class CanvasRenderer {
     return this.cellSize;
   }
 }
-

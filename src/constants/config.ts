@@ -184,4 +184,3 @@ export const SPAWN_POSITION = {
   x: 3,
   y: -2,
 };
-

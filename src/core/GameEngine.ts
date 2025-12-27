@@ -4,18 +4,9 @@
  */
 
 import { GameMode, GameEventType } from '@/types/index';
-import type {
-  GameState,
-  Tetromino,
-  GameEvent,
-  GameEventCallback,
-} from '@/types/index';
+import type { GameState, Tetromino, GameEvent, GameEventCallback } from '@/types/index';
 import { createBoard, lockPiece, clearCompleteLines, isPieceAboveBoard } from './Board';
-import {
-  createRandomTetromino,
-  rotateTetromino,
-  moveTetromino,
-} from './Tetromino';
+import { createRandomTetromino, rotateTetromino, moveTetromino } from './Tetromino';
 import {
   checkCollision,
   canMoveDown,
@@ -133,11 +124,18 @@ export class GameEngine {
    */
   private checkTimeLimit(): void {
     if (this.state.gameMode === GameMode.ULTRA) {
-      const previousElapsed = this.elapsedTime - 1/60; // approximate previous frame
+      const previousElapsed = this.elapsedTime - 1 / 60; // approximate previous frame
 
       // Check for time warnings
       for (const warningTime of TIME_WARNINGS) {
-        if (shouldTriggerTimeWarning(this.state.gameMode, previousElapsed, this.elapsedTime, warningTime)) {
+        if (
+          shouldTriggerTimeWarning(
+            this.state.gameMode,
+            previousElapsed,
+            this.elapsedTime,
+            warningTime
+          )
+        ) {
           this.emit(GameEventType.TIME_WARNING, { secondsRemaining: warningTime });
         }
       }
@@ -344,7 +342,10 @@ export class GameEngine {
     this.state.canHold = true;
 
     // Check if new piece can be placed (game over)
-    if (this.state.currentPiece && checkCollision(this.state.board, this.state.currentPiece).hasCollision) {
+    if (
+      this.state.currentPiece &&
+      checkCollision(this.state.board, this.state.currentPiece).hasCollision
+    ) {
       this.gameOver();
     }
   }
@@ -445,4 +446,3 @@ export class GameEngine {
     }
   }
 }
-

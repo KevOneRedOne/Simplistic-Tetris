@@ -30,12 +30,7 @@ export function createBoard(): BoardGrid {
  * Check if a position is within board bounds
  */
 export function isValidPosition(position: Position): boolean {
-  return (
-    position.x >= 0 &&
-    position.x < BOARD_COLS &&
-    position.y >= 0 &&
-    position.y < BOARD_ROWS
-  );
+  return position.x >= 0 && position.x < BOARD_COLS && position.y >= 0 && position.y < BOARD_ROWS;
 }
 
 /**
@@ -190,11 +185,7 @@ export function getCellValue(board: BoardGrid, position: Position): CellValue | 
 /**
  * Set the value of a cell on the board (returns new board)
  */
-export function setCellValue(
-  board: BoardGrid,
-  position: Position,
-  value: CellValue
-): BoardGrid {
+export function setCellValue(board: BoardGrid, position: Position, value: CellValue): BoardGrid {
   if (!isValidPosition(position)) {
     return board;
   }
@@ -259,11 +250,6 @@ export function getHighestOccupiedRow(board: BoardGrid): number {
  */
 export function boardToString(board: BoardGrid): string {
   return board
-    .map((row) =>
-      row
-        .map((cell) => (cell === VACANT_COLOR ? '.' : 'X'))
-        .join('')
-    )
+    .map((row) => row.map((cell) => (cell === VACANT_COLOR ? '.' : 'X')).join(''))
     .join('\n');
 }
-

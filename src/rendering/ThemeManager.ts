@@ -139,4 +139,3 @@ export class ThemeManager {
     return this.currentTheme.colors[colorKey] || '#000000';
   }
 }
-

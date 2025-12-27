@@ -157,4 +157,3 @@ export interface ParticleConfig {
   speed: number;
   lifetime: number;
 }
-

@@ -10,14 +10,9 @@
   .game-layout {
     grid-template-columns: 1fr;
   }
-  
+
   #tetris {
     max-width: 100%;
     height: auto;
-  }
-  
-  .notification {
-    right: $spacing-sm;
-    left: $spacing-sm;
   }
 }

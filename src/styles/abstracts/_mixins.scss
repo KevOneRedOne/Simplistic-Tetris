@@ -46,16 +46,16 @@
   font-weight: 600;
   cursor: pointer;
   transition: all $transition-base;
-  
+
   &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: $shadow-lg;
   }
-  
+
   &:active:not(:disabled) {
     transform: translateY(0);
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -76,4 +76,3 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-

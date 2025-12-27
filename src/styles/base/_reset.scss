@@ -32,7 +32,9 @@ body {
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
-  transition: background $transition-base, color $transition-base;
+  transition:
+    background $transition-base,
+    color $transition-base;
   margin: 0;
   overflow-x: hidden;
   display: flex;
@@ -55,17 +57,20 @@ a {
   color: var(--color-primary);
   text-decoration: none;
   transition: color $transition-fast;
-  
+
   &:hover {
     color: var(--color-secondary);
   }
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: inherit;
   // Prevent zoom on input focus on iOS
@@ -78,4 +83,3 @@ canvas {
   -webkit-user-select: none;
   user-select: none;
 }
-

@@ -10,16 +10,15 @@
   margin-top: $spacing-sm;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
-  
+
   // Touch-friendly on mobile
   @media (max-width: $breakpoint-md) {
     min-height: 44px; // iOS HIG recommendation
     font-size: $font-size-base;
   }
-  
+
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
   }
 }
-

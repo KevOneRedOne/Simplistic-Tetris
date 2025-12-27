@@ -10,12 +10,12 @@
   box-shadow: 0 -4px 20px rgba(0, 255, 255, 0.3);
   position: relative;
   width: 100%;
-  
+
   // Compact on mobile
   @media (max-width: $breakpoint-md) {
     padding: $spacing-sm;
   }
-  
+
   @media (max-width: $breakpoint-sm) {
     padding: $spacing-xs $spacing-sm;
   }
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   @media (max-width: $breakpoint-md) {
     padding: 0 $spacing-sm;
   }
@@ -40,12 +40,12 @@
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
     text-align: center;
-    
+
     a {
       color: var(--color-secondary);
       text-decoration: none;
       transition: color $transition-fast;
-      
+
       &:hover {
         color: var(--color-accent);
         text-decoration: underline;
@@ -63,13 +63,13 @@
     text-shadow: 0 0 10px var(--color-primary);
     text-align: center;
     text-transform: uppercase;
-    
+
     @media (max-width: $breakpoint-sm) {
       font-size: $font-size-xs;
       margin-bottom: $spacing-xs;
     }
   }
-  
+
   &.audio-controls {
     .audio-buttons {
       display: flex;
@@ -77,8 +77,6 @@
       flex-wrap: wrap;
     }
   }
-  
-  
 }
 
 .icon-button {
@@ -93,50 +91,49 @@
   gap: $spacing-xs;
   flex: 1;
   min-width: 80px;
-  
+
   // Touch-friendly on mobile
   @media (max-width: $breakpoint-md) {
     min-height: 44px; // iOS HIG recommendation
     padding: $spacing-xs $spacing-sm;
   }
-  
+
   .iconify {
     color: var(--color-primary);
     filter: drop-shadow(0 0 8px var(--color-primary));
     transition: all $transition-fast;
   }
-  
+
   .button-label {
     font-size: $font-size-xs;
     text-transform: uppercase;
   }
-  
+
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3));
     box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
     transform: translateY(-2px);
-    
+
     .iconify {
       transform: scale(1.1);
       filter: drop-shadow(0 0 12px var(--color-primary));
     }
   }
-  
+
   &.active {
     background: linear-gradient(135deg, rgba(0, 255, 255, 0.4), rgba(255, 0, 255, 0.4));
     border-color: var(--color-accent);
-    
+
     .iconify {
       color: var(--color-accent);
     }
   }
-  
+
   &.muted {
     opacity: 0.5;
-    
+
     .iconify {
       color: var(--color-error, #ff5555);
     }
   }
 }
-

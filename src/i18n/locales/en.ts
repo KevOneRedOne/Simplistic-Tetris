@@ -6,7 +6,8 @@ export default {
   game: {
     title: 'SIMPLISTIC TETRIS V2',
     subtitle: 'Modern TypeScript rewrite • Version 2.0.0',
-    description: 'Complete overhaul of my original Tetris project. I wanted to modernize this fun project and be able to play Tetris anywhere, anytime. Clean TypeScript architecture, responsive design, and optimized user experience.',
+    description:
+      'Complete overhaul of my original Tetris project. I wanted to modernize this fun project and be able to play Tetris anywhere, anytime. Clean TypeScript architecture, responsive design, and optimized user experience.',
     play: 'Play',
     pause: 'Pause',
     restart: 'Restart',
@@ -33,12 +34,13 @@ export default {
   messages: {
     gameOver: 'Game Over!',
     paused: 'Paused',
-    levelUp: 'Level Up!',
-    timeUp: 'Time\'s Up!',
+    levelUp: 'Level Up {level}!',
+    timeUp: "Time's Up!",
     timeWarning: '{seconds} seconds remaining!',
-    newHighScore: 'New High Score!',
+    newHighScore: 'New High Score {score} on {mode} mode!',
     enterName: 'Enter your name:',
-    welcome: 'Welcome! Choose your game mode and start playing. Controls are displayed at the bottom of the page.',
+    welcome:
+      'Welcome! Choose your game mode and start playing. Controls are displayed at the bottom of the page. {controls}',
     controlsHint: 'Use arrow keys ⬅️➡️ to move, ⬆️ to rotate, ⬇️ to accelerate',
     audioEnabled: '🔊 Audio enabled',
   },
@@ -95,4 +97,3 @@ export default {
     rank: 'Rank',
   },
 };
-

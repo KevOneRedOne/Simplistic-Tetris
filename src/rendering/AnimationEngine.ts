@@ -30,8 +30,8 @@ export class AnimationEngine {
       const particle = this.particles[i];
       if (!particle) continue;
 
-      particle.x += particle.vx * deltaTime / 16;
-      particle.y += particle.vy * deltaTime / 16;
+      particle.x += (particle.vx * deltaTime) / 16;
+      particle.y += (particle.vy * deltaTime) / 16;
       particle.lifetime -= deltaTime;
 
       if (particle.lifetime <= 0) {
@@ -180,4 +180,3 @@ interface Animation {
   duration: number;
   onComplete?: () => void;
 }
-

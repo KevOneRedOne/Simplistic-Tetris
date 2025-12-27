@@ -6,7 +6,8 @@ export default {
   game: {
     title: 'SIMPLISTIC TETRIS V2',
     subtitle: 'Modern TypeScript rewrite • Version 2.0.0',
-    description: 'Refonte complète de mon projet Tetris original. Je voulais moderniser ce projet fun et pouvoir lancer une partie de Tetris n\'importe où, n\'importe quand. Architecture TypeScript propre, design responsive, et expérience utilisateur optimisée.',
+    description:
+      "Refonte complète de mon projet Tetris original. Je voulais moderniser ce projet fun et pouvoir lancer une partie de Tetris n'importe où, n'importe quand. Architecture TypeScript propre, design responsive, et expérience utilisateur optimisée.",
     play: 'Jouer',
     pause: 'Pause',
     restart: 'Recommencer',
@@ -18,7 +19,7 @@ export default {
     classic: 'Mode Classique',
     ultra: 'Mode Ultra',
     selectMode: 'Sélectionnez un mode',
-    classicDesc: 'Jouez jusqu\'au game over. Complétez des lignes pour augmenter de niveau.',
+    classicDesc: "Jouez jusqu'au game over. Complétez des lignes pour augmenter de niveau.",
     ultraDesc: 'Marquez un maximum de points en 2 minutes !',
   },
   stats: {
@@ -33,12 +34,13 @@ export default {
   messages: {
     gameOver: 'Partie terminée !',
     paused: 'En pause',
-    levelUp: 'Niveau supérieur !',
+    levelUp: 'Niveau supérieur {level} !',
     timeUp: 'Temps écoulé !',
     timeWarning: '{seconds} secondes restantes !',
-    newHighScore: 'Nouveau record !',
+    newHighScore: 'Nouveau record {score} sur le mode {mode} !',
     enterName: 'Entrez votre nom :',
-    welcome: 'Bienvenue ! Choisissez votre mode et commencez à jouer. Les contrôles sont affichés en bas de page.',
+    welcome:
+      'Bienvenue ! Choisissez votre mode et commencez à jouer. Les contrôles sont affichés en bas de page.',
     controlsHint: 'Utilisez les flèches ⬅️➡️ pour déplacer, ⬆️ pour pivoter, ⬇️ pour accélérer',
     audioEnabled: '🔊 Audio activé',
   },
@@ -95,4 +97,3 @@ export default {
     rank: 'Classement',
   },
 };
-

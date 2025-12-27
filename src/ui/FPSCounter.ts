@@ -55,4 +55,3 @@ export class FPSCounter {
     this.fps = 0;
   }
 }
-

@@ -158,9 +158,7 @@ export function findGhostPosition(board: BoardGrid, tetromino: Tetromino): Posit
   let ghostY = tetromino.position.y;
 
   // Move down until collision
-  while (
-    !checkCollision(board, tetromino, 0, ghostY - tetromino.position.y + 1).hasCollision
-  ) {
+  while (!checkCollision(board, tetromino, 0, ghostY - tetromino.position.y + 1).hasCollision) {
     ghostY++;
   }
 
@@ -186,10 +184,7 @@ export function isGameOverCollision(board: BoardGrid, tetromino: Tetromino): boo
 /**
  * Get all valid positions for current tetromino (for AI/hints)
  */
-export function getAllValidPositions(
-  board: BoardGrid,
-  tetromino: Tetromino
-): Position[] {
+export function getAllValidPositions(board: BoardGrid, tetromino: Tetromino): Position[] {
   const validPositions: Position[] = [];
 
   for (let x = 0; x < BOARD_COLS; x++) {
@@ -202,4 +197,3 @@ export function getAllValidPositions(
 
   return validPositions;
 }
-

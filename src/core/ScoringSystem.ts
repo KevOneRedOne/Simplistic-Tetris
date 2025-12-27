@@ -116,10 +116,7 @@ export function updateScoreAfterLineClear(
 /**
  * Update score after soft drop
  */
-export function updateScoreAfterSoftDrop(
-  currentScore: number,
-  cellsDropped: number
-): number {
+export function updateScoreAfterSoftDrop(currentScore: number, cellsDropped: number): number {
   const bonus = calculateSoftDropBonus(cellsDropped);
   return currentScore + bonus;
 }
@@ -127,10 +124,7 @@ export function updateScoreAfterSoftDrop(
 /**
  * Update score after hard drop
  */
-export function updateScoreAfterHardDrop(
-  currentScore: number,
-  cellsDropped: number
-): number {
+export function updateScoreAfterHardDrop(currentScore: number, cellsDropped: number): number {
   const bonus = calculateHardDropBonus(cellsDropped);
   return currentScore + bonus;
 }
@@ -223,4 +217,3 @@ export function checkAchievement(
 
   return null;
 }
-
