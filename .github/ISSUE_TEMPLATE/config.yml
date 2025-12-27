@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/KevOneRedOne/Simplistic-Tetris/discussions
+    about: Ask questions and discuss ideas
+  - name: ☕ Buy Me a Coffee
+    url: https://buymeacoffee.com/kevoneredone
+    about: Support the project with a coffee
+  - name: 🐛 Report an Issue
+    url: https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose
+    about: Report bugs or request features
+
