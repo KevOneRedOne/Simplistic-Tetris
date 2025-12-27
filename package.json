@@ -28,6 +28,14 @@
   },
   "author": "KevOneRedOne",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris.git"
+  },
+  "homepage": "https://simplistic-tetris-v2.netlify.app",
+  "bugs": {
+    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris/issues"
+  },
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
