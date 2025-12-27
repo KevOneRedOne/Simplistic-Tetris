@@ -5,14 +5,14 @@
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--color-primary);
-  padding: $spacing-sm $spacing-md;
+  padding: $spacing-md $spacing-lg;
   box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
-  
+
   // Compact on mobile
   @media (max-width: $breakpoint-md) {
     padding: $spacing-xs $spacing-sm;
   }
-  
+
   @media (max-width: $breakpoint-sm) {
     padding: $spacing-xs;
   }
@@ -25,7 +25,7 @@
   max-width: 1400px;
   margin: 0 auto;
   gap: $spacing-md;
-  
+
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
     text-align: center;
@@ -37,13 +37,13 @@
   img {
     width: 50px;
     height: 50px;
-    
+
     @media (max-width: $breakpoint-md) {
       margin: 0 auto;
       width: 40px;
       height: 40px;
     }
-    
+
     @media (max-width: $breakpoint-sm) {
       width: 30px;
       height: 30px;
@@ -53,7 +53,7 @@
 
 .header-title {
   text-align: center;
-  
+
   h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 1.3rem;
@@ -62,11 +62,11 @@
     text-shadow: 0 0 20px var(--color-primary);
     margin: 0;
     line-height: 1.4;
-    
+
     @media (max-width: $breakpoint-md) {
       font-size: 1rem;
     }
-    
+
     @media (max-width: $breakpoint-sm) {
       font-size: 0.75rem;
     }
@@ -78,11 +78,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  
+
   @media (max-width: $breakpoint-md) {
     justify-content: center;
   }
-  
+
   .github-button {
     display: flex;
     align-items: center;
@@ -95,40 +95,40 @@
     color: var(--color-primary);
     text-decoration: none;
     transition: all $transition-fast;
-    
+
     .iconify {
       color: var(--color-primary);
       filter: drop-shadow(0 0 4px var(--color-primary));
       transition: all $transition-fast;
     }
-    
+
     &:hover {
       background: rgba(0, 255, 255, 0.1);
       border-color: var(--color-accent);
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
-      
+
       .iconify {
         color: var(--color-accent);
         filter: drop-shadow(0 0 8px var(--color-accent));
         transform: scale(1.1);
       }
     }
-    
+
     @media (max-width: $breakpoint-md) {
       width: 36px;
       height: 36px;
-      
+
       .iconify {
         width: 20px;
         height: 20px;
       }
     }
-    
+
     @media (max-width: $breakpoint-sm) {
       width: 32px;
       height: 32px;
-      
+
       .iconify {
         width: 18px;
         height: 18px;
@@ -136,4 +136,3 @@
     }
   }
 }
-

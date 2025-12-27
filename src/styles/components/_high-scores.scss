@@ -3,43 +3,43 @@
 
 .side-panel {
   .scores-section {
-    ol {
-      list-style: none;
-      padding: 0;
+  ol {
+    list-style: none;
+    padding: 0;
       width: 100%;
-      
-      li {
+    
+    li {
         padding: $spacing-xs;
-        margin-bottom: $spacing-xs;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: $border-radius-sm;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.7rem;
-        
-        &.no-scores {
-          opacity: 0.5;
-          font-style: italic;
-          justify-content: center;
-        }
-        
-        .rank {
-          color: var(--color-accent);
-          font-weight: bold;
+      margin-bottom: $spacing-xs;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: $border-radius-sm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      
+      &.no-scores {
+        opacity: 0.5;
+        font-style: italic;
+        justify-content: center;
+      }
+      
+      .rank {
+        color: var(--color-accent);
+        font-weight: bold;
           margin-right: $spacing-xs;
-          min-width: 1.5rem;
-        }
-        
-        .name {
-          flex: 1;
-          color: var(--color-text);
+        min-width: 1.5rem;
+      }
+      
+      .name {
+        flex: 1;
+        color: var(--color-text);
           text-align: center;
-        }
-        
-        .score {
-          color: var(--color-primary);
-          font-weight: bold;
+      }
+      
+      .score {
+        color: var(--color-primary);
+        font-weight: bold;
           margin-left: $spacing-xs;
         }
       }
