@@ -14,10 +14,14 @@
   <meta property="og:description" content="Play Tetris anywhere, anytime. Modern rewrite with Classic & Ultra modes!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://simplistic-tetris-v2.netlify.app/" />
-  <meta property="og:image" content="https://simplistic-tetris-v2.netlify.app/tetris128px.png" />
+  <meta property="og:image" content="https://simplistic-tetris-v2.netlify.app/icons/android-chrome-192x192.png" />
 
   <title>Simplistic Tetris V2</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
@@ -27,7 +31,7 @@
   <header class="game-header">
     <div class="header-container">
       <div class="header-logo">
-        <img src="/tetris128px.png" alt="Tetris">
+        <img src="/icons/android-chrome-512x512.png" alt="Tetris">
       </div>
       <div class="header-title">
         <h1>Simplistic JS Tetris V2</h1>
@@ -185,7 +189,8 @@
     <div class="modal-content">
       <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
       <h2 data-i18n="messages.paused">Paused</h2>
-      <p style="margin: 1rem 0;" data-i18n="messages.pausedDescription">Press continue to resume or restart to start a new game.</p>
+      <p style="margin: 1rem 0;" data-i18n="messages.pausedDescription">Press continue to resume or restart to start a
+        new game.</p>
       <div class="modal-buttons">
         <button id="continue-button" class="game-button" data-i18n="buttons.continue">▶️ Continue</button>
         <button id="restart-from-pause-button" class="game-button" data-i18n="buttons.restart">🔄 Restart</button>
@@ -206,19 +211,17 @@
       </div>
       <!-- High Score Input (shown only if it's a high score) -->
       <div id="high-score-input-container" style="display: none; margin: 1.5rem 0;">
-        <label for="player-name-input" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;" data-i18n="messages.enterName">Enter your name:</label>
-        <input 
-          type="text" 
-          id="player-name-input" 
-          maxlength="3" 
-          placeholder="AAA" 
+        <label for="player-name-input" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;"
+          data-i18n="messages.enterName">Enter your name:</label>
+        <input type="text" id="player-name-input" maxlength="3" placeholder="AAA"
           style="width: 100%; padding: 0.75rem; font-size: 1.2rem; text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; background: rgba(0, 0, 0, 0.5); border: 2px solid var(--color-primary); border-radius: 0.5rem; color: white;"
-          autocomplete="off"
-        />
-        <button id="save-score-button" class="game-button" style="margin-top: 1rem; width: 100%;" data-i18n="buttons.save">Save</button>
+          autocomplete="off" />
+        <button id="save-score-button" class="game-button" style="margin-top: 1rem; width: 100%;"
+          data-i18n="buttons.save">Save</button>
       </div>
       <!-- Not a high score message -->
-      <div id="not-high-score-message" style="display: none; margin: 1.5rem 0; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.8;">
+      <div id="not-high-score-message"
+        style="display: none; margin: 1.5rem 0; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.8;">
         <p id="not-high-score-text"></p>
       </div>
       <div class="modal-buttons">

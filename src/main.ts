@@ -82,7 +82,7 @@ class TetrisGame {
         'https://pixabay.com/music/lullabies-tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978/',
     };
     this.musicManager = new MusicManager(
-      '/tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978.mp3',
+      '/music/tetris-theme-korobeiniki-rearranged-arr-for-music-box-184978.mp3',
       musicCredits
     );
 
@@ -488,7 +488,7 @@ class TetrisGame {
       <div class="modal-content start-modal">
         <button class="modal-close" aria-label="${i18n.t('buttons.close')}">&times;</button>
         <div class="modal-logo">
-          <img src="/tetris128px.png" alt="Tetris" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
+          <img src="/icons/android-chrome-192x192.png" alt="Tetris" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
         </div>
         <h2 class="modal-title">${i18n.t('game.title')}</h2>
         <p class="modal-subtitle">${i18n.t('game.subtitle')}</p>
