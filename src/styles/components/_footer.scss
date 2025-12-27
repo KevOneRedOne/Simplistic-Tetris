@@ -24,25 +24,48 @@
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-lg;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   @media (max-width: $breakpoint-md) {
-    grid-template-columns: 1fr;
-    gap: $spacing-md;
+    padding: 0 $spacing-sm;
+  }
+}
+
+.footer-copyright {
+  p {
+    font-size: $font-size-xs;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    text-align: center;
+    
+    a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color $transition-fast;
+      
+      &:hover {
+        color: var(--color-accent);
+        text-decoration: underline;
+      }
+    }
   }
 }
 
 .footer-section {
   h3 {
+    font-family: 'Press Start 2P', cursive;
     color: var(--color-primary);
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
     margin-bottom: $spacing-sm;
     text-shadow: 0 0 10px var(--color-primary);
+    text-align: center;
+    text-transform: uppercase;
     
     @media (max-width: $breakpoint-sm) {
-      font-size: $font-size-sm;
+      font-size: $font-size-xs;
       margin-bottom: $spacing-xs;
     }
   }
@@ -55,53 +78,7 @@
     }
   }
   
-  &.controls {
-    .controls-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: $spacing-xs;
-    }
-    
-    .control-item {
-      display: flex;
-      flex-direction: row;
-      gap: $spacing-xs;
-      padding: $spacing-xs;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: $border-radius-sm;
-      align-items: center;
-      
-      .key {
-        color: var(--color-accent);
-        font-weight: bold;
-        font-size: $font-size-xs;
-        min-width: 3rem;
-      }
-      
-      .desc {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: $font-size-xs;
-      }
-    }
-  }
   
-  &.footer-info {
-    p {
-      margin: $spacing-xs 0;
-      font-size: $font-size-xs;
-      opacity: 0.8;
-      
-      a {
-        color: var(--color-secondary);
-        text-decoration: none;
-        
-        &:hover {
-          color: var(--color-accent);
-          text-decoration: underline;
-        }
-      }
-    }
-  }
 }
 
 .icon-button {

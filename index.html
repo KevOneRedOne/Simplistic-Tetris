@@ -31,18 +31,61 @@
           <h1>Simplistic JS Tetris V2</h1>
         </div>
         <div class="header-author">
-          <p>by <a href="https://github.com/KevOneRedOne" target="_blank">KevOneRedOne</a></p>
+          <a href="https://github.com/KevOneRedOne" target="_blank" class="github-button" title="GitHub Profile" aria-label="GitHub Profile">
+            <span class="iconify" data-icon="mdi:github" data-width="24"></span>
+          </a>
         </div>
       </div>
     </header>
     
     <div class="app-container">
       <div class="game-layout">
-        <!-- Left Panel: High Scores -->
+        <!-- Left Panel: High Scores & Controls -->
         <aside class="side-panel left-panel">
-          <h2 id="highscores-title">🏆 HIGH SCORES</h2>
-          <p id="highscores-mode" style="font-size: 0.7rem; opacity: 0.7; margin-top: -0.5rem; margin-bottom: 1rem;">Classic Mode</p>
-          <ol id="highScores" style="padding-left: 1.5rem; font-size: 0.8rem;"></ol>
+          <!-- High Scores Section -->
+          <div class="scores-section">
+            <h2 id="highscores-title">🏆 HIGH SCORES</h2>
+            <p id="highscores-mode" style="font-size: 0.7rem; opacity: 0.7; margin-top: -0.5rem; margin-bottom: 0.5rem; text-align: center;">Classic Mode</p>
+            <ol id="highScores"></ol>
+          </div>
+          
+          <!-- Divider -->
+          <div class="panel-divider"></div>
+          
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <h3>🎮 CONTROLS</h3>
+            <div class="controls-grid">
+              <div class="control-item">
+                <span class="key">⬅️ ➡️</span>
+                <span class="desc">Move</span>
+              </div>
+              <div class="control-item">
+                <span class="key">⬆️ Z</span>
+                <span class="desc">Rotate</span>
+              </div>
+              <div class="control-item">
+                <span class="key">⬇️ S</span>
+                <span class="desc">Soft Drop</span>
+              </div>
+              <div class="control-item">
+                <span class="key">Space</span>
+                <span class="desc">Hard Drop</span>
+              </div>
+              <div class="control-item">
+                <span class="key">C</span>
+                <span class="desc">Hold</span>
+              </div>
+              <div class="control-item">
+                <span class="key">ESC</span>
+                <span class="desc">Pause</span>
+              </div>
+              <div class="control-item">
+                <span class="key">Enter</span>
+                <span class="desc">Restart</span>
+              </div>
+            </div>
+          </div>
         </aside>
         
         <!-- Main Game Area -->
@@ -85,12 +128,27 @@
           <div class="preview-row">
             <div class="preview-container">
               <h3>Next</h3>
-              <canvas id="next-canvas" width="100" height="100"></canvas>
+              <canvas id="next-canvas" width="120" height="120"></canvas>
             </div>
             
             <div class="preview-container">
               <h3>Hold</h3>
-              <canvas id="hold-canvas" width="100" height="100"></canvas>
+              <canvas id="hold-canvas" width="120" height="120"></canvas>
+            </div>
+          </div>
+          
+          <!-- Audio Controls -->
+          <div class="audio-controls-panel">
+            <h3>🎵 AUDIO</h3>
+            <div class="audio-buttons">
+              <button id="music-toggle" class="icon-button" title="Toggle Music">
+                <span class="iconify" data-icon="mdi:music" data-width="24"></span>
+                <span class="button-label">Music</span>
+              </button>
+              <button id="sound-toggle" class="icon-button" title="Toggle Sound">
+                <span class="iconify" data-icon="mdi:volume-high" data-width="24"></span>
+                <span class="button-label">Sound</span>
+              </button>
             </div>
           </div>
         </aside>
@@ -100,62 +158,9 @@
     <!-- Footer -->
     <footer class="game-footer">
       <div class="footer-content">
-        <!-- Audio Controls -->
-        <div class="footer-section audio-controls">
-          <h3>🎵 AUDIO</h3>
-          <div class="audio-buttons">
-            <button id="music-toggle" class="icon-button" title="Toggle Music">
-              <span class="iconify" data-icon="mdi:music" data-width="24"></span>
-              <span class="button-label">Music</span>
-            </button>
-            <button id="sound-toggle" class="icon-button" title="Toggle Sound">
-              <span class="iconify" data-icon="mdi:volume-high" data-width="24"></span>
-              <span class="button-label">Sound</span>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Controls Info -->
-        <div class="footer-section controls">
-          <h3>🎮 CONTROLS</h3>
-          <div class="controls-grid">
-            <div class="control-item">
-              <span class="key">⬅️ ➡️</span>
-              <span class="desc">Move</span>
-            </div>
-            <div class="control-item">
-              <span class="key">⬆️ Z</span>
-              <span class="desc">Rotate</span>
-            </div>
-            <div class="control-item">
-              <span class="key">⬇️ S</span>
-              <span class="desc">Soft Drop</span>
-            </div>
-            <div class="control-item">
-              <span class="key">Space</span>
-              <span class="desc">Hard Drop</span>
-            </div>
-            <div class="control-item">
-              <span class="key">C</span>
-              <span class="desc">Hold</span>
-            </div>
-            <div class="control-item">
-              <span class="key">ESC</span>
-              <span class="desc">Pause</span>
-            </div>
-            <div class="control-item">
-              <span class="key">Enter</span>
-              <span class="desc">Restart</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Info -->
-        <div class="footer-section footer-info">
-          <h3>ℹ️ INFO</h3>
-          <p>Modern TypeScript rewrite</p>
-          <p>Version 2.0.0</p>
-          <p><a href="https://github.com/KevOneRedOne/tetris-v2" target="_blank">GitHub Repository</a></p>
+        <!-- Copyright -->
+        <div class="footer-copyright">
+          <p>&copy; 2025 <a href="https://github.com/KevOneRedOne" target="_blank">KevOneRedOne</a></p>
         </div>
       </div>
     </footer>

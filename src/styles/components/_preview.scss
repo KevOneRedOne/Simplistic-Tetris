@@ -13,6 +13,7 @@
   flex: 1;
   
   h3 {
+    font-family: 'Press Start 2P', cursive;
     font-size: $font-size-xs;
     margin-bottom: $spacing-xs;
     color: var(--color-secondary);
@@ -25,6 +26,8 @@
     background: rgba(0, 0, 0, 0.5);
     margin: 0 auto;
     display: block;
+    width: 120px;
+    height: 120px;
   }
 }
 

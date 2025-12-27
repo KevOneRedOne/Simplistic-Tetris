@@ -2,42 +2,166 @@
 @use '../abstracts/variables' as *;
 
 .side-panel {
-  ol {
-    list-style: none;
-    padding: 0;
-    
-    li {
-      padding: $spacing-xs $spacing-sm;
-      margin-bottom: $spacing-xs;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: $border-radius-sm;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.7rem;
+  .scores-section {
+    ol {
+      list-style: none;
+      padding: 0;
+      width: 100%;
       
-      &.no-scores {
-        opacity: 0.5;
-        font-style: italic;
+      li {
+        padding: $spacing-xs;
+        margin-bottom: $spacing-xs;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: $border-radius-sm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.7rem;
+        
+        &.no-scores {
+          opacity: 0.5;
+          font-style: italic;
+          justify-content: center;
+        }
+        
+        .rank {
+          color: var(--color-accent);
+          font-weight: bold;
+          margin-right: $spacing-xs;
+          min-width: 1.5rem;
+        }
+        
+        .name {
+          flex: 1;
+          color: var(--color-text);
+          text-align: center;
+        }
+        
+        .score {
+          color: var(--color-primary);
+          font-weight: bold;
+          margin-left: $spacing-xs;
+        }
+      }
+    }
+  }
+  
+  .controls-section {
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-xs;
+      
+      .control-item {
+        display: flex;
+        flex-direction: row;
+        gap: $spacing-xs;
+        padding: $spacing-xs;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: $border-radius-sm;
+        align-items: center;
         justify-content: center;
+        
+        .key {
+          color: var(--color-accent);
+          font-weight: bold;
+          font-size: $font-size-xs;
+          white-space: nowrap;
+        }
+        
+        .desc {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: $font-size-xs;
+          white-space: nowrap;
+        }
       }
+    }
+  }
+}
+
+.audio-controls-panel {
+  margin-top: $spacing-sm;
+  padding-top: $spacing-sm;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+  h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: $font-size-xs;
+    color: var(--color-secondary);
+    text-align: center;
+    margin-bottom: $spacing-xs;
+    text-transform: uppercase;
+  }
+  
+  .audio-buttons {
+    display: flex;
+    gap: $spacing-xs;
+    justify-content: center;
+    
+    .icon-button {
+      flex: 1;
+      min-width: 0;
+      padding: $spacing-xs $spacing-sm;
+      min-width: 70px;
+      max-width: 90px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--color-primary);
+      border-radius: $border-radius-sm;
       
-      .rank {
-        color: var(--color-accent);
-        font-weight: bold;
-        margin-right: $spacing-sm;
-        min-width: 1.5rem;
-      }
-      
-      .name {
-        flex: 1;
-        color: var(--color-text);
-      }
-      
-      .score {
+      .iconify {
+        width: 20px;
+        height: 20px;
         color: var(--color-primary);
-        font-weight: bold;
-        margin-left: $spacing-sm;
+        filter: drop-shadow(0 0 4px var(--color-primary));
+      }
+      
+      .button-label {
+        font-size: 0.65rem;
+        line-height: 1.2;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: 'Press Start 2P', cursive;
+      }
+      
+      &:hover:not(:disabled) {
+        background: rgba(0, 255, 255, 0.1);
+        border-color: var(--color-accent);
+        transform: translateY(-1px);
+        
+        .iconify {
+          filter: drop-shadow(0 0 6px var(--color-accent));
+        }
+      }
+      
+      &.active {
+        background: rgba(0, 255, 255, 0.15);
+        border-color: var(--color-accent);
+        
+        .iconify {
+          color: var(--color-accent);
+        }
+      }
+      
+      &.muted {
+        opacity: 0.5;
+        
+        .iconify {
+          color: var(--color-error, #ff5555);
+        }
+      }
+      
+      @media (max-width: $breakpoint-md) {
+        min-width: 60px;
+        max-width: 80px;
+        padding: $spacing-xs;
+        
+        .iconify {
+          width: 18px;
+          height: 18px;
+        }
+        
+        .button-label {
+          font-size: 0.6rem;
+        }
       }
     }
   }

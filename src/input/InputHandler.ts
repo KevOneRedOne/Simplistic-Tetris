@@ -199,7 +199,7 @@ export class InputHandler {
         this.lastTapTime = 0; // Reset to avoid triple tap
       } else {
         // Single tap = rotate
-        this.executeAction('rotate');
+      this.executeAction('rotate');
         this.lastTapTime = now;
       }
     }

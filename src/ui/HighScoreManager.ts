@@ -38,15 +38,15 @@ export class HighScoreManager {
 
     // Try localStorage first
     if (this.isLocalStorageAvailable) {
-      try {
-        const stored = localStorage.getItem(key);
-        if (!stored) {
-          return [];
-        }
+    try {
+      const stored = localStorage.getItem(key);
+      if (!stored) {
+        return [];
+      }
 
-        const scores = JSON.parse(stored) as HighScore[];
-        return this.validateHighScores(scores);
-      } catch (e) {
+      const scores = JSON.parse(stored) as HighScore[];
+      return this.validateHighScores(scores);
+    } catch (e) {
         console.error('Failed to load high scores from localStorage:', e);
         // Fall through to memory fallback
       }
@@ -209,10 +209,10 @@ export class HighScoreManager {
 
     // Try localStorage first
     if (this.isLocalStorageAvailable) {
-      try {
-        localStorage.setItem(key, JSON.stringify(scores));
+    try {
+      localStorage.setItem(key, JSON.stringify(scores));
         return;
-      } catch (e) {
+    } catch (e) {
         console.error('Failed to save high scores to localStorage:', e);
         // If localStorage fails (quota exceeded), disable it and use fallback
         this.isLocalStorageAvailable = false;
