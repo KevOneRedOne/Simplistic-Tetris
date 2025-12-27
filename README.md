@@ -17,7 +17,7 @@
 <div align="center">
   <img src="./public/tetrispresentation.png" alt="Game Start Screen" width="600">
   <p><em>Modern start screen with game mode selection</em></p>
-  
+
   <img src="./public/tetrisgame.png" alt="Gameplay" width="600">
   <p><em>Gameplay with next piece preview, hold system, and statistics</em></p>
 </div>
@@ -52,16 +52,17 @@ graph TD
     B --> D[tetrominoes.js]
     B --> E[fps.js]
     B --> F[styles.css]
-    
+
     C --> G[Mixed Logic:<br/>Game + Rendering + UI]
     D --> G
-    
+
     style G fill:#f5b5b5,stroke:#c77,stroke-width:2px,color:#333
     style B fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
     style C fill:#f4d190,stroke:#d6a86f,stroke-width:2px,color:#333
 ```
 
 **Characteristics:**
+
 - ❌ Vanilla JavaScript (no typing)
 - ❌ Mixed concerns in single files
 - ❌ No test coverage
@@ -77,36 +78,36 @@ graph TD
 ```mermaid
 graph TD
     A[index.html] --> B[main.ts]
-    
+
     B --> C[Core Layer]
     B --> D[Rendering Layer]
     B --> E[UI Layer]
     B --> F[Input Layer]
     B --> G[i18n Layer]
-    
+
     C --> C1[GameEngine.ts]
     C --> C2[Board.ts]
     C --> C3[Tetromino.ts]
     C --> C4[CollisionDetector.ts]
     C --> C5[ScoringSystem.ts]
     C --> C6[GameModes.ts]
-    
+
     D --> D1[CanvasRenderer.ts]
     D --> D2[AnimationEngine.ts]
     D --> D3[ThemeManager.ts]
-    
+
     E --> E1[UIManager.ts]
     E --> E2[AudioManager.ts]
     E --> E3[HighScoreManager.ts]
     E --> E4[FPSCounter.ts]
-    
+
     F --> F1[InputHandler.ts]
-    
+
     G --> G1[i18n.ts]
     G --> G2[locales/]
-    
+
     H[Tests] --> C
-    
+
     style C fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
     style D fill:#7ba4db,stroke:#4a8ad6,stroke-width:2px,color:#fff
     style E fill:#d9a7c7,stroke:#c77aa4,stroke-width:2px,color:#fff
@@ -116,6 +117,7 @@ graph TD
 ```
 
 **Characteristics:**
+
 - ✅ TypeScript strict mode
 - ✅ Clean separation of concerns
 - ✅ Unit tests (Vitest)
@@ -142,13 +144,13 @@ graph TB
             C5[ScoringSystem.ts]
             C6[GameModes.ts]
         end
-        
+
         subgraph "rendering/ - Canvas"
             R1[CanvasRenderer.ts]
             R2[AnimationEngine.ts]
             R3[ThemeManager.ts]
         end
-        
+
         subgraph "ui/ - User Interface"
             U1[UIManager.ts]
             U2[AudioManager.ts]
@@ -156,34 +158,34 @@ graph TB
             U4[HighScoreManager.ts]
             U5[FPSCounter.ts]
         end
-        
+
         subgraph "input/"
             I1[InputHandler.ts]
         end
-        
+
         subgraph "i18n/ - Internationalization"
             L1[i18n.ts]
             L2[locales/fr.ts]
             L3[locales/en.ts]
         end
-        
+
         subgraph "config/"
             CF1[types/index.ts]
             CF2[constants/config.ts]
         end
-        
+
         subgraph "styles/ - SCSS"
             S1[main.scss]
             S2[abstracts/]
             S3[base/]
             S4[components/]
         end
-        
+
         M[main.ts]
     end
-    
+
     T[tests/] -.-> C3
-    
+
     style C1 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
     style C2 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
     style C3 fill:#8fc994,stroke:#5a9,stroke-width:2px,color:#fff
@@ -206,6 +208,7 @@ graph TB
 ```
 
 **Design Patterns:**
+
 - 🏭 Factory Pattern (Tetromino creation)
 - 👁️ Observer Pattern (Event-driven game events)
 - 🔒 Singleton Pattern (i18n, ThemeManager)
@@ -220,7 +223,7 @@ graph TB
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -257,15 +260,15 @@ npm run format       # Format code with Prettier
 
 ### Keyboard Controls
 
-| Key | Action |
-|-----|--------|
-| **← →** | Move left/right |
-| **↑** or **Z** | Rotate piece |
-| **↓** or **S** | Soft drop |
-| **Space** | Hard drop |
-| **C** or **Shift** | Hold piece |
-| **Esc** or **P** | Pause game |
-| **Enter** | Restart game |
+| Key                | Action          |
+| ------------------ | --------------- |
+| **← →**            | Move left/right |
+| **↑** or **Z**     | Rotate piece    |
+| **↓** or **S**     | Soft drop       |
+| **Space**          | Hard drop       |
+| **C** or **Shift** | Hold piece      |
+| **Esc** or **P**   | Pause game      |
+| **Enter**          | Restart game    |
 
 ### Mobile Controls
 
@@ -322,19 +325,19 @@ npm run format       # Format code with Prettier
 
 ## 📊 Comparison Table
 
-| Feature | V1 (Original) | V2 (Modern) |
-|---------|---------------|-------------|
-| **Language** | Vanilla JS | TypeScript (strict) |
+| Feature          | V1 (Original)  | V2 (Modern)             |
+| ---------------- | -------------- | ----------------------- |
+| **Language**     | Vanilla JS     | TypeScript (strict)     |
 | **Architecture** | Mixed concerns | Clean, separated layers |
-| **Testing** | None | Unit tests (Vitest) |
-| **Styling** | Basic CSS | SCSS + Design system |
-| **Build** | None | Vite with optimizations |
-| **Game Modes** | 1 | 2 (Classic + Ultra) |
-| **i18n** | French only | FR/EN extensible |
-| **Themes** | 1 | 4 themes |
-| **Mobile** | Basic | Full touch support |
-| **Code Lines** | ~600 | ~3000+ (modular) |
-| **Performance** | Good | Optimized (60 FPS) |
+| **Testing**      | None           | Unit tests (Vitest)     |
+| **Styling**      | Basic CSS      | SCSS + Design system    |
+| **Build**        | None           | Vite with optimizations |
+| **Game Modes**   | 1              | 2 (Classic + Ultra)     |
+| **i18n**         | French only    | FR/EN extensible        |
+| **Themes**       | 1              | 4 themes                |
+| **Mobile**       | Basic          | Full touch support      |
+| **Code Lines**   | ~600           | ~3000+ (modular)        |
+| **Performance**  | Good           | Optimized (60 FPS)      |
 
 ---
 
@@ -360,6 +363,7 @@ npm run test:coverage
 ```
 
 **Test Coverage:**
+
 - Board state management
 - Collision detection
 - Scoring calculations
@@ -410,4 +414,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ⭐ **Star this repo** if you found it interesting or useful for your learning journey!
 
-*This project demonstrates my growth as a developer and my ability to refactor legacy code into modern, production-ready applications.*
+_This project demonstrates my growth as a developer and my ability to refactor legacy code into modern, production-ready applications._

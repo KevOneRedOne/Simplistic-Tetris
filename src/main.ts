@@ -2,19 +2,19 @@
  * Main entry point for Tetris V2
  */
 
-import './styles/main.scss';
+import { GameEventType, GameMode } from '@/types/index';
 import { GameEngine } from '@core/GameEngine';
-import { CanvasRenderer } from '@rendering/CanvasRenderer';
-import { AnimationEngine } from '@rendering/AnimationEngine';
-import { ThemeManager } from '@rendering/ThemeManager';
+import { i18n } from '@i18n/i18n';
 import { InputHandler } from '@input/InputHandler';
-import { UIManager } from '@ui/UIManager';
+import { AnimationEngine } from '@rendering/AnimationEngine';
+import { CanvasRenderer } from '@rendering/CanvasRenderer';
+import { ThemeManager } from '@rendering/ThemeManager';
 import { AudioManager } from '@ui/AudioManager';
+import { FPSCounter } from '@ui/FPSCounter';
 import { HighScoreManager } from '@ui/HighScoreManager';
 import { MusicManager } from '@ui/MusicManager';
-import { FPSCounter } from '@ui/FPSCounter';
-import { i18n } from '@i18n/i18n';
-import { GameEventType, GameMode } from '@/types/index';
+import { UIManager } from '@ui/UIManager';
+import './styles/main.scss';
 
 /**
  * Debounce utility function
@@ -142,8 +142,12 @@ class TetrisGame {
         }
       });
       
-      // Set initial state
-      musicButton.classList.add('active');
+      // Set initial state (music off by default)
+      musicButton.classList.add('muted');
+      const icon = musicButton.querySelector('.iconify');
+      if (icon) {
+        icon.setAttribute('data-icon', 'mdi:music-off');
+      }
     }
     
     // Setup sound toggle
@@ -265,10 +269,7 @@ class TetrisGame {
     } catch (error) {
       console.warn('Failed to resume audio:', error);
     }
-    
-    // Start music
-    this.musicManager.play();
-    
+
     // Initialize input handler
     this.inputHandler = new InputHandler();
     
