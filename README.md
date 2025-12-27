@@ -333,19 +333,32 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 📫 Contact
+## 🙏 Acknowledgments
 
-**Kevin Alves**
+This project is a modern rewrite of my first-year Bachelor's group project. The original V1 project was built with the help of the following resources:
 
-[![GitHub](https://img.shields.io/badge/GitHub-KevOneRedOne-181717?style=for-the-badge&logo=github)](https://github.com/KevOneRedOne)
-[![Project](https://img.shields.io/badge/Project-Simplistic%20Tetris-blue?style=for-the-badge)](https://github.com/KevOneRedOne/Simplistic-Tetris)
+### Tutorials & Learning Resources
+
+- [Javascript Tetris tutorial](https://www.codeexplained.org/2018/08/create-tetris-game-using-javascript.html) by CodeExplained
+- [JSON tutorial](https://www.youtube.com/watch?v=DFhmNLKwwGw) by James Q Quick
+- [MDN Web Docs](https://developer.mozilla.org/fr/docs/Web/JavaScript) - JavaScript documentation
+- [DevDocs](https://devdocs.io/javascript/) - JavaScript API documentation
+- [W3Schools](https://www.w3schools.com/js/default.asp) - JavaScript tutorials
+- Lyon YNOV Campus's Object and DOM tutorials
+- [Chrono JavaScript tutorial](https://forum.alsacreations.com/topic-5-76681-1-Chronometre-en-Javascript-demarrage-automatique.html) by Alsacréations
+- [Best-README-Template] (https://github.com/othneildrew/Best-README-Template) by othneildrew
+
+### Original Project Contributors
+
+The original V1 project was a group effort with:
+- Me (KevOneRedOne)
+- Djoudi Yanis (Tadayoshi123)
+- Moren Yohan (BoSswosile)
 
 ---
 
 <div align="center">
 
 ⭐ **Star this repo** if you found it interesting or useful for your learning journey!
-
-_This project demonstrates my growth as a developer and my ability to refactor legacy code into modern, production-ready applications._
 
 </div>
