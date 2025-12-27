@@ -23,6 +23,11 @@
     padding: $spacing-xs;
   }
 
+  // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    padding: $spacing-sm;
+  }
+
   // Reduce padding for screens with limited height (830px and below) - after mobile rules
   @media (max-height: 830px) {
     padding: $spacing-sm;
@@ -61,6 +66,11 @@
     gap: $spacing-sm;
     width: 100%;
     max-width: 100%;
+  }
+
+  // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    gap: $spacing-md;
   }
 
   // Reduce gap for screens with limited height (830px and below) - after width rules
@@ -113,6 +123,11 @@
     }
   }
 
+  // Moderate canvas size reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    max-width: 380px;
+  }
+
   // Reduce canvas size for screens with limited height (830px and below) - after width rules
   @media (max-height: 830px) {
     max-width: 380px;
@@ -136,6 +151,11 @@
   // Enlarge padding for large screens (tall displays)
   @media (min-height: 1300px) {
     padding: $spacing-lg;
+  }
+
+  // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    padding: $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
@@ -179,6 +199,12 @@
       gap: 0.4rem;
     }
 
+    // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @media (max-height: 1000px) and (min-height: 831px) {
+      margin-bottom: $spacing-xs;
+      font-size: 0.85rem;
+    }
+
     // Reduce margin for screens with limited height (830px and below) - after width rules
     @media (max-height: 830px) {
       margin-bottom: $spacing-xs;
@@ -212,6 +238,12 @@
       margin-bottom: $spacing-sm;
     }
 
+    // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @media (max-height: 1000px) and (min-height: 831px) {
+      margin-bottom: 0.3rem;
+      font-size: 0.75rem;
+    }
+
     // Reduce margin for screens with limited height (830px and below)
     @media (max-height: 830px) {
       margin-bottom: 0.25rem;
@@ -238,6 +270,11 @@
 
     @media (max-width: $breakpoint-lg) {
       max-height: none; // No scroll on mobile
+    }
+
+    // Moderate max-height reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @media (max-height: 1000px) and (min-height: 831px) {
+      max-height: 650px;
     }
 
     // Reduce max-height for screens with limited height (830px and below) - after width rules
@@ -269,6 +306,11 @@
       background: rgba(255, 255, 255, 0.1);
       margin: $spacing-sm 0;
       flex-shrink: 0;
+
+      // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @media (max-height: 1000px) and (min-height: 831px) {
+        margin: $spacing-xs 0;
+      }
 
       // Reduce margin for screens with limited height (830px and below)
       @media (max-height: 830px) {
@@ -305,6 +347,11 @@
     // Enlarge gap for large screens (tall displays)
     @media (min-height: 1300px) {
       gap: $spacing-md;
+    }
+
+    // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @media (max-height: 1000px) and (min-height: 831px) {
+      gap: $spacing-xs;
     }
 
     // Reduce gap for screens with limited height (830px and below)

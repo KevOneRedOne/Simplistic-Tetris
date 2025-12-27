@@ -12,6 +12,11 @@
   justify-content: center;
   align-items: center;
 
+  // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    padding: $spacing-sm $spacing-md;
+  }
+
   // Reduce padding for screens with limited height (830px and below)
   @media (max-height: 830px) {
     padding: $spacing-sm $spacing-md;

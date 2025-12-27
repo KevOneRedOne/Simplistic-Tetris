@@ -9,6 +9,11 @@
     margin-bottom: $spacing-xl;
   }
 
+  // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @media (max-height: 1000px) and (min-height: 831px) {
+    margin-bottom: $spacing-md;
+  }
+
   // Reduce margin for screens with limited height (830px and below)
   @media (max-height: 830px) {
     margin-bottom: $spacing-sm;
@@ -35,6 +40,12 @@
     @media (min-height: 1300px) {
       padding: $spacing-sm 0;
       font-size: 1rem;
+    }
+
+    // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @media (max-height: 1000px) and (min-height: 831px) {
+      padding: 0.4rem 0;
+      font-size: 0.85rem;
     }
 
     // Reduce padding for screens with limited height (830px and below)
