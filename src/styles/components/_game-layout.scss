@@ -6,10 +6,17 @@
   @include flex-center;
   padding: $spacing-md;
   flex: 1;
+  min-height: 0; // Allow flex container to shrink
+
+  // Reduce padding on medium screens (laptops 14")
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    padding: $spacing-sm;
+  }
 
   // Reduce padding on mobile to maximize game space
   @media (max-width: $breakpoint-md) {
     padding: $spacing-sm;
+    min-height: auto; // Allow natural height on mobile
   }
 
   @media (max-width: $breakpoint-sm) {
@@ -25,6 +32,11 @@
   margin: 0 auto;
   width: 100%;
 
+  // Reduce gap on medium screens (laptops 14")
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    gap: $spacing-md;
+  }
+
   // Tablet: Stack vertically
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: 1fr;
@@ -32,9 +44,11 @@
     gap: $spacing-md;
   }
 
-  // Mobile: Reduce gap further
+  // Mobile: Reduce gap further and ensure proper ordering
   @media (max-width: $breakpoint-md) {
     gap: $spacing-sm;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -43,6 +57,7 @@
   width: 100%;
   max-width: 400px; // Max size on desktop
   margin: 0 auto;
+  flex-shrink: 0; // Prevent canvas from shrinking
 
   #tetris {
     border: 3px solid var(--color-primary);
@@ -54,6 +69,7 @@
     width: 100%;
     height: auto;
     display: block;
+    max-width: 100%;
   }
 
   // Reduce border on small screens
@@ -61,6 +77,13 @@
     #tetris {
       border-width: 2px;
     }
+  }
+
+  // Ensure canvas is visible on mobile
+  @media (max-width: $breakpoint-md) {
+    order: 2; // Show canvas after left panel on mobile
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -72,6 +95,11 @@
   max-width: 100%;
   width: 100%;
   padding: $spacing-md;
+
+  // Reduce padding on medium screens (laptops 14")
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    padding: $spacing-sm;
+  }
 
   h2 {
     font-family: 'Press Start 2P', cursive;
@@ -91,6 +119,12 @@
     // Align emoji icons consistently - emojis are part of the text content
     // Use flexbox to ensure proper vertical alignment
     white-space: nowrap;
+
+    // Reduce margin on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      margin-bottom: $spacing-xs;
+      font-size: 0.8rem;
+    }
 
     @media (max-width: $breakpoint-md) {
       font-size: 0.75rem;
@@ -112,6 +146,12 @@
     gap: 0.4rem;
     line-height: 1.4;
     white-space: nowrap;
+
+    // Reduce margin on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      margin-bottom: 0.25rem;
+      font-size: 0.7rem;
+    }
   }
 
   &.left-panel {
@@ -119,6 +159,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    // Reduce max-height on medium screens (laptops 14")
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      max-height: 600px;
+    }
 
     @media (max-width: $breakpoint-lg) {
       max-height: none; // No scroll on mobile
@@ -143,6 +188,11 @@
       background: rgba(255, 255, 255, 0.1);
       margin: $spacing-sm 0;
       flex-shrink: 0;
+
+      // Reduce margin on medium screens
+      @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+        margin: $spacing-xs 0;
+      }
     }
 
     .controls-section {
@@ -165,10 +215,26 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: $spacing-sm;
+
+    // Reduce gap on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      gap: $spacing-xs;
+    }
   }
 
   // Full width on mobile
   @media (max-width: $breakpoint-lg) {
     max-width: 400px;
+  }
+
+  // Order panels on mobile for better UX
+  @media (max-width: $breakpoint-md) {
+    &.left-panel {
+      order: 1;
+    }
+
+    &.right-panel {
+      order: 3;
+    }
   }
 }

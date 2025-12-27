@@ -12,6 +12,11 @@
   justify-content: center;
   align-items: center;
 
+  // Optimize for medium screens (laptops 14") - reduce vertical space
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    padding: $spacing-sm $spacing-md;
+  }
+
   // Compact on mobile
   @media (max-width: $breakpoint-md) {
     padding: $spacing-xs $spacing-sm;
@@ -31,6 +36,11 @@
   width: 100%;
   gap: $spacing-md;
 
+  // Reduce gap on medium screens
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    gap: $spacing-sm;
+  }
+
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
     text-align: center;
@@ -46,6 +56,12 @@
   img {
     width: 50px;
     height: 50px;
+
+    // Reduce size on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      width: 40px;
+      height: 40px;
+    }
 
     @media (max-width: $breakpoint-md) {
       margin: 0 auto;
@@ -75,6 +91,12 @@
     text-shadow: 0 0 20px var(--color-primary);
     margin: 0;
     line-height: 1.4;
+
+    // Reduce size on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
 
     @media (max-width: $breakpoint-md) {
       font-size: 1rem;
@@ -113,9 +135,19 @@
     border-radius: $border-radius-sm;
     height: 40px;
 
+    // Reduce size on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      height: 36px;
+      padding: $spacing-xs;
+    }
+
     .language-flag {
       font-size: 1.2rem;
       line-height: 1;
+
+      @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+        font-size: 1rem;
+      }
     }
 
     .language-text {
@@ -167,6 +199,12 @@
     color: var(--color-primary);
     text-decoration: none;
     transition: all $transition-fast;
+
+    // Reduce size on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      width: 36px;
+      height: 36px;
+    }
 
     .iconify {
       color: var(--color-primary);

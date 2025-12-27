@@ -14,6 +14,11 @@
   justify-content: center;
   align-items: center;
 
+  // Reduce padding on medium screens (laptops 14")
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    padding: $spacing-sm;
+  }
+
   // Compact on mobile
   @media (max-width: $breakpoint-md) {
     padding: $spacing-sm;

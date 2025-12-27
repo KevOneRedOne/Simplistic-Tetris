@@ -4,6 +4,11 @@
 .stats {
   margin-bottom: $spacing-lg;
 
+  // Reduce margin on medium screens (laptops 14")
+  @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+    margin-bottom: $spacing-sm;
+  }
+
   @media (max-width: $breakpoint-md) {
     margin-bottom: $spacing-md;
   }
@@ -15,6 +20,12 @@
     padding: $spacing-xs 0;
     font-size: 0.85rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    // Reduce padding on medium screens
+    @media (max-width: $breakpoint-xl) and (max-height: 1000px) {
+      padding: 0.3rem 0;
+      font-size: 0.8rem;
+    }
 
     @media (max-width: $breakpoint-sm) {
       font-size: 0.75rem;
