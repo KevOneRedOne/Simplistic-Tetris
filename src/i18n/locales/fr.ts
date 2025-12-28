@@ -48,7 +48,10 @@ export default {
     scoreSaved: 'Score {score} sauvegardé !',
     welcome:
       'Bienvenue ! Choisissez votre mode et commencez à jouer. Les contrôles sont affichés en bas de page.',
-    controlsHint: 'Utilisez les flèches ⬅️➡️ pour déplacer, ⬆️ pour pivoter, ⬇️ pour accélérer',
+    controlsHint:
+      '⬅️➡️ Déplacer • ⬆️ Pivoter • ⬇️ Accélérer • Espace Lâcher • Shift Garder • P Pause • R Redémarrer',
+    supportMessage:
+      "Si vous avez aimé le jeu et votre pause Tetris, n'hésitez pas à me soutenir ou à contribuer au projet",
     audioEnabled: '🔊 Audio activé',
   },
   controls: {
@@ -66,7 +69,15 @@ export default {
     holdSwap: 'Reserve',
     pauseGame: 'Pause',
     restartGame: 'Recommencer',
+    quitGame: 'Quitter',
     playAgain: 'Rejouer',
+    keySpace: 'Espace',
+    keyShift: 'Maj',
+    keyEsc: 'ESC',
+    keyEnter: 'Entrée',
+    keyTab: 'Tab',
+    keyP: 'P',
+    keyR: 'R',
   },
   settings: {
     theme: 'Thème',

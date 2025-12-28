@@ -55,6 +55,7 @@ class TetrisGame {
   private lastFrameTime: number = 0;
   private resizeHandler!: () => void;
   private currentMode: GameMode = GameMode.CLASSIC; // Store current game mode
+  private displayedScoreMode: GameMode = GameMode.CLASSIC; // Store which score mode is displayed
 
   constructor() {
     this.init().catch(console.error);
@@ -114,6 +115,12 @@ class TetrisGame {
 
     // Setup pause modal buttons
     this.setupPauseModalButtons();
+
+    // Setup mode selection button in header
+    this.setupModeSelectionButton();
+
+    // Setup score mode toggle button
+    this.setupScoreModeToggle();
 
     // Display default high scores (Classic mode)
     this.updateHighScoresDisplay(GameMode.CLASSIC);
@@ -218,36 +225,23 @@ class TetrisGame {
       const gameOverTitle = gameOverModal.querySelector('h2');
       const playAgainBtn = gameOverModal.querySelector('#play-again-button');
       const closeBtn = gameOverModal.querySelector('.modal-close');
-      const scoreLabel = gameOverModal.querySelector('.stats p:nth-child(1)');
-      const linesLabel = gameOverModal.querySelector('.stats p:nth-child(2)');
-      const levelLabel = gameOverModal.querySelector('.stats p:nth-child(3)');
-      const timeLabel = gameOverModal.querySelector('.stats p:nth-child(4)');
       const enterNameLabel = gameOverModal.querySelector('#high-score-input-container label');
       const saveButton = gameOverModal.querySelector('#save-score-button');
+
+      // Update stat labels
+      const statLabels = gameOverModal.querySelectorAll('.stat-label');
+      statLabels.forEach((label) => {
+        const key = label.getAttribute('data-i18n');
+        if (key) {
+          label.textContent = i18n.t(key);
+        }
+      });
 
       if (gameOverTitle) gameOverTitle.textContent = i18n.t('messages.gameOver');
       if (playAgainBtn) playAgainBtn.textContent = `🔄 ${i18n.t('buttons.playAgain')}`;
       if (closeBtn) closeBtn.setAttribute('aria-label', i18n.t('buttons.close'));
       if (enterNameLabel) enterNameLabel.textContent = i18n.t('messages.enterName');
       if (saveButton) saveButton.textContent = i18n.t('buttons.save');
-
-      // Update labels while preserving the score values
-      if (scoreLabel) {
-        const scoreValue = scoreLabel.querySelector('#game-over-score')?.textContent || '0';
-        scoreLabel.innerHTML = `<span data-i18n="results.finalScore">${i18n.t('results.finalScore')}:</span> <span id="game-over-score">${scoreValue}</span>`;
-      }
-      if (linesLabel) {
-        const linesValue = linesLabel.querySelector('#game-over-lines')?.textContent || '0';
-        linesLabel.innerHTML = `<span data-i18n="results.totalLines">${i18n.t('results.totalLines')}:</span> <span id="game-over-lines">${linesValue}</span>`;
-      }
-      if (levelLabel) {
-        const levelValue = levelLabel.querySelector('#game-over-level')?.textContent || '0';
-        levelLabel.innerHTML = `<span data-i18n="results.finalLevel">${i18n.t('results.finalLevel')}:</span> <span id="game-over-level">${levelValue}</span>`;
-      }
-      if (timeLabel) {
-        const timeValue = timeLabel.querySelector('#game-over-time')?.textContent || '0:00';
-        timeLabel.innerHTML = `<span data-i18n="results.playTime">${i18n.t('results.playTime')}:</span> <span id="game-over-time">${timeValue}</span>`;
-      }
     }
   }
 
@@ -440,6 +434,40 @@ class TetrisGame {
   }
 
   /**
+   * Setup mode selection button in header
+   */
+  private setupModeSelectionButton(): void {
+    const button = document.getElementById('show-mode-selection-button');
+    if (button) {
+      button.addEventListener('click', () => {
+        // Check if modal already exists
+        const existingModal = document.getElementById('mode-select-modal');
+        if (existingModal) {
+          existingModal.classList.add('active');
+          existingModal.style.display = 'flex';
+        } else {
+          this.showModeSelection();
+        }
+      });
+    }
+  }
+
+  /**
+   * Setup score mode toggle button
+   */
+  private setupScoreModeToggle(): void {
+    const toggleButton = document.getElementById('highscores-mode-toggle');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        // Toggle between Classic and Ultra
+        this.displayedScoreMode =
+          this.displayedScoreMode === GameMode.CLASSIC ? GameMode.ULTRA : GameMode.CLASSIC;
+        this.updateHighScoresDisplay(this.displayedScoreMode);
+      });
+    }
+  }
+
+  /**
    * Setup pause modal buttons (Continue and Restart)
    */
   private setupPauseModalButtons(): void {
@@ -490,7 +518,7 @@ class TetrisGame {
       <div class="modal-content start-modal">
         <button class="modal-close" aria-label="${i18n.t('buttons.close')}">&times;</button>
         <div class="modal-logo">
-          <img src="/icons/android-chrome-192x192.png" alt="Tetris" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
+          <img src="/icons/android-chrome-192x192.png" alt="Tetris" width="80" height="80" loading="lazy" style="margin: 0 auto 1rem;">
         </div>
         <h2 class="modal-title">${i18n.t('game.title')}</h2>
         <p class="modal-subtitle">${i18n.t('game.subtitle', { version: APP_VERSION })}</p>
@@ -510,10 +538,42 @@ class TetrisGame {
             <span class="mode-desc">${i18n.t('modes.ultraDesc')}</span>
           </button>
         </div>
+        <h3 class="modal-section-title">${i18n.t('controls.title')}</h3>
         <div class="modal-controls-hint">
-          <p style="font-size: 0.7rem; opacity: 0.7; margin-top: 1.5rem;">
-            💡 ${i18n.t('messages.controlsHint')}
-          </p>
+          <div class="controls-grid">
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.move')}</span>
+              <span class="key">⬅️ ➡️</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.rotate')}</span>
+              <span class="key">⬆️</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.softDrop')}</span>
+              <span class="key">⬇️</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.hardDrop')}</span>
+              <span class="key">${i18n.t('controls.keySpace')}</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.holdSwap')}</span>
+              <span class="key">${i18n.t('controls.keyShift')}</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.pauseGame')}</span>
+              <span class="key">${i18n.t('controls.keyEsc')} / ${i18n.t('controls.keyP')}</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.restartGame')}</span>
+              <span class="key">${i18n.t('controls.keyEnter')} / ${i18n.t('controls.keyR')}</span>
+            </div>
+            <div class="control-item">
+              <span class="desc">${i18n.t('controls.quitGame')}</span>
+              <span class="key">${i18n.t('controls.keyTab')}</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -549,8 +609,8 @@ class TetrisGame {
     this.uiManager.hidePause();
     this.uiManager.hideModal('game-over-modal');
 
-    // Display high scores for current mode
-    this.updateHighScoresDisplay(mode);
+    // Display high scores (keep current displayed mode)
+    this.updateHighScoresDisplay(this.displayedScoreMode);
 
     // Resume audio contexts (required for mobile browsers after user interaction)
     try {
@@ -615,6 +675,10 @@ class TetrisGame {
 
     this.inputHandler.on('restart', () => {
       this.restart(mode);
+    });
+
+    this.inputHandler.on('quit', () => {
+      this.quit();
     });
 
     // Setup game event listeners
@@ -843,7 +907,7 @@ class TetrisGame {
       }
 
       // Update high scores display (will show last attempt if not in top 10)
-      this.updateHighScoresDisplay(mode);
+      this.updateHighScoresDisplay(this.displayedScoreMode);
 
       // Hide input container
       inputContainer.style.display = 'none';
@@ -900,16 +964,16 @@ class TetrisGame {
 
   private updateHighScoresDisplay(mode: GameMode): void {
     const highScoresElement = document.getElementById('highScores');
-    const modeElement = document.getElementById('highscores-mode');
+    const modeTextElement = document.getElementById('highscores-mode-text');
 
     if (highScoresElement) {
       this.highScoreManager.renderHighScores(mode, highScoresElement);
     }
 
-    // Update mode label
-    if (modeElement) {
-      const modeLabel = mode === GameMode.CLASSIC ? 'Classic Mode' : 'Ultra Mode';
-      modeElement.textContent = modeLabel;
+    // Update mode label text
+    if (modeTextElement) {
+      const modeLabel = mode === GameMode.CLASSIC ? i18n.t('modes.classic') : i18n.t('modes.ultra');
+      modeTextElement.textContent = modeLabel;
     }
   }
 
@@ -921,6 +985,26 @@ class TetrisGame {
     this.animationEngine.clearAll();
     this.gameEngine.restart(mode);
     this.startGameLoop();
+  }
+
+  private quit(): void {
+    // Stop game loop
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+
+    // Clear animations
+    this.animationEngine.clearAll();
+
+    // Hide pause modal if visible
+    this.uiManager.hidePause();
+
+    // Stop music
+    this.musicManager.stop();
+
+    // Show mode selection modal
+    this.showModeSelection();
   }
 }
 

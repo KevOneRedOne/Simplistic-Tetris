@@ -14,6 +14,8 @@
   backdrop-filter: blur(10px);
   z-index: $z-index-modal;
   @include flex-center;
+  // Prevent layout shift when modal appears
+  contain: layout style paint;
 
   &.active {
     display: flex;
@@ -108,6 +110,73 @@
 
       button {
         flex: 1;
+      }
+    }
+
+    // Game Over Stats Grid
+    .game-over-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-xs;
+      margin: $spacing-sm 0;
+
+      @include respond-to-width-max('sm') {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .stat-card {
+        background: rgba(0, 255, 255, 0.05);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        border-radius: $border-radius-sm;
+        padding: $spacing-xs;
+        text-align: center;
+        transition: all $transition-fast;
+
+        &:hover {
+          background: rgba(0, 255, 255, 0.1);
+          border-color: var(--color-primary);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+        }
+
+        .stat-label {
+          font-size: 0.6rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin-bottom: 0.25rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+          font-size: $font-size-sm;
+          font-weight: bold;
+          color: var(--color-primary);
+          text-shadow: 0 0 6px var(--color-primary);
+          font-family: $font-family-pixel;
+        }
+
+        &.stat-card-primary {
+          grid-column: 1 / -1;
+          background: rgba(0, 255, 255, 0.1);
+          border-color: var(--color-primary);
+          border-width: 2px;
+          padding: $spacing-sm;
+
+          .stat-label {
+            font-size: 0.65rem;
+          }
+
+          .stat-value {
+            font-size: $font-size-base;
+            color: var(--color-accent);
+            text-shadow: 0 0 12px var(--color-accent);
+          }
+
+          @include respond-to-width-max('sm') {
+            grid-column: 1;
+          }
+        }
       }
     }
   }
@@ -228,9 +297,106 @@
     }
 
     .modal-controls-hint {
-      margin-top: $spacing-lg;
-      padding-top: $spacing-md;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: $font-size-sm;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin-top: $spacing-sm;
+      margin-bottom: $spacing-lg;
+      padding: $spacing-md $spacing-lg;
+      background: rgba(0, 255, 255, 0.05);
+      border-left: 3px solid var(--color-primary);
+      border-radius: $border-radius-sm;
+      text-align: left;
+
+      .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-xs;
+
+        .control-item {
+          display: flex;
+          flex-direction: row;
+          gap: $spacing-xs;
+          padding: $spacing-xs;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: $border-radius-sm;
+          align-items: center;
+          justify-content: space-between;
+
+          .key {
+            color: var(--color-accent);
+            font-weight: bold;
+            font-size: $font-size-xs;
+            white-space: nowrap;
+          }
+
+          .desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: $font-size-xs;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      p {
+        margin: 0;
+      }
+
+      @include respond-to-width-max('sm') {
+        font-size: $font-size-xs;
+        padding: $spacing-sm $spacing-md;
+        margin-bottom: $spacing-md;
+
+        .controls-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    .game-over-tip,
+    .game-over-support {
+      font-size: $font-size-sm;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin-top: $spacing-sm;
+      margin-bottom: $spacing-lg;
+      padding: $spacing-md $spacing-lg;
+      border-radius: $border-radius-sm;
+      text-align: left;
+
+      p {
+        margin: 0 0 0.5rem 0;
+      }
+    }
+
+    .game-over-support {
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 3px solid rgba(255, 193, 7, 0.6);
+      opacity: 0.9;
+      text-align: center;
+
+      p {
+        text-align: center;
+      }
+
+      .support-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffc107;
+        text-decoration: none;
+        font-weight: bold;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+          text-decoration: underline;
+        }
+
+        &:active {
+          opacity: 0.6;
+        }
+      }
     }
   }
 

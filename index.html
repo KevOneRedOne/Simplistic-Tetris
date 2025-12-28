@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Simplistic Tetris V2 - Play Tetris anywhere, anytime. Modern TypeScript rewrite with multiple game modes." />
   <meta name="keywords" content="Tetris, TypeScript, Game, Canvas, JavaScript, Simplistic Tetris" />
@@ -22,8 +22,16 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
-  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://code.iconify.design" />
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/icons/android-chrome-512x512.png" as="image" />
+  <!-- Preload font to prevent layout shift -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=optional" rel="stylesheet" />
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
 </head>
 
 <body>
@@ -31,7 +39,10 @@
   <header class="game-header">
     <div class="header-container">
       <div class="header-logo">
-        <img src="/icons/android-chrome-512x512.png" alt="Tetris">
+        <img src="/icons/android-chrome-512x512.png" alt="Tetris" width="50" height="50" fetchpriority="high">
+        <button id="show-mode-selection-button" class="home-button" title="Select game mode" aria-label="Select game mode">
+          <span class="iconify" data-icon="mdi:home" data-width="20"></span>
+        </button>
       </div>
       <div class="header-title">
         <h1>Simplistic Tetris</h1>
@@ -55,11 +66,12 @@
       <aside class="side-panel left-panel">
         <!-- High Scores Section -->
         <div class="scores-section">
-          <h2 id="highscores-title" data-i18n="stats.highScores">🏆 HIGH SCORES</h2>
-          <p id="highscores-mode"
-            style="font-size: 0.7rem; opacity: 0.7; margin-top: -0.5rem; margin-bottom: 0.5rem; text-align: center;">
-            Classic Mode</p>
-          <ol id="highScores"></ol>
+          <h2 id="highscores-title" data-i18n="stats.highScores">HIGH SCORES</h2>
+          <button id="highscores-mode-toggle" class="scores-mode-toggle" aria-label="Toggle score mode">
+            <span id="highscores-mode-text">Classic Mode</span>
+            <span class="iconify" data-icon="mdi:swap-horizontal" data-width="16"></span>
+          </button>
+          <ol id="highScores" style="min-height: 200px;"></ol>
         </div>
 
         <!-- Divider -->
@@ -67,7 +79,7 @@
 
         <!-- Controls Section -->
         <div class="controls-section">
-          <h3 data-i18n="controls.title">🎮 CONTROLS</h3>
+          <h3 data-i18n="controls.title">CONTROLS</h3>
           <div class="controls-grid">
             <div class="control-item">
               <span class="desc" data-i18n="controls.move">Move</span>
@@ -96,6 +108,10 @@
             <div class="control-item">
               <span class="desc" data-i18n="controls.restartGame">Restart</span>
               <span class="key">Enter</span>
+            </div>
+            <div class="control-item">
+              <span class="desc" data-i18n="controls.quitGame">Quit</span>
+              <span class="key" data-i18n="controls.keyTab">Tab</span>
             </div>
           </div>
         </div>
@@ -215,11 +231,25 @@
     <div class="modal-content">
       <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
       <h2 data-i18n="messages.gameOver">Game Over</h2>
-      <div class="stats" style="margin: 1.5rem 0;">
-        <p><span data-i18n="results.finalScore">Score:</span> <span id="game-over-score">0</span></p>
-        <p><span data-i18n="results.totalLines">Lines:</span> <span id="game-over-lines">0</span></p>
-        <p><span data-i18n="results.finalLevel">Level:</span> <span id="game-over-level">0</span></p>
-        <p><span data-i18n="results.playTime">Time:</span> <span id="game-over-time">0:00</span></p>
+      
+      <!-- Stats Grid -->
+      <div class="game-over-stats-grid">
+        <div class="stat-card stat-card-primary">
+          <div class="stat-label" data-i18n="results.finalScore">Score</div>
+          <div class="stat-value" id="game-over-score">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label" data-i18n="results.totalLines">Lines</div>
+          <div class="stat-value" id="game-over-lines">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label" data-i18n="results.finalLevel">Level</div>
+          <div class="stat-value" id="game-over-level">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label" data-i18n="results.playTime">Time</div>
+          <div class="stat-value" id="game-over-time">0:00</div>
+        </div>
       </div>
       <!-- High Score Input (shown only if it's a high score) -->
       <div id="high-score-input-container" style="display: none; margin: 1.5rem 0;">
@@ -236,11 +266,29 @@
         style="display: none; margin: 1.5rem 0; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.8;">
         <p id="not-high-score-text"></p>
       </div>
+      <!-- Support message -->
+      <div class="game-over-support" style="margin: 1rem 0; padding: 0.75rem 1rem; background: rgba(255, 193, 7, 0.1); border-left: 3px solid rgba(255, 193, 7, 0.6); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.9; text-align: center;">
+        <p style="margin: 0 0 0.5rem 0;" data-i18n="messages.supportMessage"></p>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center;">
+          <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
+            <span>☕</span>
+            <span data-i18n="buttons.tip">Offrir un café</span>
+          </a>
+          <span style="color: rgba(255, 255, 255, 0.5);">•</span>
+          <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer" class="support-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
+            <span>🔧</span>
+            <span data-i18n="buttons.contribute">Contribuer</span>
+          </a>
+        </div>
+      </div>
       <div class="modal-buttons">
         <button id="play-again-button" class="game-button" data-i18n="buttons.playAgain">🔄 Play Again</button>
       </div>
     </div>
   </div>
+
+  <!-- Audio element for browser media controls -->
+  <audio id="game-music" preload="auto" loop style="display: none;" aria-label="Game music" crossorigin="anonymous"></audio>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

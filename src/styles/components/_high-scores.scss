@@ -1,13 +1,119 @@
 // High Scores Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/media-queries' as *;
+@use '../abstracts/mixins' as *;
 
 .side-panel {
   .scores-section {
+    .scores-mode-toggle {
+      @include button-base;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid var(--color-primary);
+      border-radius: $border-radius-sm;
+      color: var(--color-text);
+      padding: $spacing-xs $spacing-sm;
+      margin: $spacing-xs auto $spacing-sm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      font-size: 0.6rem;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: all $transition-fast;
+      width: fit-content;
+      min-width: 100px;
+      max-width: 100%;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        font-size: 0.65rem;
+        padding: $spacing-xs $spacing-md;
+        min-width: 110px;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 90px;
+        gap: 0.2rem;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 90px;
+        gap: 0.2rem;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.4rem;
+        min-width: 80px;
+        gap: 0.15rem;
+      }
+
+      // Mobile adjustments
+      @include mobile {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 90px;
+        max-width: 90%;
+      }
+
+      // Very small screens
+      @include respond-to-width-max('sm') {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.4rem;
+        min-width: 75px;
+        gap: 0.15rem;
+      }
+
+      &:hover {
+        background: rgba(0, 255, 255, 0.1);
+        opacity: 1;
+        transform: translateY(-1px);
+        will-change: transform;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      #highscores-mode-text {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .iconify {
+        opacity: 0.8;
+        flex-shrink: 0;
+        width: 14px;
+        height: 14px;
+
+        @include respond-to-height-max('sm') {
+          width: 12px;
+          height: 12px;
+        }
+
+        @include respond-to-height-max('xs') {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+
     ol {
       list-style: none;
       padding: 0;
       width: 100%;
+      // Reserve space to prevent layout shift
+      min-height: 200px;
 
       li {
         padding: $spacing-xs;

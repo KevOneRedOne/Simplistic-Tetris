@@ -7,7 +7,7 @@
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border-top: 2px solid var(--color-primary);
-  padding: $spacing-md;
+  padding: $spacing-sm;
   box-shadow: 0 -4px 20px rgba(0, 255, 255, 0.3);
   position: relative;
   width: 100%;
@@ -15,19 +15,30 @@
   justify-content: center;
   align-items: center;
 
+  // Match app-container padding for alignment
+  // Enlarge for large screens (tall displays)
+  @include respond-to-height-tall {
+    padding: $spacing-md;
+  }
+
+  // Windows with system scale: match app-container padding
+  @include windows-with-scale {
+    padding: $spacing-sm $spacing-sm;
+  }
+
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
   @include respond-to-height-laptop-hd {
-    padding: $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
   @include respond-to-height-max('sm') {
-    padding: $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
   @include respond-to-height-max('xs') {
-    padding: $spacing-xs;
+    padding: 0.25rem $spacing-xs;
   }
 
   // Compact on mobile
@@ -36,7 +47,7 @@
   }
 
   @include respond-to-width-max('sm') {
-    padding: $spacing-xs $spacing-sm;
+    padding: $spacing-xs;
   }
 }
 
@@ -50,6 +61,16 @@
   justify-content: center;
   gap: $spacing-xs;
 
+  // Windows with system scale: match game-layout max-width
+  @include windows-with-scale {
+    max-width: 1300px;
+  }
+
+  // Enlarge for large screens (tall displays): match game-layout max-width
+  @include respond-to-height-tall {
+    max-width: 1800px;
+  }
+
   @include mobile {
     padding: 0 $spacing-sm;
   }
@@ -57,10 +78,39 @@
 
 .footer-copyright {
   p {
-    font-size: $font-size-xs;
+    font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0;
     text-align: center;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      font-size: $font-size-xs;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      font-size: 0.6rem;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      font-size: 0.6rem;
+    }
+
+    // Reduce size for screens with limited height (830px and below)
+    @include respond-to-height-max('sm') {
+      font-size: 0.6rem;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      font-size: 0.55rem;
+    }
+
+    @include respond-to-width-max('sm') {
+      font-size: 0.55rem;
+    }
 
     a {
       color: var(--color-secondary);
@@ -77,11 +127,40 @@
 
 .footer-credits {
   p.credits-text {
-    font-size: $font-size-xs;
+    font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
     text-align: center;
     line-height: 1.4;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      font-size: $font-size-xs;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      font-size: 0.6rem;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      font-size: 0.6rem;
+    }
+
+    // Reduce size for screens with limited height (830px and below)
+    @include respond-to-height-max('sm') {
+      font-size: 0.6rem;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      font-size: 0.55rem;
+    }
+
+    @include respond-to-width-max('sm') {
+      font-size: 0.55rem;
+    }
 
     a {
       color: var(--color-secondary);
@@ -102,10 +181,12 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: $spacing-sm;
   margin-bottom: $spacing-xs;
 
   @include respond-to-width-max('sm') {
     gap: $spacing-xs;
+    margin-top: $spacing-xs;
   }
 }
 
@@ -113,16 +194,18 @@
   @include button-base;
   display: inline-flex;
   align-items: center;
-  gap: $spacing-xs;
-  padding: $spacing-xs $spacing-sm;
-  font-size: $font-size-xs;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.55rem;
   text-decoration: none;
   border-radius: $border-radius-sm;
   transition: all $transition-fast;
   font-family: 'Press Start 2P', cursive;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  min-height: 36px;
+  letter-spacing: 0.25px;
+  min-height: 28px;
+  width: auto;
 
   .button-text {
     display: inline-block;
@@ -130,17 +213,18 @@
 
   // Touch-friendly on mobile
   @include mobile {
-    min-height: 44px;
-    padding: $spacing-xs $spacing-md;
-    font-size: 0.65rem;
+    min-height: 32px;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.5rem;
   }
 
   @include respond-to-width-max('sm') {
-    font-size: 0.6rem;
-    padding: $spacing-xs $spacing-sm;
+    font-size: 0.45rem;
+    padding: 0.25rem 0.35rem;
     min-width: auto;
     flex: 1;
     justify-content: center;
+    min-height: 26px;
   }
 
   &:hover {

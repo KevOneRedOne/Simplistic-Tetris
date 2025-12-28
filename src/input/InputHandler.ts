@@ -14,7 +14,8 @@ type InputAction =
   | 'hardDrop'
   | 'hold'
   | 'pause'
-  | 'restart';
+  | 'restart'
+  | 'quit';
 
 type ActionCallback = () => void;
 

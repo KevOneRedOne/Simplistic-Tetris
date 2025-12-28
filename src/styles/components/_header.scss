@@ -7,25 +7,36 @@
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid var(--color-primary);
-  padding: $spacing-md $spacing-lg;
+  padding: $spacing-sm $spacing-md;
   box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
 
+  // Match app-container padding for alignment
+  // Enlarge for large screens (tall displays)
+  @include respond-to-height-tall {
+    padding: $spacing-md $spacing-lg;
+  }
+
+  // Windows with system scale: match app-container padding
+  @include windows-with-scale {
+    padding: $spacing-sm $spacing-sm;
+  }
+
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
   @include respond-to-height-laptop-hd {
-    padding: $spacing-sm $spacing-md;
+    padding: $spacing-xs $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
   @include respond-to-height-max('sm') {
-    padding: $spacing-sm $spacing-md;
+    padding: $spacing-xs $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
   @include respond-to-height-max('xs') {
-    padding: $spacing-xs $spacing-sm;
+    padding: 0.25rem $spacing-xs;
   }
 
   // Reduce padding on smaller screens (tablets and small laptops)
@@ -33,7 +44,7 @@
     padding: $spacing-xs $spacing-sm;
   }
 
-  // Compact on mobile
+  // Compact on mobile: match app-container padding
   @include mobile {
     padding: $spacing-xs $spacing-sm;
   }
@@ -50,16 +61,38 @@
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  gap: $spacing-md;
+  gap: $spacing-sm;
+
+  // Windows with system scale: match game-layout max-width
+  @include windows-with-scale {
+    max-width: 1300px;
+    gap: $spacing-xs;
+  }
+
+  // Enlarge gap for large screens (tall displays): match game-layout max-width
+  @include respond-to-height-tall {
+    max-width: 1800px;
+    gap: $spacing-md;
+  }
+
+  // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @include respond-to-height-laptop-hd {
+    gap: $spacing-xs;
+  }
 
   // Reduce gap on medium screens
   @include respond-to-height-max('sm') {
-    gap: $spacing-sm;
+    gap: $spacing-xs;
+  }
+
+  // Very aggressive gap reduction for very small height screens (734px and below)
+  @include respond-to-height-max('xs') {
+    gap: 0.25rem;
   }
 
   // Reduce gap on smaller screens
   @include respond-to-width-max('lg') {
-    gap: $spacing-sm;
+    gap: $spacing-xs;
   }
 
   @include mobile {
@@ -73,15 +106,137 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: $spacing-sm;
 
-  img {
-    width: 50px;
-    height: 50px;
+  .home-button {
+    @include button-base;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--color-primary);
+    color: white;
+    padding: $spacing-xs;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    cursor: pointer;
+    transition: all $transition-fast;
+    border-radius: $border-radius-sm;
+    height: 36px;
+    width: 36px;
+    flex-shrink: 0;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      height: 40px;
+      width: 40px;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      height: 34px;
+      width: 34px;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      height: 34px;
+      width: 34px;
+      padding: 0.25rem;
+    }
+
+    // Ensure icon is visible
+    .iconify {
+      color: white;
+      opacity: 1;
+      width: 18px;
+      height: 18px;
+
+      @include respond-to-height-tall {
+        width: 20px;
+        height: 20px;
+      }
+
+      @include respond-to-height-max('sm') {
+        width: 16px;
+        height: 16px;
+      }
+
+      @include respond-to-height-max('xs') {
+        width: 14px;
+        height: 14px;
+      }
+    }
 
     // Reduce size on medium screens
     @include respond-to-height-max('sm') {
+      height: 32px;
+      width: 32px;
+      padding: 0.25rem;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      height: 30px;
+      width: 30px;
+      padding: 0.2rem;
+    }
+
+    @include mobile {
+      height: 36px;
+      width: 36px;
+    }
+
+    @include respond-to-width-max('sm') {
+      height: 32px;
+      width: 32px;
+      padding: 0.25rem;
+    }
+
+    &:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 255, 255, 0.3);
+      // Optimize animations for compositing
+      will-change: transform;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  img {
+    width: 45px;
+    height: 45px;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      width: 50px;
+      height: 50px;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
       width: 40px;
       height: 40px;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      width: 40px;
+      height: 40px;
+    }
+
+    // Reduce size on medium screens
+    @include respond-to-height-max('sm') {
+      width: 38px;
+      height: 38px;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      width: 32px;
+      height: 32px;
     }
 
     @include mobile {
@@ -106,17 +261,39 @@
 
   h1 {
     font-family: 'Press Start 2P', cursive;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     color: whitesmoke;
     text-shadow: 0 0 20px var(--color-primary);
     margin: 0;
     line-height: 1.4;
 
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      font-size: 1.3rem;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      font-size: 0.95rem;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      font-size: 0.95rem;
+      line-height: 1.3;
+    }
+
     // Reduce size on medium screens
     @include respond-to-height-max('sm') {
-      font-size: 1rem;
+      font-size: 0.9rem;
       line-height: 1.3;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      font-size: 0.8rem;
+      line-height: 1.2;
     }
 
     @include mobile {
@@ -154,12 +331,35 @@
     cursor: pointer;
     transition: all $transition-fast;
     border-radius: $border-radius-sm;
-    height: 40px;
+    height: 36px;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      height: 40px;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      height: 34px;
+      padding: 0.25rem $spacing-xs;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      height: 34px;
+      padding: 0.25rem $spacing-xs;
+    }
 
     // Reduce size on medium screens
     @include respond-to-height-max('sm') {
-      height: 36px;
-      padding: $spacing-xs;
+      height: 32px;
+      padding: 0.25rem $spacing-xs;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      height: 30px;
+      padding: 0.2rem 0.3rem;
     }
 
     .language-flag {
@@ -212,8 +412,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid var(--color-primary);
     border-radius: $border-radius-base;
@@ -221,10 +421,34 @@
     text-decoration: none;
     transition: all $transition-fast;
 
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      width: 40px;
+      height: 40px;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      width: 34px;
+      height: 34px;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      width: 34px;
+      height: 34px;
+    }
+
     // Reduce size on medium screens
     @include respond-to-height-max('sm') {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      width: 30px;
+      height: 30px;
     }
 
     .iconify {
@@ -238,11 +462,13 @@
       border-color: var(--color-accent);
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+      will-change: transform;
 
       .iconify {
         color: var(--color-accent);
         filter: drop-shadow(0 0 8px var(--color-accent));
         transform: scale(1.1);
+        will-change: transform;
       }
     }
 

@@ -6,6 +6,18 @@ import type { ControlsConfig, GameModeConfig } from '@/types/index';
 import { GameMode } from '@/types/index';
 import packageJson from '../../package.json';
 
+// Input action type for debounce configuration
+type InputAction =
+  | 'moveLeft'
+  | 'moveRight'
+  | 'moveDown'
+  | 'rotate'
+  | 'hardDrop'
+  | 'hold'
+  | 'pause'
+  | 'restart'
+  | 'quit';
+
 // App version from package.json
 export const APP_VERSION = packageJson.version;
 
@@ -99,6 +111,7 @@ export const DEFAULT_CONTROLS: ControlsConfig = {
   hold: ['Shift'],
   pause: ['Escape', 'p', 'P'],
   restart: ['Enter', 'r', 'R'],
+  quit: ['Tab'], // Universal key compatible with all keyboard layouts
 };
 
 // High scores
@@ -153,9 +166,10 @@ export const TARGET_FPS = 60;
 export const FRAME_TIME = 1000 / TARGET_FPS;
 
 // Input debounce (ms)
-export const INPUT_DEBOUNCE = {
-  ROTATE: 150,
-  HOLD: 200,
+export const INPUT_DEBOUNCE: Partial<Record<InputAction, number>> = {
+  rotate: 150,
+  hold: 200,
+  quit: 300, // Prevent accidental quits
 };
 
 // Ghost piece opacity

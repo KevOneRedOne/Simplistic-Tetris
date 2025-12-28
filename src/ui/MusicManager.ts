@@ -93,6 +93,8 @@ export class MusicManager {
     } else {
       this.credits = null; // Synthesized music has no credits
       this.initAudioContext();
+      // Setup MediaSession for synthesized music too
+      this.setupMediaSession();
     }
   }
 
@@ -111,10 +113,20 @@ export class MusicManager {
   }
 
   private initMp3Audio(mp3Path: string): void {
+    // Try to use existing audio element from DOM, otherwise create one
+    const existingAudio = document.getElementById('game-music') as HTMLAudioElement;
+    if (existingAudio) {
+      this.audio = existingAudio;
+      this.audio.src = mp3Path;
+    } else {
     this.audio = new Audio(mp3Path);
+    }
     this.audio.loop = true;
     // Increased volume for better balance with sound effects
     this.audio.volume = 0.5;
+    
+    // Setup MediaSession API for browser integration
+    this.setupMediaSession();
   }
 
   private initAudioContext(): void {
@@ -211,6 +223,10 @@ export class MusicManager {
         console.warn('Audio play failed:', error);
       });
       this.isPlaying = true;
+      // Update MediaSession
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = 'playing';
+      }
     } else if (this.audioContext) {
       // Resume audio context if suspended (browser autoplay policy)
       if (this.audioContext.state === 'suspended') {
@@ -222,6 +238,10 @@ export class MusicManager {
       this.isPlaying = true;
       this.currentNoteIndex = 0;
       this.playNextNote();
+      // Update MediaSession
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = 'playing';
+      }
     }
   }
 
@@ -236,6 +256,11 @@ export class MusicManager {
     if (this.intervalId !== null) {
       clearTimeout(this.intervalId);
       this.intervalId = null;
+    }
+
+    // Update MediaSession
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = 'paused';
     }
   }
 
@@ -260,6 +285,54 @@ export class MusicManager {
       this.stop();
     } else {
       this.play();
+    }
+  }
+
+  /**
+   * Setup MediaSession API for browser integration
+   * This allows the browser to show media controls in the tab/notification area
+   */
+  private setupMediaSession(): void {
+    if ('mediaSession' in navigator) {
+      const mediaSession = navigator.mediaSession;
+      
+      // Set metadata
+      mediaSession.metadata = new MediaMetadata({
+        title: 'Tetris Theme - Korobeiniki',
+        artist: this.credits?.author || 'Traditional',
+        album: 'Simplistic Tetris V2',
+        artwork: [
+          {
+            src: '/icons/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+        ],
+      });
+
+      // Set action handlers
+      mediaSession.setActionHandler('play', () => {
+        this.play();
+      });
+
+      mediaSession.setActionHandler('pause', () => {
+        this.stop();
+      });
+
+      // Update playback state when audio state changes (only for MP3)
+      if (this.audio) {
+        this.audio.addEventListener('play', () => {
+          mediaSession.playbackState = 'playing';
+        });
+
+        this.audio.addEventListener('pause', () => {
+          mediaSession.playbackState = 'paused';
+        });
+
+        this.audio.addEventListener('ended', () => {
+          mediaSession.playbackState = 'none';
+        });
+      }
     }
   }
 }

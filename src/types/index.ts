@@ -143,6 +143,7 @@ export interface ControlsConfig {
   hold: string[];
   pause: string[];
   restart: string[];
+  quit: string[];
 }
 
 export interface AnimationConfig {

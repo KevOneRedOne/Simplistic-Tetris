@@ -47,7 +47,10 @@ export default {
     scoreSaved: 'Score {score} saved!',
     welcome:
       'Welcome! Choose your game mode and start playing. Controls are displayed at the bottom of the page. {controls}',
-    controlsHint: 'Use arrow keys ⬅️➡️ to move, ⬆️ to rotate, ⬇️ to accelerate',
+    controlsHint:
+      '⬅️➡️ Move • ⬆️ Rotate • ⬇️ Accelerate • Space Drop • Shift Hold • P Pause • R Restart',
+    supportMessage:
+      'If you enjoyed the game and your Tetris break, feel free to support me or contribute to the project',
     audioEnabled: '🔊 Audio enabled',
   },
   controls: {
@@ -66,6 +69,14 @@ export default {
     pauseGame: 'Pause',
     restart: 'Restart',
     restartGame: 'Restart',
+    quitGame: 'Quit',
+    keySpace: 'Space',
+    keyShift: 'Shift',
+    keyEsc: 'ESC',
+    keyEnter: 'Enter',
+    keyTab: 'Tab',
+    keyP: 'P',
+    keyR: 'R',
   },
   settings: {
     theme: 'Theme',

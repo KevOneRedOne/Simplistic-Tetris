@@ -101,18 +101,48 @@
 .game-canvas-container {
   position: relative;
   width: 100%;
+  // Prevent layout shift
+  contain: layout style;
   max-width: 400px; // Max size on desktop
+  max-height: 800px; // Match side panels height
   margin: 0 auto;
   flex-shrink: 0; // Prevent canvas from shrinking
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   // Windows with system scale: adjust canvas size
   @include windows-with-scale {
     max-width: 380px;
+    max-height: 760px; // Maintain 1:2 ratio (380 * 2)
   }
 
   // Enlarge canvas for large screens (tall displays)
   @include respond-to-height-tall {
     max-width: 500px;
+    max-height: 1000px; // Match side panels height
+  }
+
+  @include respond-to-width-max('lg') {
+    max-height: none; // No height constraint on mobile/tablet
+  }
+
+  // Moderate canvas size reduction for modern 14" FHD laptops at 200% scale (900px height)
+  @include respond-to-height-laptop-hd {
+    max-width: 325px; // Adjusted to maintain ratio with 650px height
+    max-height: 650px; // Match side panels height
+  }
+
+  // Reduce canvas size for screens with limited height (830px and below) - after width rules
+  @include respond-to-height-max('sm') {
+    max-width: 300px; // Adjusted to maintain ratio with 600px height
+    max-height: 600px; // Match side panels height
+  }
+
+  // Very aggressive canvas size reduction for very small height screens (734px and below)
+  @include respond-to-height-max('xs') {
+    max-width: 250px; // Adjusted to maintain ratio with 500px height
+    max-height: 500px; // Match side panels height
   }
 
   #tetris {
@@ -126,6 +156,8 @@
     height: auto;
     display: block;
     max-width: 100%;
+    max-height: 100%; // Constrain to container height
+    object-fit: contain; // Maintain aspect ratio
   }
 
   // Ensure canvas is visible on mobile
@@ -133,6 +165,7 @@
     order: 2; // Show canvas after left panel on mobile
     width: 100%;
     max-width: 100%;
+    max-height: none; // No height constraint on mobile
   }
 
   // Reduce border on small screens
@@ -140,21 +173,6 @@
     #tetris {
       border-width: 2px;
     }
-  }
-
-  // Moderate canvas size reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @include respond-to-height-laptop-hd {
-    max-width: 380px;
-  }
-
-  // Reduce canvas size for screens with limited height (830px and below) - after width rules
-  @include respond-to-height-max('sm') {
-    max-width: 380px;
-  }
-
-  // Very aggressive canvas size reduction for very small height screens (734px and below)
-  @include respond-to-height-max('xs') {
-    max-width: 350px;
   }
 }
 
@@ -358,28 +376,39 @@
   }
 
   &.right-panel {
+    max-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: $spacing-sm;
+    overflow-y: auto;
+    min-height: 0;
 
-    // Enlarge gap for large screens (tall displays)
+    // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
+      max-height: 1000px;
       gap: $spacing-md;
     }
 
-    // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-width-max('lg') {
+      max-height: none; // No scroll on mobile
+    }
+
+    // Moderate max-height reduction for modern 14" FHD laptops at 200% scale (900px height)
     @include respond-to-height-laptop-hd {
+      max-height: 650px;
       gap: $spacing-xs;
     }
 
-    // Reduce gap for screens with limited height (830px and below)
+    // Reduce max-height for screens with limited height (830px and below) - after width rules
     @include respond-to-height-max('sm') {
+      max-height: 600px;
       gap: $spacing-xs;
     }
 
-    // Very aggressive gap reduction for very small height screens (734px and below)
+    // Very aggressive max-height reduction for very small height screens (734px and below)
     @include respond-to-height-max('xs') {
+      max-height: 500px;
       gap: 0.25rem;
     }
   }

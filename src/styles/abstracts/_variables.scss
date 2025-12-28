@@ -20,7 +20,8 @@ $font-size-3xl: 3rem;
 // Font families
 $font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 $font-family-mono: 'Courier New', Courier, monospace;
-$font-family-pixel: 'Press Start 2P', cursive;
+// Use fallback to prevent layout shift while font loads
+$font-family-pixel: 'Press Start 2P', 'Courier New', Courier, monospace;
 
 // Breakpoints
 $breakpoint-xs: 375px;

@@ -29,16 +29,41 @@ export default defineConfig({
     target: 'es2020',
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps in production for smaller bundle
     minify: 'esbuild',
+    cssMinify: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'game-core': ['./src/core/GameEngine.ts', './src/core/Board.ts', './src/core/Tetromino.ts'],
-          'rendering': ['./src/rendering/CanvasRenderer.ts', './src/rendering/AnimationEngine.ts'],
+        manualChunks: (id) => {
+          // Split vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('iconify')) {
+              return 'vendor-iconify';
+            }
+            return 'vendor';
+          }
+          // Split game chunks
+          if (id.includes('/core/')) {
+            return 'game-core';
+          }
+          if (id.includes('/rendering/')) {
+            return 'rendering';
+          }
+          if (id.includes('/ui/')) {
+            return 'ui';
+          }
+          if (id.includes('/i18n/')) {
+            return 'i18n';
+          }
         },
+        // Optimize chunk size
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
       },
     },
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000,
   },
   test: {
     globals: true,
