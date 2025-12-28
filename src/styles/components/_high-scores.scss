@@ -116,7 +116,7 @@
       min-height: 200px;
 
       li {
-        padding: $spacing-xs;
+        padding: $spacing-xs $spacing-sm;
         margin-bottom: $spacing-xs;
         background: rgba(255, 255, 255, 0.05);
         border-radius: $border-radius-sm;
