@@ -60,6 +60,7 @@
   align-items: center;
   justify-content: center;
   gap: $spacing-xs;
+  text-align: center;
 
   // Windows with system scale: match game-layout max-width
   @include windows-with-scale {
@@ -183,6 +184,7 @@
   flex-wrap: wrap;
   margin-top: $spacing-sm;
   margin-bottom: $spacing-xs;
+  width: 100%;
 
   @include respond-to-width-max('sm') {
     gap: $spacing-xs;

@@ -75,9 +75,15 @@ Before submitting a PR, make sure:
 
 This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
 
-## 💬 Questions?
+## 💬 Questions or Need Help?
 
-Feel free to open a [Discussion](https://github.com/KevOneRedOne/Simplistic-Tetris/discussions) or an [Issue](https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new) if you have questions!
+If you have a question, need clarification, or want to discuss your contribution:
+
+- Check if your question is answered in the [README](../README.md) or project documentation
+- Search [existing issues](https://github.com/KevOneRedOne/Simplistic-Tetris/issues) to see if it's already addressed
+- If not, [open a new issue](https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new) with clear details—screenshots or code snippets welcome!
+
+We're happy to help and appreciate your engagement!
 
 Thank you for contributing! 🙏
 

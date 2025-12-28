@@ -315,7 +315,6 @@ If you enjoy this game, consider supporting the project:
 - [☕ Buy me a coffee](https://buymeacoffee.com/kevoneredone) - Support with a small donation
 - [🐛 Report an issue](https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose) - Help improve the game
 - [🔧 Contribute](https://github.com/KevOneRedOne/Simplistic-Tetris) - Submit a pull request
-- [💬 Discussions](https://github.com/KevOneRedOne/Simplistic-Tetris/discussions) - Ask questions and share ideas
 
 ---
 

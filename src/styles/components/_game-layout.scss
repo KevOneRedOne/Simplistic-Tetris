@@ -49,7 +49,7 @@
 
 .game-layout {
   display: grid;
-  grid-template-columns: 320px 1fr 350px;
+  grid-template-columns: 335px 1fr 335px;
   gap: $spacing-lg;
   max-width: 1400px;
   margin: 0 auto;
@@ -57,13 +57,13 @@
 
   // Windows with system scale: adjust columns for better rendering
   @include windows-with-scale {
-    grid-template-columns: 300px 1fr 330px;
+    grid-template-columns: 315px 1fr 315px;
     max-width: 1300px;
   }
 
   // Enlarge for large screens (tall displays)
   @include respond-to-height-tall {
-    grid-template-columns: 400px 1fr 450px;
+    grid-template-columns: 425px 1fr 425px;
     max-width: 1800px;
     gap: $spacing-xl;
   }
@@ -110,6 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: center; // Center within grid column
 
   // Windows with system scale: adjust canvas size
   @include windows-with-scale {

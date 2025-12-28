@@ -31,11 +31,7 @@ Closes #(issue number)
 ## ✅ Checklist
 <!-- Mark completed items with an "x" -->
 - [ ] My code follows the project's style guidelines
-- [ ] I have performed a self-review of my code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have updated the documentation accordingly (README, CONTRIBUTING, etc.)
-- [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] My commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/) format
 
