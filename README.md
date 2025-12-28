@@ -26,18 +26,6 @@
 
 </div>
 
-<details>
-<summary><strong>📸 More Screenshots</strong> - Click to expand</summary>
-
-<div align="center">
-
-![Game Mode Selection](./public/images/game-mode.png)
-<p><em>Game mode selection screen</em></p>
-
-</div>
-
-</details>
-
 <div align="center">
 
 ## 💖 Support
