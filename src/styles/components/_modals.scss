@@ -23,7 +23,7 @@
 
   .modal-content {
     @include glass-effect;
-    padding: $spacing-xl;
+    padding: $spacing-lg;
     border-radius: $border-radius-lg;
     max-width: 500px;
     width: 90%;
@@ -35,25 +35,94 @@
       transform $transition-base;
     max-height: 90vh;
     overflow-y: auto;
+    contain: layout style paint;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      padding: $spacing-xl;
+      max-width: 600px;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      padding: $spacing-md;
+      max-width: 480px;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      padding: $spacing-md;
+      max-width: 450px;
+      max-height: 85vh;
+    }
+
+    // Reduce size for screens with limited height (830px and below)
+    @include respond-to-height-max('sm') {
+      padding: $spacing-md;
+      max-width: 450px;
+      max-height: 85vh;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      padding: $spacing-sm;
+      max-width: 400px;
+      max-height: 80vh;
+    }
 
     // Reduce padding on mobile
     @include mobile {
-      padding: $spacing-lg;
+      padding: $spacing-md;
+      max-width: 95%;
     }
 
     @include respond-to-width-max('sm') {
-      padding: $spacing-md;
+      padding: $spacing-sm;
       width: 95%;
+      max-width: 95%;
+      max-height: 85vh;
     }
 
     h2 {
       font-family: $font-family-pixel;
-      font-size: 1.3rem; // Same size as .modal-title for consistency
+      font-size: 1.1rem;
       margin-bottom: $spacing-md;
       color: var(--color-primary);
       text-shadow: 0 0 20px var(--color-primary);
       letter-spacing: 2px;
       line-height: 1.8;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        font-size: 1.3rem;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+        margin-bottom: $spacing-sm;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        margin-bottom: $spacing-sm;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        margin-bottom: $spacing-xs;
+      }
 
       @include respond-to-width-max('sm') {
         font-size: 0.9rem;
@@ -184,7 +253,42 @@
   // Start Modal specific styles
   .start-modal {
     max-width: 700px;
+    padding: $spacing-lg $spacing-md;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      max-width: 800px;
     padding: $spacing-xl $spacing-lg;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      max-width: 650px;
+      padding: $spacing-md $spacing-sm;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      max-width: 600px;
+      padding: $spacing-md $spacing-sm;
+    }
+
+    // Reduce size for screens with limited height (830px and below)
+    @include respond-to-height-max('sm') {
+      max-width: 550px;
+      padding: $spacing-md $spacing-sm;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      max-width: 500px;
+      padding: $spacing-sm $spacing-xs;
+    }
+
+    @include respond-to-width-max('sm') {
+      max-width: 95%;
+      padding: $spacing-md $spacing-sm;
+    }
 
     .modal-logo {
       margin-bottom: $spacing-md;
@@ -192,14 +296,46 @@
 
     .modal-title {
       font-family: 'Press Start 2P', cursive;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       line-height: 1.8;
       margin-bottom: $spacing-sm;
       color: var(--color-primary);
       text-shadow: 0 0 20px var(--color-primary);
       letter-spacing: 2px;
 
-      @media (max-width: $breakpoint-sm) {
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        font-size: 1.3rem;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+        margin-bottom: $spacing-xs;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        margin-bottom: $spacing-xs;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.25rem;
+      }
+
+      @include respond-to-width-max('sm') {
         font-size: 0.9rem;
         letter-spacing: 1px;
       }
@@ -216,12 +352,46 @@
       font-size: $font-size-sm;
       line-height: 1.7;
       opacity: 0.85;
-      margin-bottom: $spacing-lg;
+      margin-bottom: $spacing-md;
       padding: $spacing-md $spacing-lg;
       background: rgba(0, 255, 255, 0.05);
       border-left: 3px solid var(--color-primary);
       border-radius: $border-radius-sm;
       text-align: left;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        margin-bottom: $spacing-lg;
+        padding: $spacing-md $spacing-lg;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        font-size: 0.75rem;
+        padding: $spacing-sm $spacing-md;
+        margin-bottom: $spacing-sm;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 0.75rem;
+        padding: $spacing-sm $spacing-md;
+        margin-bottom: $spacing-sm;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.7rem;
+        padding: $spacing-xs $spacing-sm;
+        margin-bottom: $spacing-sm;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.65rem;
+        padding: $spacing-xs;
+        margin-bottom: $spacing-xs;
+      }
 
       @include respond-to-width-max('sm') {
         font-size: $font-size-xs;
@@ -231,13 +401,48 @@
 
     .modal-section-title {
       font-family: $font-family-pixel;
-      font-size: $font-size-lg;
+      font-size: $font-size-base;
       color: var(--color-secondary);
-      margin-bottom: $spacing-md;
-      margin-top: $spacing-lg;
+      margin-bottom: $spacing-sm;
+      margin-top: $spacing-md;
       text-shadow: 0 0 10px var(--color-secondary);
       letter-spacing: 1px;
       line-height: 1.6;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        font-size: $font-size-lg;
+        margin-bottom: $spacing-md;
+        margin-top: $spacing-lg;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        font-size: 0.85rem;
+        margin-bottom: $spacing-xs;
+        margin-top: $spacing-sm;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 0.85rem;
+        margin-bottom: $spacing-xs;
+        margin-top: $spacing-sm;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.8rem;
+        margin-bottom: $spacing-xs;
+        margin-top: $spacing-xs;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+        margin-top: 0.25rem;
+      }
     }
 
     .modal-buttons {
@@ -256,10 +461,41 @@
       flex-direction: column;
       align-items: center;
       gap: $spacing-sm;
-      padding: $spacing-lg;
-      min-height: 150px;
+      padding: $spacing-md;
+      min-height: 130px;
       justify-content: center;
       transition: all $transition-fast;
+      will-change: transform;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        padding: $spacing-lg;
+        min-height: 150px;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        padding: $spacing-sm;
+        min-height: 120px;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        padding: $spacing-sm;
+        min-height: 115px;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        padding: $spacing-sm;
+        min-height: 110px;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        padding: $spacing-xs;
+        min-height: 100px;
+      }
 
       @include respond-to-width-max('sm') {
         min-height: 120px;
@@ -403,23 +639,69 @@
   // Modal close button
   .modal-close {
     position: absolute;
-    top: $spacing-md;
-    right: $spacing-md;
+    top: $spacing-sm;
+    right: $spacing-sm;
     background: rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.8);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1;
     cursor: pointer;
     padding: 0;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all $transition-fast;
     border-radius: 50%;
     font-weight: 300;
+    will-change: transform;
+
+    // Enlarge for large screens (tall displays)
+    @include respond-to-height-tall {
+      top: $spacing-md;
+      right: $spacing-md;
+      width: 36px;
+      height: 36px;
+      font-size: 1.5rem;
+    }
+
+    // Windows with system scale
+    @include windows-with-scale {
+      top: $spacing-xs;
+      right: $spacing-xs;
+      width: 30px;
+      height: 30px;
+      font-size: 1.2rem;
+    }
+
+    // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+    @include respond-to-height-laptop-hd {
+      top: $spacing-xs;
+      right: $spacing-xs;
+      width: 30px;
+      height: 30px;
+      font-size: 1.2rem;
+    }
+
+    // Reduce size for screens with limited height (830px and below)
+    @include respond-to-height-max('sm') {
+      top: $spacing-xs;
+      right: $spacing-xs;
+      width: 28px;
+      height: 28px;
+      font-size: 1.1rem;
+    }
+
+    // Very aggressive size reduction for very small height screens (734px and below)
+    @include respond-to-height-max('xs') {
+      top: 0.25rem;
+      right: 0.25rem;
+      width: 26px;
+      height: 26px;
+      font-size: 1rem;
+    }
 
     &:hover {
       background: rgba(255, 0, 0, 0.3);

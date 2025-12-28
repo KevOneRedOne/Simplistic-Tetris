@@ -34,35 +34,35 @@
     justify-content: space-between;
     align-items: center;
     padding: $spacing-xs 0;
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
       padding: $spacing-sm 0;
-      font-size: 1rem;
+      font-size: 0.85rem;
     }
 
     // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
     @include respond-to-height-laptop-hd {
       padding: 0.4rem 0;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
     }
 
     // Reduce padding for screens with limited height (830px and below)
     @include respond-to-height-max('sm') {
       padding: 0.3rem 0;
-      font-size: 0.8rem;
+      font-size: 0.65rem;
     }
 
     // Very aggressive reduction for very small height screens (734px and below)
     @include respond-to-height-max('xs') {
       padding: 0.2rem 0;
-      font-size: 0.75rem;
+      font-size: 0.6rem;
     }
 
     @include respond-to-width-max('sm') {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
     }
 
     &:last-child {
@@ -76,15 +76,35 @@
     .value {
       color: var(--color-primary);
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 0.85rem;
 
       // Enlarge for large screens (tall displays)
       @include respond-to-height-tall {
-        font-size: 1.2rem;
+        font-size: 1rem;
+      }
+
+      // Windows with system scale
+      @include windows-with-scale {
+        font-size: 0.8rem;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 0.8rem;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.75rem;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.7rem;
       }
 
       @include respond-to-width-max('sm') {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
       }
     }
   }

@@ -26,17 +26,17 @@
 
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
   @include respond-to-height-laptop-hd {
-    padding: $spacing-xs $spacing-sm;
+    padding: $spacing-sm $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
   @include respond-to-height-max('sm') {
-    padding: $spacing-xs $spacing-sm;
+    padding: $spacing-sm $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
   @include respond-to-height-max('xs') {
-    padding: 0.25rem $spacing-xs;
+    padding: $spacing-xs $spacing-xs;
   }
 
   // Reduce padding on smaller screens (tablets and small laptops)
@@ -50,7 +50,7 @@
   }
 
   @include respond-to-width-max('sm') {
-    padding: 0.25rem $spacing-xs;
+    padding: $spacing-xs $spacing-xs;
   }
 }
 
@@ -72,7 +72,7 @@
   // Enlarge gap for large screens (tall displays): match game-layout max-width
   @include respond-to-height-tall {
     max-width: 1800px;
-    gap: $spacing-md;
+  gap: $spacing-md;
   }
 
   // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
@@ -102,11 +102,10 @@
   }
 }
 
-.header-logo {
+.header-left {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: $spacing-sm;
 
   .home-button {
     @include button-base;
@@ -204,10 +203,22 @@
       transform: translateY(0);
     }
   }
+}
 
-  img {
+.header-title {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 2;
+  justify-self: center;
+  width: 100%;
+  gap: $spacing-sm;
+
+  .header-logo-img {
     width: 45px;
     height: 45px;
+    flex-shrink: 0;
 
     // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
@@ -240,7 +251,6 @@
     }
 
     @include mobile {
-      margin: 0 auto;
       width: 40px;
       height: 40px;
     }
@@ -250,16 +260,6 @@
       height: 30px;
     }
   }
-}
-
-.header-title {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-column: 2;
-  justify-self: center;
-  width: 100%;
 
   h1 {
     font-family: 'Press Start 2P', cursive;
@@ -337,7 +337,7 @@
 
     // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
-      height: 40px;
+    height: 40px;
     }
 
     // Windows with system scale

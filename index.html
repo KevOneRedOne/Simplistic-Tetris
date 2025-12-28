@@ -29,7 +29,8 @@
   <!-- Preload critical resources -->
   <link rel="preload" href="/icons/android-chrome-512x512.png" as="image" />
   <!-- Preload font to prevent layout shift -->
-  <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2"
+    as="font" type="font/woff2" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=optional" rel="stylesheet" />
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
 </head>
@@ -38,13 +39,15 @@
   <!-- Header -->
   <header class="game-header">
     <div class="header-container">
-      <div class="header-logo">
-        <img src="/icons/android-chrome-512x512.png" alt="Tetris" width="50" height="50" fetchpriority="high">
-        <button id="show-mode-selection-button" class="home-button" title="Select game mode" aria-label="Select game mode">
+      <div class="header-left">
+        <button id="show-mode-selection-button" class="home-button" data-i18n-title="buttons.home"
+          data-i18n-aria-label="buttons.home">
           <span class="iconify" data-icon="mdi:home" data-width="20"></span>
         </button>
       </div>
       <div class="header-title">
+        <img src="/icons/android-chrome-512x512.png" alt="Tetris" width="50" height="50" fetchpriority="high"
+          class="header-logo-img">
         <h1>Simplistic Tetris</h1>
       </div>
       <div class="header-author">
@@ -189,13 +192,16 @@
     <div class="footer-content">
       <!-- Support Buttons -->
       <div class="footer-support">
-        <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-button support-button-coffee" data-i18n="buttons.tip">
+        <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer"
+          class="support-button support-button-coffee" data-i18n="buttons.tip">
           ☕
         </a>
-        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose" target="_blank" rel="noopener noreferrer" class="support-button support-button-issues" data-i18n="buttons.issues">
+        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose" target="_blank"
+          rel="noopener noreferrer" class="support-button support-button-issues" data-i18n="buttons.issues">
           🐛
         </a>
-        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer" class="support-button support-button-contribute" data-i18n="buttons.contribute">
+        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
+          class="support-button support-button-contribute" data-i18n="buttons.contribute">
           🔧
         </a>
       </div>
@@ -231,7 +237,7 @@
     <div class="modal-content">
       <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
       <h2 data-i18n="messages.gameOver">Game Over</h2>
-      
+
       <!-- Stats Grid -->
       <div class="game-over-stats-grid">
         <div class="stat-card stat-card-primary">
@@ -267,15 +273,19 @@
         <p id="not-high-score-text"></p>
       </div>
       <!-- Support message -->
-      <div class="game-over-support" style="margin: 1rem 0; padding: 0.75rem 1rem; background: rgba(255, 193, 7, 0.1); border-left: 3px solid rgba(255, 193, 7, 0.6); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.9; text-align: center;">
+      <div class="game-over-support"
+        style="margin: 1rem 0; padding: 0.75rem 1rem; background: rgba(255, 193, 7, 0.1); border-left: 3px solid rgba(255, 193, 7, 0.6); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.9; text-align: center;">
         <p style="margin: 0 0 0.5rem 0;" data-i18n="messages.supportMessage"></p>
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center;">
-          <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
+          <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-link"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
             <span>☕</span>
             <span data-i18n="buttons.tip">Offrir un café</span>
           </a>
           <span style="color: rgba(255, 255, 255, 0.5);">•</span>
-          <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer" class="support-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
+          <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
+            class="support-link"
+            style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
             <span>🔧</span>
             <span data-i18n="buttons.contribute">Contribuer</span>
           </a>
@@ -288,7 +298,8 @@
   </div>
 
   <!-- Audio element for browser media controls -->
-  <audio id="game-music" preload="auto" loop style="display: none;" aria-label="Game music" crossorigin="anonymous"></audio>
+  <audio id="game-music" preload="auto" loop style="display: none;" aria-label="Game music"
+    crossorigin="anonymous"></audio>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

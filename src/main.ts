@@ -440,14 +440,34 @@ class TetrisGame {
     const button = document.getElementById('show-mode-selection-button');
     if (button) {
       button.addEventListener('click', () => {
-        // Check if modal already exists
-        const existingModal = document.getElementById('mode-select-modal');
-        if (existingModal) {
-          existingModal.classList.add('active');
-          existingModal.style.display = 'flex';
-        } else {
-          this.showModeSelection();
+        // Stop the game if running
+        if (this.gameEngine) {
+          // Stop game loop
+          if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+          }
+
+          // Clear animations
+          this.animationEngine.clearAll();
+
+          // Hide all modals
+          this.uiManager.hidePause();
+          const gameOverModal = document.getElementById('game-over-modal');
+          if (gameOverModal) {
+            gameOverModal.style.display = 'none';
+          }
+          const modeSelectModal = document.getElementById('mode-select-modal');
+          if (modeSelectModal) {
+            modeSelectModal.style.display = 'none';
+          }
         }
+
+        // Stop music
+        this.musicManager.stop();
+
+        // Reload the page to reset everything
+        window.location.reload();
       });
     }
   }

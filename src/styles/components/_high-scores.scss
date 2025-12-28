@@ -125,6 +125,35 @@
         align-items: center;
         font-size: 0.7rem;
 
+        // Enlarge for large screens (tall displays)
+        @include respond-to-height-tall {
+          font-size: 0.85rem;
+        }
+
+        // Windows with system scale
+        @include windows-with-scale {
+          font-size: 0.65rem;
+        }
+
+        // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+        @include respond-to-height-laptop-hd {
+          font-size: 0.65rem;
+        }
+
+        // Reduce size for screens with limited height (830px and below)
+        @include respond-to-height-max('sm') {
+          font-size: 0.65rem;
+        }
+
+        // Very aggressive size reduction for very small height screens (734px and below)
+        @include respond-to-height-max('xs') {
+          font-size: 0.6rem;
+        }
+
+        @include respond-to-width-max('sm') {
+          font-size: 0.65rem;
+        }
+
         &.no-scores {
           opacity: 0.5;
           font-style: italic;
@@ -191,14 +220,72 @@
         .key {
           color: var(--color-accent);
           font-weight: bold;
-          font-size: $font-size-xs;
+          font-size: 0.7rem;
           white-space: nowrap;
+
+          // Enlarge for large screens (tall displays)
+          @include respond-to-height-tall {
+            font-size: 0.85rem;
+          }
+
+          // Windows with system scale
+          @include windows-with-scale {
+            font-size: 0.65rem;
+          }
+
+          // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+          @include respond-to-height-laptop-hd {
+            font-size: 0.65rem;
+          }
+
+          // Reduce size for screens with limited height (830px and below)
+          @include respond-to-height-max('sm') {
+            font-size: 0.65rem;
+          }
+
+          // Very aggressive size reduction for very small height screens (734px and below)
+          @include respond-to-height-max('xs') {
+            font-size: 0.6rem;
+          }
+
+          @include respond-to-width-max('sm') {
+            font-size: 0.65rem;
+          }
         }
 
         .desc {
           color: rgba(255, 255, 255, 0.7);
-          font-size: $font-size-xs;
+          font-size: 0.7rem;
           white-space: nowrap;
+
+          // Enlarge for large screens (tall displays)
+          @include respond-to-height-tall {
+            font-size: 0.85rem;
+          }
+
+          // Windows with system scale
+          @include windows-with-scale {
+            font-size: 0.65rem;
+          }
+
+          // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+          @include respond-to-height-laptop-hd {
+            font-size: 0.65rem;
+          }
+
+          // Reduce size for screens with limited height (830px and below)
+          @include respond-to-height-max('sm') {
+            font-size: 0.65rem;
+          }
+
+          // Very aggressive size reduction for very small height screens (734px and below)
+          @include respond-to-height-max('xs') {
+            font-size: 0.6rem;
+          }
+
+          @include respond-to-width-max('sm') {
+            font-size: 0.65rem;
+          }
         }
       }
     }
