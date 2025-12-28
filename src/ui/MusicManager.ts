@@ -119,12 +119,12 @@ export class MusicManager {
       this.audio = existingAudio;
       this.audio.src = mp3Path;
     } else {
-    this.audio = new Audio(mp3Path);
+      this.audio = new Audio(mp3Path);
     }
     this.audio.loop = true;
     // Increased volume for better balance with sound effects
     this.audio.volume = 0.5;
-    
+
     // Setup MediaSession API for browser integration
     this.setupMediaSession();
   }
@@ -295,7 +295,7 @@ export class MusicManager {
   private setupMediaSession(): void {
     if ('mediaSession' in navigator) {
       const mediaSession = navigator.mediaSession;
-      
+
       // Set metadata
       mediaSession.metadata = new MediaMetadata({
         title: 'Tetris Theme - Korobeiniki',
