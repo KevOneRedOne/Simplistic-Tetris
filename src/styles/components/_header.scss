@@ -72,7 +72,7 @@
   // Enlarge gap for large screens (tall displays): match game-layout max-width
   @include respond-to-height-tall {
     max-width: 1800px;
-  gap: $spacing-md;
+    gap: $spacing-md;
   }
 
   // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
@@ -337,7 +337,7 @@
 
     // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
-    height: 40px;
+      height: 40px;
     }
 
     // Windows with system scale

@@ -152,6 +152,8 @@ class TetrisGame {
         this.initializeHTMLTranslations(); // Re-translate all elements first
         this.updateModalsTranslations(); // Then update modals (overrides data-i18n with proper emoji handling)
         this.setupMusicCredits(); // Update credits if needed
+        // Update high scores display to re-render with new translations
+        this.updateHighScoresDisplay(this.displayedScoreMode);
       })();
     });
   }

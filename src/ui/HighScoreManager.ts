@@ -6,6 +6,7 @@
 import { GameMode } from '@/types/index';
 import type { HighScore } from '@/types/index';
 import { MAX_HIGH_SCORES, PLAYER_NAME_MAX_LENGTH, STORAGE_KEYS } from '@constants/config';
+import { i18n } from '@i18n/i18n';
 
 export class HighScoreManager {
   private isLocalStorageAvailable: boolean;
@@ -164,6 +165,33 @@ export class HighScoreManager {
   }
 
   /**
+   * Format date for display (relative or absolute)
+   */
+  private formatDate(timestamp: number): string {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (days === 0) {
+      return i18n.t('stats.today');
+    } else if (days === 1) {
+      return i18n.t('stats.yesterday');
+    } else if (days < 7) {
+      return i18n.t('stats.daysAgo', { days });
+    } else if (days < 30) {
+      const weeks = Math.floor(days / 7);
+      return i18n.t('stats.weeksAgo', { weeks });
+    } else {
+      const date = new Date(timestamp);
+      const locale = i18n.getLocale();
+      return date.toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
+        month: 'short',
+        day: 'numeric',
+      });
+    }
+  }
+
+  /**
    * Render high scores to HTML list
    */
   public renderHighScores(mode: GameMode, containerElement: HTMLElement): void {
@@ -173,22 +201,41 @@ export class HighScoreManager {
     let html = '';
 
     if (scores.length === 0 && !lastAttempt) {
-      containerElement.innerHTML = '<li class="no-scores">No scores yet</li>';
+      containerElement.innerHTML = `<li class="no-scores">${i18n.t('stats.noScoresYet')}</li>`;
       return;
     }
+
+    // Render header with column titles
+    html += `
+      <li class="high-score-header">
+        <span class="rank">${i18n.t('stats.rank')}</span>
+        <span class="name">${i18n.t('stats.name')}</span>
+        <span class="score">${i18n.t('stats.score')}</span>
+        <span class="details">${i18n.t('stats.details')}</span>
+      </li>
+    `;
 
     // Render high scores
     if (scores.length > 0) {
       html += scores
-        .map(
-          (score, index) => `
+        .map((score, index) => {
+          const dateStr = this.formatDate(score.timestamp);
+          const durationStr = score.duration || '—';
+          const linesTooltip = i18n.t('stats.lines') + ': ' + score.lines;
+          const levelTooltip = i18n.t('stats.level') + ': ' + score.level;
+          return `
           <li class="high-score-item">
             <span class="rank">${index + 1}.</span>
             <span class="name">${score.playerName}</span>
-            <span class="score">${score.score}</span>
+            <span class="score">${score.score.toLocaleString()}</span>
+            <span class="details" title="${dateStr}">
+              <span class="lines" title="${linesTooltip}">${score.lines}L</span>
+              <span class="level" title="${levelTooltip}">L${score.level}</span>
+              ${score.duration ? `<span class="time">${durationStr}</span>` : ''}
+            </span>
           </li>
-        `
-        )
+        `;
+        })
         .join('');
     }
 
@@ -197,11 +244,20 @@ export class HighScoreManager {
       const isInHighScores = scores.some((s) => s.timestamp === lastAttempt.timestamp);
 
       if (!isInHighScores) {
+        const dateStr = this.formatDate(lastAttempt.timestamp);
+        const durationStr = lastAttempt.duration || '—';
+        const linesTooltip = i18n.t('stats.lines') + ': ' + lastAttempt.lines;
+        const levelTooltip = i18n.t('stats.level') + ': ' + lastAttempt.level;
         html += `
           <li class="high-score-item last-attempt">
             <span class="rank">—</span>
             <span class="name">${lastAttempt.playerName}</span>
-            <span class="score">${lastAttempt.score}</span>
+            <span class="score">${lastAttempt.score.toLocaleString()}</span>
+            <span class="details" title="${dateStr}">
+              <span class="lines" title="${linesTooltip}">${lastAttempt.lines}L</span>
+              <span class="level" title="${levelTooltip}">L${lastAttempt.level}</span>
+              ${lastAttempt.duration ? `<span class="time">${durationStr}</span>` : ''}
+            </span>
           </li>
         `;
       }

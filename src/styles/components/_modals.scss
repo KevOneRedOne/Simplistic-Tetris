@@ -258,7 +258,7 @@
     // Enlarge for large screens (tall displays)
     @include respond-to-height-tall {
       max-width: 800px;
-    padding: $spacing-xl $spacing-lg;
+      padding: $spacing-xl $spacing-lg;
     }
 
     // Windows with system scale
