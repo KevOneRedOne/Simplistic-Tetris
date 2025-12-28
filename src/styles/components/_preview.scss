@@ -1,5 +1,6 @@
 // Preview Component
 @use '../abstracts/variables' as *;
+@use '../abstracts/media-queries' as *;
 
 .preview-row {
   display: flex;
@@ -8,25 +9,25 @@
   justify-content: center;
 
   // Enlarge for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     margin-top: $spacing-lg;
     gap: $spacing-md;
   }
 
   // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     margin-top: $spacing-sm;
     gap: $spacing-xs;
   }
 
   // Reduce margin for screens with limited height (830px and below)
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     margin-top: $spacing-sm;
     gap: $spacing-xs;
   }
 
   // Very aggressive reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     margin-top: $spacing-xs;
     gap: 0.25rem;
   }
@@ -44,25 +45,25 @@
     text-transform: uppercase;
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       font-size: 0.85rem;
       margin-bottom: $spacing-sm;
     }
 
     // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       margin-bottom: 0.3rem;
       font-size: 0.7rem;
     }
 
     // Reduce margin for screens with limited height (830px and below)
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       margin-bottom: 0.25rem;
       font-size: 0.65rem;
     }
 
     // Very aggressive reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       margin-bottom: 0.2rem;
       font-size: 0.6rem;
     }
@@ -78,25 +79,25 @@
     height: 120px;
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       width: 150px;
       height: 150px;
     }
 
     // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       width: 115px;
       height: 115px;
     }
 
     // Reduce size for screens with limited height (830px and below)
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       width: 110px;
       height: 110px;
     }
 
     // Very aggressive size reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       width: 100px;
       height: 100px;
     }

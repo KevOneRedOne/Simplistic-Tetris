@@ -1,6 +1,7 @@
 // Notifications Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/media-queries' as *;
 
 .notification {
   position: fixed;
@@ -24,13 +25,13 @@
   box-shadow: $shadow-lg;
   backdrop-filter: blur(10px);
 
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     top: 120px;
     font-size: 0.6rem;
     padding: $spacing-sm $spacing-md;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     top: 110px;
     font-size: 0.5rem;
     padding: $spacing-xs $spacing-sm;

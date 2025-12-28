@@ -1,0 +1,465 @@
+// Media Queries SCSS
+// Centralized system for responsive design and high-DPI screens
+@use 'variables' as *;
+
+// ============================================
+// Breakpoint Variables
+// ============================================
+
+// Height breakpoints (viewport height)
+$height-xs: 734px; // Very small height screens
+$height-sm: 830px; // Small height screens
+$height-md: 1000px; // Medium height screens
+$height-lg: 1300px; // Large height screens (tall displays)
+
+// Width breakpoints (already defined in variables, but re-exported for clarity)
+// $breakpoint-xs: 375px
+// $breakpoint-sm: 576px
+// $breakpoint-md: 768px
+// $breakpoint-lg: 992px
+// $breakpoint-xl: 1200px
+
+// Device Pixel Ratio breakpoints
+$dpr-1-5: 1.5; // Standard Retina
+$dpr-2: 2; // High DPI (Retina, 4K)
+$dpr-3: 3; // Ultra high DPI
+
+// Windows Scale Factors (Windows system scale)
+$scale-150: 1.5; // Windows 150% scale
+$scale-175: 1.75; // Windows 175% scale
+$scale-200: 2; // Windows 200% scale
+
+// ============================================
+// Mixins for Height Breakpoints
+// ============================================
+
+// Respond to height breakpoint (max-height)
+@mixin respond-to-height-max($breakpoint) {
+  @if $breakpoint == 'xs' {
+    @media (max-height: $height-xs) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm' {
+    @media (max-height: $height-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (max-height: $height-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (max-height: $height-lg) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown height breakpoint: #{$breakpoint}";
+  }
+}
+
+// Respond to height breakpoint (min-height)
+@mixin respond-to-height-min($breakpoint) {
+  @if $breakpoint == 'xs' {
+    @media (min-height: $height-xs) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm' {
+    @media (min-height: $height-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (min-height: $height-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (min-height: $height-lg) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown height breakpoint: #{$breakpoint}";
+  }
+}
+
+// Specific height ranges (commonly used patterns)
+@mixin respond-to-height-short {
+  @media (max-height: $height-sm) {
+    @content;
+  }
+}
+
+@mixin respond-to-height-medium {
+  @media (max-height: $height-md) and (min-height: 831px) {
+    @content;
+  }
+}
+
+@mixin respond-to-height-tall {
+  @media (min-height: $height-lg) {
+    @content;
+  }
+}
+
+// Specific pattern: Modern 14" FHD laptops at 200% scale (900px height)
+@mixin respond-to-height-laptop-hd {
+  @media (max-height: $height-md) and (min-height: 831px) {
+    @content;
+  }
+}
+
+// ============================================
+// Mixins for Width Breakpoints
+// ============================================
+
+// Respond to width breakpoint (max-width) - mobile-first approach
+@mixin respond-to-width-max($breakpoint) {
+  @if $breakpoint == 'xs' {
+    @media (max-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm' {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl' {
+    @media (max-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown width breakpoint: #{$breakpoint}";
+  }
+}
+
+// Respond to width breakpoint (min-width) - desktop-first approach
+@mixin respond-to-width-min($breakpoint) {
+  @if $breakpoint == 'xs' {
+    @media (min-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == 'sm' {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == 'xl' {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown width breakpoint: #{$breakpoint}";
+  }
+}
+
+// ============================================
+// Mixins for Device Pixel Ratio (DPR)
+// ============================================
+
+// Respond to device pixel ratio (for high-DPI screens)
+@mixin respond-to-dpr($ratio) {
+  @media (-webkit-min-device-pixel-ratio: $ratio),
+         (min-resolution: #{$ratio}dppx),
+         (min-resolution: #{$ratio * 96}dpi) {
+    @content;
+  }
+}
+
+// Respond to high-DPI screens (Retina, 4K, etc.)
+@mixin respond-to-high-dpi {
+  @include respond-to-dpr($dpr-2) {
+    @content;
+  }
+}
+
+// Respond to ultra high-DPI screens
+@mixin respond-to-ultra-high-dpi {
+  @include respond-to-dpr($dpr-3) {
+    @content;
+  }
+}
+
+// ============================================
+// Combined Mixins (Width + Height + DPR)
+// ============================================
+
+// Respond to combined width and height
+@mixin respond-to-size($width: null, $height: null) {
+  $query: '';
+
+  @if $width {
+    @if type-of($width) == 'string' {
+      @if $width == 'max-xs' {
+        $query: $query + '(max-width: #{$breakpoint-xs})';
+      } @else if $width == 'max-sm' {
+        $query: $query + '(max-width: #{$breakpoint-sm})';
+      } @else if $width == 'max-md' {
+        $query: $query + '(max-width: #{$breakpoint-md})';
+      } @else if $width == 'max-lg' {
+        $query: $query + '(max-width: #{$breakpoint-lg})';
+      } @else if $width == 'min-sm' {
+        $query: $query + '(min-width: #{$breakpoint-sm})';
+      } @else if $width == 'min-md' {
+        $query: $query + '(min-width: #{$breakpoint-md})';
+      } @else if $width == 'min-lg' {
+        $query: $query + '(min-width: #{$breakpoint-lg})';
+      }
+    } @else {
+      $query: $query + '(max-width: #{$width}px)';
+    }
+  }
+
+  @if $height {
+    @if $query != '' {
+      $query: $query + ' and ';
+    }
+    @if type-of($height) == 'string' {
+      @if $height == 'max-xs' {
+        $query: $query + '(max-height: #{$height-xs})';
+      } @else if $height == 'max-sm' {
+        $query: $query + '(max-height: #{$height-sm})';
+      } @else if $height == 'max-md' {
+        $query: $query + '(max-height: #{$height-md})';
+      } @else if $height == 'max-lg' {
+        $query: $query + '(max-height: #{$height-lg})';
+      } @else if $height == 'min-sm' {
+        $query: $query + '(min-height: #{$height-sm})';
+      } @else if $height == 'min-md' {
+        $query: $query + '(min-height: #{$height-md})';
+      } @else if $height == 'min-lg' {
+        $query: $query + '(min-height: #{$height-lg})';
+      }
+    } @else {
+      $query: $query + '(max-height: #{$height}px)';
+    }
+  }
+
+  @if $query != '' {
+    @media (#{$query}) {
+      @content;
+    }
+  }
+}
+
+// Respond to high-DPI screens with specific size constraints
+@mixin respond-to-high-dpi-size($width: null, $height: null) {
+  $query: '';
+
+  // Add DPR condition
+  $query: $query + '(-webkit-min-device-pixel-ratio: #{$dpr-2}), (min-resolution: #{$dpr-2}dppx)';
+
+  // Add width condition if specified
+  @if $width {
+    @if type-of($width) == 'string' {
+      @if $width == 'max-md' {
+        $query: $query + ' and (max-width: #{$breakpoint-md})';
+      } @else if $width == 'max-lg' {
+        $query: $query + ' and (max-width: #{$breakpoint-lg})';
+      }
+    } @else {
+      $query: $query + ' and (max-width: #{$width}px)';
+    }
+  }
+
+  // Add height condition if specified
+  @if $height {
+    @if type-of($height) == 'string' {
+      @if $height == 'max-md' {
+        $query: $query + ' and (max-height: #{$height-md})';
+      } @else if $height == 'max-sm' {
+        $query: $query + ' and (max-height: #{$height-sm})';
+      }
+    } @else {
+      $query: $query + ' and (max-height: #{$height}px)';
+    }
+  }
+
+  @media (#{$query}) {
+    @content;
+  }
+}
+
+// ============================================
+// Convenience Mixins (Common Patterns)
+// ============================================
+
+// Mobile devices
+@mixin mobile {
+  @include respond-to-width-max('md') {
+    @content;
+  }
+}
+
+// Tablet devices
+@mixin tablet {
+  @include respond-to-width-min('md') {
+    @include respond-to-width-max('lg') {
+      @content;
+    }
+  }
+}
+
+// Desktop devices
+@mixin desktop {
+  @include respond-to-width-min('lg') {
+    @content;
+  }
+}
+
+// Short screens (height constraint)
+@mixin short-screen {
+  @include respond-to-height-short {
+    @content;
+  }
+}
+
+// Tall screens (height advantage)
+@mixin tall-screen {
+  @include respond-to-height-tall {
+    @content;
+  }
+}
+
+// High-DPI mobile devices (e.g., iPhone Retina)
+@mixin high-dpi-mobile {
+  @include respond-to-width-max('md') {
+    @include respond-to-high-dpi {
+      @content;
+    }
+  }
+}
+
+// High-DPI desktop devices (e.g., Retina MacBook, 4K monitors)
+@mixin high-dpi-desktop {
+  @include respond-to-width-min('lg') {
+    @include respond-to-high-dpi {
+      @content;
+    }
+  }
+}
+
+// ============================================
+// Windows Scale System Mixins
+// ============================================
+// Specific handling for Windows with high system scale (150%, 175%, 200%)
+// These mixins detect high-resolution screens with Windows system scale
+
+// Windows with 150% scale (e.g., 4K at 150% = ~2560x1440 CSS viewport)
+@mixin windows-scale-150 {
+  // Detects screens with high DPR and medium viewport (indicates 150% scale)
+  @media (-webkit-min-device-pixel-ratio: 1.5),
+    (min-resolution: 1.5dppx),
+    (min-resolution: 144dpi) {
+    // For desktop screens with reduced height (sign of scale)
+    @media (min-width: $breakpoint-lg) and (max-height: 1440px) {
+      @content;
+    }
+  }
+}
+
+// Windows with 175% scale (e.g., 4K at 175% = ~2194x1234 CSS viewport)
+@mixin windows-scale-175 {
+  // Detects screens with high DPR and reduced viewport
+  @media (-webkit-min-device-pixel-ratio: 1.75),
+    (min-resolution: 1.75dppx),
+    (min-resolution: 168dpi) {
+    @media (min-width: $breakpoint-lg) and (max-height: 1234px) {
+      @content;
+    }
+  }
+}
+
+// Windows with 200% scale (e.g., 4K at 200% = 1920x1080 CSS viewport)
+// This is the most common case for 14" FHD laptops with 200% scale
+@mixin windows-scale-200 {
+  // Detects screens with 2x DPR and reduced viewport
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
+    // For desktop screens with limited height (sign of 200% scale)
+    @media (min-width: $breakpoint-lg) and (max-height: 1080px) {
+      @content;
+    }
+  }
+}
+
+// Windows with high scale (150% to 200%) - combined mixin
+// Use this mixin to target all Windows scale cases
+@mixin windows-high-scale {
+  @include windows-scale-150 {
+    @content;
+  }
+
+  @include windows-scale-175 {
+    @content;
+  }
+
+  @include windows-scale-200 {
+    @content;
+  }
+}
+
+// Windows with high scale AND limited height (specific case for laptops)
+// Combines system scale + height constraint
+@mixin windows-scaled-laptop {
+  // Detects high DPR (sign of scale) + limited height (laptop)
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+    @media (min-width: $breakpoint-md) and (max-height: $height-md) {
+      @content;
+    }
+  }
+}
+
+// Windows with high scale AND very limited height (compact laptops)
+@mixin windows-scaled-compact {
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+    @media (min-width: $breakpoint-md) and (max-height: $height-sm) {
+      @content;
+    }
+  }
+}
+
+// Smart detection: Windows with scale based on viewport/DPR ratio
+// If DPR is high but viewport is reduced, it's probably a Windows scale
+@mixin windows-scaled-viewport {
+  // DPR >= 1.5 AND reduced viewport = probably Windows scale
+  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+    // Desktop with reduced viewport (height < 1200px with high DPR = scale)
+    @media (min-width: $breakpoint-lg) and (max-height: 1200px) {
+      @content;
+    }
+  }
+}
+
+// Combined mixin for all Windows scale cases
+// Use this mixin to apply styles to all Windows screens with scale
+@mixin windows-with-scale {
+  // 150% scale
+  @include windows-scale-150 {
+    @content;
+  }
+
+  // 175% scale
+  @include windows-scale-175 {
+    @content;
+  }
+
+  // 200% scale
+  @include windows-scale-200 {
+    @content;
+  }
+
+  // Generic case (detection by ratio)
+  @include windows-scaled-viewport {
+    @content;
+  }
+}

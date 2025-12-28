@@ -4,7 +4,7 @@
  */
 
 import type { BoardGrid, Tetromino } from '@/types/index';
-import { BOARD_ROWS, BOARD_COLS, CELL_SIZE, GHOST_PIECE_OPACITY } from '@constants/config';
+import { BOARD_COLS, BOARD_ROWS, CELL_SIZE, GHOST_PIECE_OPACITY } from '@constants/config';
 import { getTetrominoOccupiedCells } from '@core/Tetromino';
 
 export class CanvasRenderer {
@@ -244,5 +244,19 @@ export class CanvasRenderer {
    */
   public getCellSize(): number {
     return this.cellSize;
+  }
+
+  /**
+   * Get canvas element
+   */
+  public getCanvas(): HTMLCanvasElement {
+    return this.canvas;
+  }
+
+  /**
+   * Get canvas rendering context
+   */
+  public getContext(): CanvasRenderingContext2D {
+    return this.ctx;
   }
 }

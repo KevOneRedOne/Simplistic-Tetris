@@ -1,5 +1,6 @@
 // High Scores Component
 @use '../abstracts/variables' as *;
+@use '../abstracts/media-queries' as *;
 
 .side-panel {
   .scores-section {
@@ -174,7 +175,7 @@
         }
       }
 
-      @media (max-width: $breakpoint-md) {
+      @include mobile {
         min-width: 60px;
         max-width: 80px;
         padding: $spacing-xs;

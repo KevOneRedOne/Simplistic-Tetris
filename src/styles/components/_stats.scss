@@ -1,30 +1,31 @@
 // Stats Component
 @use '../abstracts/variables' as *;
+@use '../abstracts/media-queries' as *;
 
 .stats {
   margin-bottom: $spacing-lg;
 
   // Enlarge for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     margin-bottom: $spacing-xl;
   }
 
   // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     margin-bottom: $spacing-md;
   }
 
   // Reduce margin for screens with limited height (830px and below)
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     margin-bottom: $spacing-sm;
   }
 
   // Very aggressive margin reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     margin-bottom: $spacing-xs;
   }
 
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     margin-bottom: $spacing-md;
   }
 
@@ -37,30 +38,30 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       padding: $spacing-sm 0;
       font-size: 1rem;
     }
 
     // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       padding: 0.4rem 0;
       font-size: 0.85rem;
     }
 
     // Reduce padding for screens with limited height (830px and below)
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       padding: 0.3rem 0;
       font-size: 0.8rem;
     }
 
     // Very aggressive reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       padding: 0.2rem 0;
       font-size: 0.75rem;
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       font-size: 0.75rem;
     }
 
@@ -78,11 +79,11 @@
       font-size: 1rem;
 
       // Enlarge for large screens (tall displays)
-      @media (min-height: 1300px) {
+      @include respond-to-height-tall {
         font-size: 1.2rem;
       }
 
-      @media (max-width: $breakpoint-sm) {
+      @include respond-to-width-max('sm') {
         font-size: 0.9rem;
       }
     }

@@ -626,7 +626,7 @@ class TetrisGame {
 
     this.gameEngine.addEventListener(GameEventType.LEVEL_UP, (event) => {
       this.audioManager.play('levelUp');
-      this.animationEngine.animateLevelUp(this.renderer['canvas']);
+      this.animationEngine.animateLevelUp(this.renderer.getCanvas());
       const data = event.data as { level: number };
       const message = i18n.t('messages.levelUp', { level: data.level });
       this.uiManager.showNotification(message, 'success', 2000);
@@ -690,7 +690,7 @@ class TetrisGame {
     this.renderer.render(state.board, state.currentPiece, ghostPiece);
 
     // Render animations
-    const ctx = this.renderer['ctx'];
+    const ctx = this.renderer.getContext();
     this.animationEngine.render(ctx);
 
     // Render preview pieces
@@ -775,6 +775,12 @@ class TetrisGame {
     level: number,
     isHighScore: boolean = false
   ): void {
+    // Capture highScoreManager reference before creating closures
+    const highScoreManager = this.highScoreManager;
+    if (!highScoreManager) {
+      console.error('HighScoreManager not initialized');
+      return;
+    }
     const inputContainer = document.getElementById('high-score-input-container');
     const nameInput = document.getElementById('player-name-input') as HTMLInputElement;
     const saveButton = document.getElementById('save-score-button');
@@ -824,10 +830,12 @@ class TetrisGame {
       const playerName = nameInput.value.trim().toUpperCase() || 'AAA';
 
       // Always save the score (even if not a high score, it will be saved as last attempt)
-      const saved = this.highScoreManager.addHighScore(mode, playerName, score, lines, level);
+      const saved = highScoreManager.addHighScore(mode, playerName, score, lines, level);
 
       // Always save as last attempt (even if it's a high score, to track the most recent)
-      this.highScoreManager.saveLastAttempt(mode, playerName, score, lines, level);
+      // highScoreManager is guaranteed to be initialized before setupHighScoreInput is called
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      highScoreManager.saveLastAttempt(mode, playerName, score, lines, level);
 
       if (!saved && isHighScore) {
         this.uiManager.showNotification('Failed to save high score', 'error', 3000);

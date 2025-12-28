@@ -1,6 +1,7 @@
 // Footer Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/media-queries' as *;
 
 .game-footer {
   background: rgba(0, 0, 0, 0.8);
@@ -15,26 +16,26 @@
   align-items: center;
 
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     padding: $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     padding: $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     padding: $spacing-xs;
   }
 
   // Compact on mobile
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     padding: $spacing-sm;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     padding: $spacing-xs $spacing-sm;
   }
 }
@@ -49,7 +50,7 @@
   justify-content: center;
   gap: $spacing-xs;
 
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     padding: 0 $spacing-sm;
   }
 }
@@ -103,7 +104,7 @@
   flex-wrap: wrap;
   margin-bottom: $spacing-xs;
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     gap: $spacing-xs;
   }
 }
@@ -128,13 +129,13 @@
   }
 
   // Touch-friendly on mobile
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     min-height: 44px;
     padding: $spacing-xs $spacing-md;
     font-size: 0.65rem;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     font-size: 0.6rem;
     padding: $spacing-xs $spacing-sm;
     min-width: auto;
@@ -202,7 +203,7 @@
     text-align: center;
     text-transform: uppercase;
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       font-size: $font-size-xs;
       margin-bottom: $spacing-xs;
     }
@@ -231,7 +232,7 @@
   min-width: 80px;
 
   // Touch-friendly on mobile
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     min-height: 44px; // iOS HIG recommendation
     padding: $spacing-xs $spacing-sm;
   }

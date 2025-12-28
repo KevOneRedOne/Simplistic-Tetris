@@ -1,6 +1,7 @@
 // Header Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/media-queries' as *;
 
 .game-header {
   background: rgba(0, 0, 0, 0.8);
@@ -13,31 +14,31 @@
   align-items: center;
 
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     padding: $spacing-sm $spacing-md;
   }
 
   // Reduce padding for screens with limited height (830px and below)
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     padding: $spacing-sm $spacing-md;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     padding: $spacing-xs $spacing-sm;
   }
 
   // Reduce padding on smaller screens (tablets and small laptops)
-  @media (max-width: $breakpoint-lg) {
+  @include respond-to-width-max('lg') {
     padding: $spacing-xs $spacing-sm;
   }
 
   // Compact on mobile
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     padding: $spacing-xs $spacing-sm;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     padding: 0.25rem $spacing-xs;
   }
 }
@@ -52,16 +53,16 @@
   gap: $spacing-md;
 
   // Reduce gap on medium screens
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     gap: $spacing-sm;
   }
 
   // Reduce gap on smaller screens
-  @media (max-width: $breakpoint-lg) {
+  @include respond-to-width-max('lg') {
     gap: $spacing-sm;
   }
 
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     grid-template-columns: 1fr;
     text-align: center;
     gap: $spacing-xs;
@@ -78,18 +79,18 @@
     height: 50px;
 
     // Reduce size on medium screens
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       width: 40px;
       height: 40px;
     }
 
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       margin: 0 auto;
       width: 40px;
       height: 40px;
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       width: 30px;
       height: 30px;
     }
@@ -113,16 +114,16 @@
     line-height: 1.4;
 
     // Reduce size on medium screens
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       font-size: 1rem;
       line-height: 1.3;
     }
 
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       font-size: 1rem;
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       font-size: 0.75rem;
     }
   }
@@ -136,7 +137,7 @@
   gap: $spacing-sm;
   grid-column: 3;
 
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     justify-content: center;
   }
 
@@ -156,7 +157,7 @@
     height: 40px;
 
     // Reduce size on medium screens
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       height: 36px;
       padding: $spacing-xs;
     }
@@ -165,7 +166,7 @@
       font-size: 1.2rem;
       line-height: 1;
 
-      @media (max-height: 830px) {
+      @include respond-to-height-max('sm') {
         font-size: 1rem;
       }
     }
@@ -191,7 +192,7 @@
       transform: translateY(0);
     }
 
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       height: 36px;
       padding: $spacing-xs;
       font-size: 0.7rem;
@@ -201,7 +202,7 @@
       }
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       height: 32px;
       padding: 0.25rem;
     }
@@ -221,7 +222,7 @@
     transition: all $transition-fast;
 
     // Reduce size on medium screens
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       width: 36px;
       height: 36px;
     }
@@ -245,7 +246,7 @@
       }
     }
 
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       width: 36px;
       height: 36px;
 
@@ -255,7 +256,7 @@
       }
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       width: 32px;
       height: 32px;
 

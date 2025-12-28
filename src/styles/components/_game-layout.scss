@@ -1,47 +1,48 @@
 // Game Layout Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/media-queries' as *;
 
 .app-container {
   @include flex-center;
   padding: $spacing-md;
   flex: 1;
   min-height: 0; // Allow flex container to shrink
-  // Force 90% scale on browser
-  zoom: 0.9;
-  // Fallback for Firefox and other browsers that don't support zoom
-  @supports not (zoom: 1) {
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
 
   // Enlarge padding for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     padding: $spacing-lg;
   }
 
   // Reduce padding on mobile to maximize game space
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     padding: $spacing-sm;
     min-height: auto; // Allow natural height on mobile
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     padding: $spacing-xs;
   }
 
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  // Also handles Windows screens with high system scale
+  @include respond-to-height-laptop-hd {
+    padding: $spacing-sm;
+  }
+
+  // Windows with high system scale (150%, 175%, 200%)
+  // Automatically detects Windows screens with system scale and adjusts padding
+  @include windows-with-scale {
     padding: $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below) - after mobile rules
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     padding: $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     padding: $spacing-xs;
   }
 }
@@ -54,39 +55,45 @@
   margin: 0 auto;
   width: 100%;
 
+  // Windows with system scale: adjust columns for better rendering
+  @include windows-with-scale {
+    grid-template-columns: 300px 1fr 330px;
+    max-width: 1300px;
+  }
+
   // Enlarge for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     grid-template-columns: 400px 1fr 450px;
     max-width: 1800px;
     gap: $spacing-xl;
   }
 
   // Tablet: Stack vertically
-  @media (max-width: $breakpoint-lg) {
+  @include respond-to-width-max('lg') {
     grid-template-columns: 1fr;
     justify-items: center;
     gap: $spacing-md;
   }
 
   // Mobile: Reduce gap further and ensure proper ordering
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     gap: $spacing-sm;
     width: 100%;
     max-width: 100%;
   }
 
   // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     gap: $spacing-md;
   }
 
   // Reduce gap for screens with limited height (830px and below) - after width rules
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     gap: $spacing-md;
   }
 
   // Very aggressive gap reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     gap: $spacing-sm;
   }
 }
@@ -98,8 +105,13 @@
   margin: 0 auto;
   flex-shrink: 0; // Prevent canvas from shrinking
 
+  // Windows with system scale: adjust canvas size
+  @include windows-with-scale {
+    max-width: 380px;
+  }
+
   // Enlarge canvas for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     max-width: 500px;
   }
 
@@ -117,31 +129,31 @@
   }
 
   // Ensure canvas is visible on mobile
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     order: 2; // Show canvas after left panel on mobile
     width: 100%;
     max-width: 100%;
   }
 
   // Reduce border on small screens
-  @media (max-width: $breakpoint-sm) {
+  @include respond-to-width-max('sm') {
     #tetris {
       border-width: 2px;
     }
   }
 
   // Moderate canvas size reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     max-width: 380px;
   }
 
   // Reduce canvas size for screens with limited height (830px and below) - after width rules
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     max-width: 380px;
   }
 
   // Very aggressive canvas size reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     max-width: 350px;
   }
 }
@@ -156,22 +168,22 @@
   padding: $spacing-md;
 
   // Enlarge padding for large screens (tall displays)
-  @media (min-height: 1300px) {
+  @include respond-to-height-tall {
     padding: $spacing-lg;
   }
 
   // Moderate padding reduction for modern 14" FHD laptops at 200% scale (900px height)
-  @media (max-height: 1000px) and (min-height: 831px) {
+  @include respond-to-height-laptop-hd {
     padding: $spacing-sm;
   }
 
   // Reduce padding for screens with limited height (830px and below)
-  @media (max-height: 830px) {
+  @include respond-to-height-max('sm') {
     padding: $spacing-sm;
   }
 
   // Very aggressive padding reduction for very small height screens (734px and below)
-  @media (max-height: 734px) {
+  @include respond-to-height-max('xs') {
     padding: $spacing-xs;
   }
 
@@ -195,31 +207,31 @@
     white-space: nowrap;
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       font-size: 1.1rem;
       margin-bottom: $spacing-md;
     }
 
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       font-size: 0.75rem;
       margin-bottom: $spacing-xs;
       gap: 0.4rem;
     }
 
     // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       margin-bottom: $spacing-xs;
       font-size: 0.85rem;
     }
 
     // Reduce margin for screens with limited height (830px and below) - after width rules
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       margin-bottom: $spacing-xs;
       font-size: 0.8rem;
     }
 
     // Very aggressive reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       margin-bottom: 0.25rem;
       font-size: 0.7rem;
     }
@@ -240,25 +252,25 @@
     white-space: nowrap;
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       font-size: 0.9rem;
       margin-bottom: $spacing-sm;
     }
 
     // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       margin-bottom: 0.3rem;
       font-size: 0.75rem;
     }
 
     // Reduce margin for screens with limited height (830px and below)
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       margin-bottom: 0.25rem;
       font-size: 0.7rem;
     }
 
     // Very aggressive reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       margin-bottom: 0.2rem;
       font-size: 0.65rem;
     }
@@ -271,26 +283,26 @@
     align-items: center;
 
     // Enlarge for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       max-height: 1000px;
     }
 
-    @media (max-width: $breakpoint-lg) {
+    @include respond-to-width-max('lg') {
       max-height: none; // No scroll on mobile
     }
 
     // Moderate max-height reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       max-height: 650px;
     }
 
     // Reduce max-height for screens with limited height (830px and below) - after width rules
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       max-height: 600px;
     }
 
     // Very aggressive max-height reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       max-height: 500px;
     }
 
@@ -315,17 +327,17 @@
       flex-shrink: 0;
 
       // Moderate margin reduction for modern 14" FHD laptops at 200% scale (900px height)
-      @media (max-height: 1000px) and (min-height: 831px) {
+      @include respond-to-height-laptop-hd {
         margin: $spacing-xs 0;
       }
 
       // Reduce margin for screens with limited height (830px and below)
-      @media (max-height: 830px) {
+      @include respond-to-height-max('sm') {
         margin: $spacing-xs 0;
       }
 
       // Very aggressive margin reduction for very small height screens (734px and below)
-      @media (max-height: 734px) {
+      @include respond-to-height-max('xs') {
         margin: 0.25rem 0;
       }
     }
@@ -352,33 +364,33 @@
     gap: $spacing-sm;
 
     // Enlarge gap for large screens (tall displays)
-    @media (min-height: 1300px) {
+    @include respond-to-height-tall {
       gap: $spacing-md;
     }
 
     // Moderate gap reduction for modern 14" FHD laptops at 200% scale (900px height)
-    @media (max-height: 1000px) and (min-height: 831px) {
+    @include respond-to-height-laptop-hd {
       gap: $spacing-xs;
     }
 
     // Reduce gap for screens with limited height (830px and below)
-    @media (max-height: 830px) {
+    @include respond-to-height-max('sm') {
       gap: $spacing-xs;
     }
 
     // Very aggressive gap reduction for very small height screens (734px and below)
-    @media (max-height: 734px) {
+    @include respond-to-height-max('xs') {
       gap: 0.25rem;
     }
   }
 
   // Full width on mobile
-  @media (max-width: $breakpoint-lg) {
+  @include respond-to-width-max('lg') {
     max-width: 400px;
   }
 
   // Order panels on mobile for better UX
-  @media (max-width: $breakpoint-md) {
+  @include mobile {
     &.left-panel {
       order: 1;
     }

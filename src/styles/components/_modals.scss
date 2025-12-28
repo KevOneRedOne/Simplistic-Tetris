@@ -1,6 +1,7 @@
 // Modals Component
 @use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
+@use '../abstracts/media-queries' as *;
 
 .modal {
   display: none;
@@ -34,11 +35,11 @@
     overflow-y: auto;
 
     // Reduce padding on mobile
-    @media (max-width: $breakpoint-md) {
+    @include mobile {
       padding: $spacing-lg;
     }
 
-    @media (max-width: $breakpoint-sm) {
+    @include respond-to-width-max('sm') {
       padding: $spacing-md;
       width: 95%;
     }
@@ -52,7 +53,7 @@
       letter-spacing: 2px;
       line-height: 1.8;
 
-      @media (max-width: $breakpoint-sm) {
+      @include respond-to-width-max('sm') {
         font-size: 0.9rem;
         letter-spacing: 1px;
       }
@@ -153,7 +154,7 @@
       border-radius: $border-radius-sm;
       text-align: left;
 
-      @media (max-width: $breakpoint-sm) {
+      @include respond-to-width-max('sm') {
         font-size: $font-size-xs;
         padding: $spacing-sm $spacing-md;
       }
@@ -176,7 +177,7 @@
       gap: $spacing-md;
       margin-top: $spacing-lg;
 
-      @media (min-width: $breakpoint-sm) {
+      @include respond-to-width-min('sm') {
         flex-direction: row;
       }
     }
@@ -191,7 +192,7 @@
       justify-content: center;
       transition: all $transition-fast;
 
-      @media (max-width: $breakpoint-sm) {
+      @include respond-to-width-max('sm') {
         min-height: 120px;
         padding: $spacing-md;
       }
@@ -204,7 +205,7 @@
         font-size: 2.5rem;
         margin-bottom: $spacing-xs;
 
-        @media (max-width: $breakpoint-sm) {
+        @include respond-to-width-max('sm') {
           font-size: 2rem;
         }
       }
@@ -214,7 +215,7 @@
         font-weight: bold;
         margin-bottom: $spacing-xs;
 
-        @media (max-width: $breakpoint-sm) {
+        @include respond-to-width-max('sm') {
           font-size: $font-size-base;
         }
       }
