@@ -59,10 +59,30 @@ export class InputHandler {
   }
 
   /**
+   * Check if user is typing in an input field
+   */
+  private isTypingInInput(): boolean {
+    const activeElement = document.activeElement;
+    if (!activeElement) return false;
+
+    const tagName = activeElement.tagName.toLowerCase();
+    const isInput = tagName === 'input' || tagName === 'textarea';
+    const isContentEditable = activeElement.getAttribute('contenteditable') === 'true';
+
+    return isInput || isContentEditable;
+  }
+
+  /**
    * Handle key down
    */
   private handleKeyDown(event: KeyboardEvent): void {
     const key = event.key;
+
+    // Don't intercept keys if user is typing in an input field
+    // This allows R, P, Q, D to be used in the player name input
+    if (this.isTypingInInput()) {
+      return;
+    }
 
     // Prevent default for game keys
     if (this.isGameKey(key)) {
