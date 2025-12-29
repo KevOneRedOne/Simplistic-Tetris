@@ -507,11 +507,21 @@
       }
 
       .mode-icon {
-        font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-bottom: $spacing-xs;
 
+        .iconify {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
         @include respond-to-width-max('sm') {
-          font-size: 2rem;
+          .iconify {
+            width: 2rem;
+            height: 2rem;
+          }
         }
       }
 

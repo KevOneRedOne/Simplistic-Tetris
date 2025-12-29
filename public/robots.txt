@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://simplistic-tetris-v2.netlify.app/sitemap.xml
-
+# Sitemap (uncomment if you create a sitemap.xml)
+# Sitemap: https://simplistic-tetris.netlify.app/sitemap.xml

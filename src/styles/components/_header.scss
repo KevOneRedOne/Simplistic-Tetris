@@ -365,11 +365,22 @@
     }
 
     .language-flag {
-      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       line-height: 1;
 
+      .iconify {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+      }
+
       @include respond-to-height-max('sm') {
-        font-size: 1rem;
+        .iconify {
+          width: 18px;
+          height: 18px;
+        }
       }
     }
 

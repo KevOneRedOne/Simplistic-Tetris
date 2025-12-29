@@ -5,6 +5,22 @@
 
 .side-panel {
   .scores-section {
+    .scores-buttons {
+      display: flex;
+      gap: $spacing-xs;
+      justify-content: center;
+      align-items: center;
+      margin: $spacing-sm auto 0;
+      width: fit-content;
+      max-width: 100%;
+
+      // Mobile adjustments
+      @include mobile {
+        flex-direction: column;
+        gap: $spacing-xs;
+      }
+    }
+
     .scores-mode-toggle {
       @include button-base;
       background: rgba(0, 255, 255, 0.05);
@@ -12,7 +28,7 @@
       border-radius: $border-radius-sm;
       color: var(--color-text);
       padding: $spacing-xs $spacing-sm;
-      margin: $spacing-sm auto 0;
+      margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -95,6 +111,104 @@
         flex-shrink: 0;
         width: 14px;
         height: 14px;
+
+        @include respond-to-height-max('sm') {
+          width: 12px;
+          height: 12px;
+        }
+
+        @include respond-to-height-max('xs') {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+
+    .scores-clear-button {
+      @include button-base;
+      background: rgba(255, 85, 85, 0.05);
+      border: 1px solid rgba(255, 85, 85, 0.5);
+      border-radius: $border-radius-sm;
+      color: var(--color-text);
+      padding: $spacing-xs $spacing-sm;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      font-size: 0.6rem;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: all $transition-fast;
+      width: fit-content;
+      min-width: 40px;
+      max-width: 100%;
+
+      // Enlarge for large screens (tall displays)
+      @include respond-to-height-tall {
+        font-size: 0.65rem;
+        padding: $spacing-xs $spacing-md;
+        min-width: 45px;
+      }
+
+      // Moderate size reduction for modern 14" FHD laptops at 200% scale (900px height)
+      @include respond-to-height-laptop-hd {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 35px;
+        gap: 0.2rem;
+      }
+
+      // Reduce size for screens with limited height (830px and below)
+      @include respond-to-height-max('sm') {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 35px;
+        gap: 0.2rem;
+      }
+
+      // Very aggressive size reduction for very small height screens (734px and below)
+      @include respond-to-height-max('xs') {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.4rem;
+        min-width: 30px;
+        gap: 0.15rem;
+      }
+
+      // Mobile adjustments
+      @include mobile {
+        font-size: 0.55rem;
+        padding: 0.3rem 0.5rem;
+        min-width: 35px;
+        max-width: 90%;
+      }
+
+      // Very small screens
+      @include respond-to-width-max('sm') {
+        font-size: 0.5rem;
+        padding: 0.25rem 0.4rem;
+        min-width: 30px;
+        gap: 0.15rem;
+      }
+
+      &:hover {
+        background: rgba(255, 85, 85, 0.15);
+        border-color: rgba(255, 85, 85, 0.8);
+        opacity: 1;
+        transform: translateY(-1px);
+        will-change: transform;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      .iconify {
+        opacity: 0.8;
+        flex-shrink: 0;
+        width: 14px;
+        height: 14px;
+        color: rgba(255, 85, 85, 0.9);
 
         @include respond-to-height-max('sm') {
           width: 12px;
@@ -261,9 +375,15 @@
         }
 
         &.no-scores {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           opacity: 0.5;
           font-style: italic;
-          justify-content: center;
+          text-align: center;
+          grid-column: 1 / -1;
+          padding: $spacing-lg $spacing-sm;
+          min-height: 150px;
         }
 
         &.last-attempt {

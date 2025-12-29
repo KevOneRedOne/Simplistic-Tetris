@@ -5,16 +5,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Simplistic Tetris V2 - Play Tetris anywhere, anytime. Modern TypeScript rewrite with multiple game modes." />
-  <meta name="keywords" content="Tetris, TypeScript, Game, Canvas, JavaScript, Simplistic Tetris" />
-  <meta name="author" content="KevOneRedOne" />
+    content="Simplistic Tetris - Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break have a Tetris!" />
+  <meta name="keywords" content="Tetris, TypeScript, Game, Canvas, TypeScript, Simplistic Tetris, Browser Game, PWA, Web Game" />
+  <meta name="copyright" content="https://github.com/KevOneRedOne/Simplistic-Tetris">
+  <meta name="author" content="Kevin Alves" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="language" content="en, fr" />
+  <meta name="application-name" content="Simplistic Tetris" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#00ffff" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://simplistic-tetris.netlify.app/" />
 
   <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Simplistic Tetris V2 - Modern TypeScript Game" />
-  <meta property="og:description" content="Play Tetris anywhere, anytime. Modern rewrite with Classic & Ultra modes!" />
+  <meta property="og:title" content="Simplistic Tetris" />
+  <meta property="og:description" content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break have a Tetris!" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://simplistic-tetris-v2.netlify.app/" />
-  <meta property="og:image" content="https://simplistic-tetris-v2.netlify.app/icons/android-chrome-192x192.png" />
+  <meta property="og:url" content="https://simplistic-tetris.netlify.app/" />
+  <meta property="og:image" content="https://simplistic-tetris.netlify.app/images/game-view.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Simplistic Tetris - Game Screenshot" />
+  <meta property="og:site_name" content="Simplistic Tetris" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Simplistic Tetris" />
+  <meta name="twitter:description" content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break have a Tetris!" />
+  <meta name="twitter:image" content="https://simplistic-tetris.netlify.app/images/game-view.png" />
+  <meta name="twitter:image:alt" content="Simplistic Tetris - Game Screenshot" />
 
   <title>Simplistic Tetris</title>
   <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
@@ -52,8 +75,10 @@
       </div>
       <div class="header-author">
         <!-- Language Toggle -->
-        <button id="language-toggle" class="language-button" title="Change language" aria-label="Change language">
-          <span class="language-flag" id="language-flag">🇬🇧</span>
+        <button id="language-toggle" class="language-button" data-i18n-title="settings.language" aria-label="Change language">
+          <span class="language-flag" id="language-flag">
+            <span class="iconify" data-icon="twemoji:flag-united-kingdom" data-width="20" aria-hidden="true"></span>
+          </span>
         </button>
         <a href="https://github.com/KevOneRedOne" target="_blank" class="github-button" title="GitHub Profile"
           aria-label="GitHub Profile">
@@ -71,10 +96,15 @@
         <div class="scores-section">
           <h2 id="highscores-title" data-i18n="stats.highScores">HIGH SCORES</h2>
           <ol id="highScores" style="min-height: 200px;"></ol>
-          <button id="highscores-mode-toggle" class="scores-mode-toggle" aria-label="Toggle score mode">
-            <span id="highscores-mode-text">Classic Mode</span>
-            <span class="iconify" data-icon="mdi:swap-horizontal" data-width="16"></span>
-          </button>
+          <div class="scores-buttons">
+            <button id="highscores-mode-toggle" class="scores-mode-toggle" aria-label="Toggle score mode">
+              <span id="highscores-mode-text">Classic Mode</span>
+              <span class="iconify" data-icon="mdi:swap-horizontal" data-width="16"></span>
+            </button>
+            <button id="highscores-clear" class="scores-clear-button" data-i18n-title="stats.clearScores" data-i18n-aria-label="stats.clearScores">
+              <span class="iconify" data-icon="mdi:delete-outline" data-width="16"></span>
+            </button>
+          </div>
         </div>
 
         <!-- Divider -->
@@ -171,7 +201,10 @@
 
         <!-- Audio Controls -->
         <div class="audio-controls-panel">
-          <h3 data-i18n="settings.audio">🎵 AUDIO</h3>
+          <h3 data-i18n="settings.audio">
+            <span class="iconify" data-icon="mdi:music-note" data-width="20" aria-hidden="true"></span>
+            <span>AUDIO</span>
+          </h3>
           <div class="audio-buttons">
             <button id="music-toggle" class="icon-button" data-i18n-title="settings.music">
               <span class="iconify" data-icon="mdi:music" data-width="24"></span>
@@ -193,16 +226,13 @@
       <!-- Support Buttons -->
       <div class="footer-support">
         <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer"
-          class="support-button support-button-coffee" data-i18n="buttons.tip">
-          ☕
+          class="support-button support-button-coffee" data-i18n="buttons.tip" aria-label="Buy me a coffee">
         </a>
         <a href="https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose" target="_blank"
-          rel="noopener noreferrer" class="support-button support-button-issues" data-i18n="buttons.issues">
-          🐛
+          rel="noopener noreferrer" class="support-button support-button-issues" data-i18n="buttons.issues" aria-label="Report an issue">
         </a>
         <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
-          class="support-button support-button-contribute" data-i18n="buttons.contribute">
-          🔧
+          class="support-button support-button-contribute" data-i18n="buttons.contribute" aria-label="Contribute">
         </a>
       </div>
       <!-- Copyright -->
@@ -226,8 +256,35 @@
       <p style="margin: 1rem 0;" data-i18n="messages.pausedDescription">Press continue to resume or restart to start a
         new game.</p>
       <div class="modal-buttons">
-        <button id="restart-from-pause-button" class="game-button" data-i18n="buttons.restart">🔄 Restart</button>
-        <button id="continue-button" class="game-button" data-i18n="buttons.continue">▶️ Continue</button>
+        <button id="restart-from-pause-button" class="game-button" data-i18n="buttons.restart">
+          <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
+          <span>Restart</span>
+        </button>
+        <button id="continue-button" class="game-button" data-i18n="buttons.continue">
+          <span class="iconify" data-icon="mdi:play" data-width="18" aria-hidden="true"></span>
+          <span>Continue</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Scores Confirmation Modal -->
+  <div id="clear-scores-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
+      <h2 data-i18n="messages.confirmClearScoresTitle">Clear Scores</h2>
+      <p id="clear-scores-message" style="margin: 1rem 0;">
+        Are you sure you want to clear all scores? This action cannot be undone.
+      </p>
+      <div class="modal-buttons">
+        <button id="cancel-clear-scores-button" class="game-button" data-i18n="buttons.cancel">
+          <span class="iconify" data-icon="mdi:close" data-width="18" aria-hidden="true"></span>
+          <span>Cancel</span>
+        </button>
+        <button id="confirm-clear-scores-button" class="game-button game-button-danger" data-i18n="buttons.confirm">
+          <span class="iconify" data-icon="mdi:delete" data-width="18" aria-hidden="true"></span>
+          <span>Clear</span>
+        </button>
       </div>
     </div>
   </div>
@@ -279,20 +336,23 @@
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center;">
           <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-link"
             style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
-            <span>☕</span>
+            <span class="iconify" data-icon="mdi:coffee" data-width="18" aria-hidden="true"></span>
             <span data-i18n="buttons.tip">Offrir un café</span>
           </a>
           <span style="color: rgba(255, 255, 255, 0.5);">•</span>
           <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
             class="support-link"
             style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
-            <span>🔧</span>
+            <span class="iconify" data-icon="mdi:code-tags" data-width="18" aria-hidden="true"></span>
             <span data-i18n="buttons.contribute">Contribuer</span>
           </a>
         </div>
       </div>
       <div class="modal-buttons">
-        <button id="play-again-button" class="game-button" data-i18n="buttons.playAgain">🔄 Play Again</button>
+        <button id="play-again-button" class="game-button" data-i18n="buttons.playAgain">
+          <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
+          <span>Play Again</span>
+        </button>
       </div>
     </div>
   </div>

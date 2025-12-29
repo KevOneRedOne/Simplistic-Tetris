@@ -121,6 +121,8 @@ class TetrisGame {
 
     // Setup score mode toggle button
     this.setupScoreModeToggle();
+    this.setupClearScoresButton();
+    this.setupClearScoresModal();
 
     // Display default high scores (Classic mode)
     this.updateHighScoresDisplay(GameMode.CLASSIC);
@@ -148,8 +150,8 @@ class TetrisGame {
         const newLocale = currentLocale === 'en' ? 'fr' : 'en';
 
         await i18n.setLocale(newLocale);
-        this.updateLanguageButton();
         this.initializeHTMLTranslations(); // Re-translate all elements first
+        this.updateLanguageButton(); // Update button with icon and detailed accessibility info
         this.updateModalsTranslations(); // Then update modals (overrides data-i18n with proper emoji handling)
         this.setupMusicCredits(); // Update credits if needed
         // Update high scores display to re-render with new translations
@@ -163,11 +165,46 @@ class TetrisGame {
    */
   private updateLanguageButton(): void {
     const languageFlag = document.getElementById('language-flag');
+    const languageButton = document.getElementById('language-toggle');
     const languageText = document.getElementById('language-text');
     const currentLocale = i18n.getLocale();
 
     if (languageFlag) {
-      languageFlag.textContent = currentLocale === 'en' ? '🇬🇧' : '🇫🇷';
+      // Update iconify icon for the flag
+      const icon = languageFlag.querySelector('.iconify');
+      if (icon) {
+        icon.setAttribute(
+          'data-icon',
+          currentLocale === 'en' ? 'twemoji:flag-united-kingdom' : 'twemoji:flag-france'
+        );
+      } else {
+        // Fallback: create icon if it doesn't exist
+        const newIcon = document.createElement('span');
+        newIcon.className = 'iconify';
+        newIcon.setAttribute(
+          'data-icon',
+          currentLocale === 'en' ? 'twemoji:flag-united-kingdom' : 'twemoji:flag-france'
+        );
+        newIcon.setAttribute('data-width', '20');
+        newIcon.setAttribute('aria-hidden', 'true');
+        languageFlag.appendChild(newIcon);
+      }
+    }
+
+    // Update accessibility attributes
+    if (languageButton) {
+      const languageLabel = i18n.t('settings.language');
+      const currentLanguage = currentLocale === 'en' ? 'English' : 'Français';
+      const nextLanguage = currentLocale === 'en' ? 'Français' : 'English';
+
+      languageButton.setAttribute(
+        'title',
+        `${languageLabel} (${currentLanguage}) - Click to switch to ${nextLanguage}`
+      );
+      languageButton.setAttribute(
+        'aria-label',
+        `${languageLabel}: ${currentLanguage}. Click to switch to ${nextLanguage}`
+      );
     }
 
     if (languageText) {
@@ -216,8 +253,23 @@ class TetrisGame {
 
       if (pauseTitle) pauseTitle.textContent = i18n.t('messages.paused');
       if (pauseDesc) pauseDesc.textContent = i18n.t('messages.pausedDescription');
-      if (continueBtn) continueBtn.textContent = `▶️ ${i18n.t('buttons.continue')}`;
-      if (restartBtn) restartBtn.textContent = `🔄 ${i18n.t('buttons.restart')}`;
+
+      // Update continue button - preserve icon structure
+      if (continueBtn) {
+        const textSpan = continueBtn.querySelector('span:not(.iconify)');
+        if (textSpan) {
+          textSpan.textContent = i18n.t('buttons.continue');
+        }
+      }
+
+      // Update restart button - preserve icon structure
+      if (restartBtn) {
+        const textSpan = restartBtn.querySelector('span:not(.iconify)');
+        if (textSpan) {
+          textSpan.textContent = i18n.t('buttons.restart');
+        }
+      }
+
       if (closeBtn) closeBtn.setAttribute('aria-label', i18n.t('buttons.close'));
     }
 
@@ -240,7 +292,15 @@ class TetrisGame {
       });
 
       if (gameOverTitle) gameOverTitle.textContent = i18n.t('messages.gameOver');
-      if (playAgainBtn) playAgainBtn.textContent = `🔄 ${i18n.t('buttons.playAgain')}`;
+
+      // Update play again button - preserve icon structure
+      if (playAgainBtn) {
+        const textSpan = playAgainBtn.querySelector('span:not(.iconify)');
+        if (textSpan) {
+          textSpan.textContent = i18n.t('buttons.playAgain');
+        }
+      }
+
       if (closeBtn) closeBtn.setAttribute('aria-label', i18n.t('buttons.close'));
       if (enterNameLabel) enterNameLabel.textContent = i18n.t('messages.enterName');
       if (saveButton) saveButton.textContent = i18n.t('buttons.save');
@@ -490,6 +550,73 @@ class TetrisGame {
   }
 
   /**
+   * Setup clear scores button
+   */
+  private setupClearScoresButton(): void {
+    const clearButton = document.getElementById('highscores-clear');
+    if (clearButton) {
+      clearButton.addEventListener('click', () => {
+        // Update modal message with current mode
+        const modeLabel =
+          this.displayedScoreMode === GameMode.CLASSIC
+            ? i18n.t('modes.classic')
+            : i18n.t('modes.ultra');
+        const messageElement = document.getElementById('clear-scores-message');
+        if (messageElement) {
+          messageElement.textContent = i18n.t('messages.confirmClearScoresDescription', {
+            mode: modeLabel,
+          });
+        }
+        // Show modal
+        this.uiManager.showModal('clear-scores-modal');
+      });
+    }
+  }
+
+  /**
+   * Setup clear scores modal buttons
+   */
+  private setupClearScoresModal(): void {
+    // Confirm button
+    const confirmButton = document.getElementById('confirm-clear-scores-button');
+    if (confirmButton) {
+      confirmButton.addEventListener('click', () => {
+        const modeLabel =
+          this.displayedScoreMode === GameMode.CLASSIC
+            ? i18n.t('modes.classic')
+            : i18n.t('modes.ultra');
+        this.highScoreManager.clearHighScores(this.displayedScoreMode);
+        this.updateHighScoresDisplay(this.displayedScoreMode);
+        this.uiManager.hideModal('clear-scores-modal');
+        this.uiManager.showNotification(
+          i18n.t('messages.scoresCleared', { mode: modeLabel }),
+          'success',
+          3000
+        );
+      });
+    }
+
+    // Cancel button
+    const cancelButton = document.getElementById('cancel-clear-scores-button');
+    if (cancelButton) {
+      cancelButton.addEventListener('click', () => {
+        this.uiManager.hideModal('clear-scores-modal');
+      });
+    }
+
+    // Close button
+    const clearScoresModal = document.getElementById('clear-scores-modal');
+    if (clearScoresModal) {
+      const closeButton = clearScoresModal.querySelector('.modal-close');
+      if (closeButton) {
+        closeButton.addEventListener('click', () => {
+          this.uiManager.hideModal('clear-scores-modal');
+        });
+      }
+    }
+  }
+
+  /**
    * Setup pause modal buttons (Continue and Restart)
    */
   private setupPauseModalButtons(): void {
@@ -550,12 +677,12 @@ class TetrisGame {
         <h3 class="modal-section-title">${i18n.t('modes.selectMode')}</h3>
         <div class="modal-buttons">
           <button class="game-button mode-button" id="mode-classic">
-            <span class="mode-icon">🎮</span>
+            <span class="mode-icon"><span class="iconify" data-icon="mdi:gamepad-variant" data-width="24" aria-hidden="true"></span></span>
             <span class="mode-title">${i18n.t('modes.classic')}</span>
             <span class="mode-desc">${i18n.t('modes.classicDesc')}</span>
           </button>
           <button class="game-button mode-button" id="mode-ultra">
-            <span class="mode-icon">⚡</span>
+            <span class="mode-icon"><span class="iconify" data-icon="mdi:lightning-bolt" data-width="24" aria-hidden="true"></span></span>
             <span class="mode-title">${i18n.t('modes.ultra')}</span>
             <span class="mode-desc">${i18n.t('modes.ultraDesc')}</span>
           </button>
@@ -920,7 +1047,7 @@ class TetrisGame {
 
       // Always save as last attempt (even if it's a high score, to track the most recent)
       // highScoreManager is guaranteed to be initialized before setupHighScoreInput is called
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
       highScoreManager.saveLastAttempt(mode, playerName, score, lines, level);
 
       if (!saved && isHighScore) {
@@ -970,8 +1097,11 @@ class TetrisGame {
       const newButton = playAgainButton.cloneNode(true) as HTMLElement;
       playAgainButton.parentNode?.replaceChild(newButton, playAgainButton);
 
-      // Ensure translation is applied after cloning
-      newButton.textContent = `🔄 ${i18n.t('buttons.playAgain')}`;
+      // Ensure translation is applied after cloning - preserve icon structure
+      const textSpan = newButton.querySelector('span:not(.iconify)');
+      if (textSpan) {
+        textSpan.textContent = i18n.t('buttons.playAgain');
+      }
 
       // Add new listener
       newButton.addEventListener('click', () => {

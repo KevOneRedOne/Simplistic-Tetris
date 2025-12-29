@@ -11,6 +11,10 @@
   margin-top: $spacing-sm;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 
   // Touch-friendly on mobile
   @include mobile {
@@ -21,5 +25,21 @@
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+  }
+
+  // Icon styling
+  .iconify {
+    flex-shrink: 0;
+  }
+
+  // Danger variant (for destructive actions)
+  &.game-button-danger {
+    background: linear-gradient(135deg, rgba(255, 85, 85, 0.8), rgba(255, 0, 0, 0.9));
+    box-shadow: 0 4px 15px rgba(255, 85, 85, 0.3);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(255, 85, 85, 1));
+      box-shadow: 0 6px 20px rgba(255, 85, 85, 0.5);
+    }
   }
 }

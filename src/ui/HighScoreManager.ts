@@ -121,6 +121,18 @@ export class HighScoreManager {
     } catch (e) {
       console.error('Failed to clear high scores:', e);
     }
+
+    // Also clear fallback in-memory storage
+    this.fallbackScores.delete(key);
+
+    // Clear last attempt as well
+    const lastAttemptKey = this.getLastAttemptStorageKey(mode);
+    try {
+      localStorage.removeItem(lastAttemptKey);
+    } catch (e) {
+      console.error('Failed to clear last attempt:', e);
+    }
+    this.fallbackScores.delete(lastAttemptKey);
   }
 
   /**
