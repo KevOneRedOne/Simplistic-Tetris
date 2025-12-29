@@ -12,7 +12,7 @@
 
 <br>
 
-> **Modern rewrite of my [first-year Bachelor's project](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris).** Rebuilding a fun project to create a production-ready game playable anywhere, anytime, while showcasing clean architecture and modern development practices.
+> **Modern rewrite of my [first-year Bachelor's project](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris).** Rebuilding a fun project to create a production-ready game playable anywhere, anytime, while showcasing clean architecture and modern development practices. Have a break, play tetris !
 
 <br>
 
