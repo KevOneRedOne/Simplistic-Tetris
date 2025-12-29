@@ -56,7 +56,8 @@ export default {
     notHighScore: 'Score insuffisant pour le top 10. Score minimum requis : {minScore}',
     scoreSaved: 'Score {score} sauvegardé !',
     confirmClearScoresTitle: 'Vider les scores',
-    confirmClearScoresDescription: 'Êtes-vous sûr de vouloir vider tous les scores du mode {mode} ? Cette action est irréversible.',
+    confirmClearScoresDescription:
+      'Êtes-vous sûr de vouloir vider tous les scores du mode {mode} ? Cette action est irréversible.',
     scoresCleared: 'Scores du mode {mode} vidés avec succès !',
     welcome:
       'Bienvenue ! Choisissez votre mode et commencez à jouer. Les contrôles sont affichés en bas de page.',

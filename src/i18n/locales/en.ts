@@ -55,7 +55,8 @@ export default {
     notHighScore: 'Score too low for top 10. Minimum score required: {minScore}',
     scoreSaved: 'Score {score} saved!',
     confirmClearScoresTitle: 'Clear Scores',
-    confirmClearScoresDescription: 'Are you sure you want to clear all scores for {mode} mode? This action cannot be undone.',
+    confirmClearScoresDescription:
+      'Are you sure you want to clear all scores for {mode} mode? This action cannot be undone.',
     scoresCleared: 'Scores for {mode} mode cleared successfully!',
     welcome:
       'Welcome! Choose your game mode and start playing. Controls are displayed at the bottom of the page. {controls}',
