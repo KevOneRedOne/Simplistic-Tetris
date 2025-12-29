@@ -16,7 +16,9 @@
 
 <br>
 
-[🎮 **Play Live Demo (Netlify)**](https://simplistic-tetris.netlify.app) | [📝 Original Version](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris) | [📚 Documentation](./docs/)
+[![🎮 Play Live Demo](https://img.shields.io/badge/🎮_Play_Live_Demo-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://simplistic-tetris.netlify.app)
+
+[📝 Original Version](https://github.com/KevOneRedOne/Simplistic-Javascript-Tetris) | [📚 Documentation](./docs/)
 
 </div>
 
