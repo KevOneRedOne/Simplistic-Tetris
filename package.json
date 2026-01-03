@@ -1,18 +1,41 @@
 {
-  "name": "simplistic-tetris-v2",
-  "version": "2.0.0",
-  "description": "Simplistic Tetris V2 - Modern TypeScript rewrite of the classic game, playable anywhere, anytime",
+  "name": "simplistic-tetris",
+  "version": "2.1.1",
+  "description": "Simplistic Tetris - Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,scss,css,json}\""
+  "main": "index.html",
+  "author": "Kevin Alves (KevOneRedOne)",
+  "license": "MIT",
+  "homepage": "https://simplistic-tetris.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris/issues"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "dependencies": {
+    "vite": "^6.0.3"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.0.0",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "@vitest/ui": "^4.0.16",
+    "commitlint": "^19.0.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.2",
+    "vitest": "^4.0.16"
   },
   "keywords": [
     "tetris",
@@ -26,29 +49,24 @@
       "@commitlint/config-conventional"
     ]
   },
-  "author": "KevOneRedOne",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris.git"
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss,css,json}\"",
+    "docker:build": "docker build -t simplistic-tetris:latest .",
+    "docker:run": "docker run -d --name simplistic-tetris -p 8080:80 simplistic-tetris:latest",
+    "docker:stop": "docker stop simplistic-tetris",
+    "docker:build:run": "npm run docker:build && docker stop simplistic-tetris 2>/dev/null || true && docker rm simplistic-tetris 2>/dev/null || true && npm run docker:run"
   },
-  "homepage": "https://simplistic-tetris-v2.netlify.app",
-  "bugs": {
-    "url": "https://github.com/KevOneRedOne/Simplistic-Tetris/issues"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.2",
-    "@typescript-eslint/eslint-plugin": "^8.19.1",
-    "@typescript-eslint/parser": "^8.19.1",
-    "@vitest/ui": "^4.0.16",
-    "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "globals": "^15.14.0",
-    "prettier": "^3.4.2",
-    "sass": "^1.83.0",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.3",
-    "vitest": "^4.0.16"
-  }
+  "files": [
+    "dist",
+    "public",
+    "index.html"
+  ]
 }

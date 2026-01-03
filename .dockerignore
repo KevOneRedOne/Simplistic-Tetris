@@ -1,0 +1,34 @@
+# System files
+.DS_Store
+*.log
+
+# Git
+.git
+.gitignore
+
+# Environment variables
+.env
+.env.local
+
+# Dependencies and build
+node_modules
+dist
+coverage
+
+# Tests
+tests
+
+# IDE and editors
+.vscode
+.idea
+
+# Configuration (except for exceptions)
+eslint.config.js
+commitlint.config.js
+netlify.toml
+*.md
+!README.md
+
+# Docker files
+Dockerfile
+.dockerignore
