@@ -266,6 +266,8 @@ graph TD
 
 ## 🧪 Testing
 
+### Quick Start
+
 ```bash
 # Run all tests
 npm test
@@ -275,14 +277,39 @@ npm run test:ui
 
 # Generate coverage report
 npm run test:coverage
+
+# View coverage HTML
+open coverage/index.html
 ```
 
-**Test Coverage:**
+### Test Suite
 
-- Board state management
-- Collision detection
-- Scoring calculations
-- Tetromino rotations
+| Test Type | Files | Tests | Coverage |
+|-----------|-------|-------|----------|
+| Unit Tests | 7 | 170 | 30-95% |
+| E2E Tests | - | Planned | - |
+
+**Coverage Highlights:**
+
+- ✅ GameEngine: 77.18% (36 tests)
+- ✅ UIManager: 95.72% (43 tests)
+- ✅ AnimationEngine: 96.22% (25 tests)
+- ✅ InputHandler: 74.41% (22 tests)
+- ✅ Board: 66.34% (13 tests)
+- ✅ Tetromino: 82.5% (15 tests)
+- ✅ ScoringSystem: 38.88% (16 tests)
+
+**Tested Functionality:**
+
+- ✅ Board state management and collision detection
+- ✅ Game engine orchestration and event system
+- ✅ Scoring calculations and level progression
+- ✅ Tetromino rotation and movement
+- ✅ Input handling (keyboard and touch)
+- ✅ UI management and modal system
+- ✅ Animation system and particle effects
+
+See [Testing Guide](./docs/TESTING.md) for detailed information.
 
 ---
 
