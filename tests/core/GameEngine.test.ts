@@ -73,8 +73,6 @@ describe('GameEngine', () => {
     });
 
     it('should not move when game is over', () => {
-      // Force game over
-      const state = engine.getState();
       // Fill the board to trigger game over
       for (let i = 0; i < 100; i++) {
         engine.hardDrop();
@@ -119,8 +117,6 @@ describe('GameEngine', () => {
 
   describe('Hold System', () => {
     it('should allow holding a piece', () => {
-      const initialPiece = engine.getState().currentPiece;
-
       const held = engine.hold();
 
       expect(held).toBe(true);
@@ -396,7 +392,9 @@ describe('GameEngine', () => {
       }
 
       if (callback.mock.calls.length > 0) {
-        const event = callback.mock.calls[0][0];
+        const event = callback.mock.calls[0][0] as {
+          data: { score: number; lines: number; level: number; duration: number };
+        };
         expect(event.data).toHaveProperty('score');
         expect(event.data).toHaveProperty('lines');
         expect(event.data).toHaveProperty('level');

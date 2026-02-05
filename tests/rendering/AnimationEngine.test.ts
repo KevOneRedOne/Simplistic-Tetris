@@ -12,7 +12,7 @@ describe('AnimationEngine', () => {
     canvas.width = 400;
     canvas.height = 800;
     const context = canvas.getContext('2d');
-    
+
     // For jsdom without canvas, create a mock context
     if (!context) {
       ctx = {
