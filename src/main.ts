@@ -780,6 +780,20 @@ class TetrisGame {
       console.warn('Failed to resume audio:', error);
     }
 
+    // Start music automatically when game starts
+    this.musicManager.play();
+
+    // Update music button to reflect that music is playing
+    const musicButton = document.getElementById('music-toggle');
+    if (musicButton) {
+      musicButton.classList.add('active');
+      musicButton.classList.remove('muted');
+      const icon = musicButton.querySelector('.iconify');
+      if (icon) {
+        icon.setAttribute('data-icon', 'mdi:music');
+      }
+    }
+
     // Initialize input handler
     this.inputHandler = new InputHandler();
 
