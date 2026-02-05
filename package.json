@@ -51,7 +51,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node scripts/update-sitemap.js && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -59,6 +59,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,scss,css,json}\"",
+    "sitemap:update": "node scripts/update-sitemap.js",
     "docker:build": "docker build -t simplistic-tetris:latest .",
     "docker:run": "docker run -d --name simplistic-tetris -p 8080:80 simplistic-tetris:latest",
     "docker:stop": "docker stop simplistic-tetris",

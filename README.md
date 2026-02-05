@@ -38,7 +38,6 @@ If you enjoy this game, please consider supporting the project. Your support hel
 
 </div>
 
-
 ---
 
 ## 📖 About The Project
@@ -83,17 +82,20 @@ This project is a modern TypeScript rewrite of my first-year Bachelor's group pr
 ### Installation
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/KevOneRedOne/Simplistic-Tetris.git
    cd Simplistic-Tetris
    ```
 
 2. Install dependencies
+
    ```bash
    npm install
    ```
 
 3. Start development server
+
    ```bash
    npm run dev
    ```
@@ -120,15 +122,15 @@ npm run format       # Format code with Prettier
 
 #### Keyboard Controls
 
-| Key                | Action          |
-| ------------------ | --------------- |
-| **← →**            | Move left/right |
-| **↑**              | Rotate piece    |
-| **↓**              | Soft drop       |
-| **Space**          | Hard drop       |
-| **Shift**          | Hold piece      |
-| **Esc** or **P**   | Pause game      |
-| **Enter**          | Restart game    |
+| Key              | Action          |
+| ---------------- | --------------- |
+| **← →**          | Move left/right |
+| **↑**            | Rotate piece    |
+| **↓**            | Soft drop       |
+| **Space**        | Hard drop       |
+| **Shift**        | Hold piece      |
+| **Esc** or **P** | Pause game      |
+| **Enter**        | Restart game    |
 
 #### Mobile Controls
 
@@ -332,6 +334,7 @@ This project is a modern rewrite of my first-year Bachelor's group project. The 
 ### Original Project Contributors
 
 The original V1 project was a group effort with:
+
 - Me (KevOneRedOne)
 - Djoudi Yanis (Tadayoshi123)
 - Moren Yohan (BoSswosile)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+ 
+  <!-- Main Game Page -->
+  <url>
+    <loc>https://simplistic-tetris.netlify.app/</loc>
+    <lastmod>2026-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+
+    <!-- Game Screenshot -->
+    <image:image>
+      <image:loc>https://simplistic-tetris.netlify.app/images/game-view.png</image:loc>
+      <image:title>Simplistic Tetris - Game Screenshot</image:title>
+      <image:caption>Modern TypeScript Tetris game with Classic and Ultra modes</image:caption>
+    </image:image>
+
+    <!-- Game Logo -->
+    <image:image>
+      <image:loc>https://simplistic-tetris.netlify.app/icons/android-chrome-512x512.png</image:loc>
+      <image:title>Simplistic Tetris Logo</image:title>
+      <image:caption>Retro Tetris game logo</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
