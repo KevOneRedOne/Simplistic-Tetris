@@ -1,0 +1,7 @@
+# Netlify Redirects and Rewrites
+
+# SPA fallback - redirect all requests to index.html
+/*    /index.html   200
+
+# 404 page
+/*    /404.html     404

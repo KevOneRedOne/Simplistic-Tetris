@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>404 - Page Not Found | Simplistic Tetris</title>
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=optional" rel="stylesheet" />
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
+  <style>
+    /* CSS Variables - matching the main app DARK theme (default) */
+    :root {
+      --color-primary: #00e676;
+      --color-secondary: #00b0ff;
+      --color-accent: #ff3d00;
+      --color-background: #1a1a1a;
+      --color-boardBackground: #2a2a2a;
+      --color-text: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--color-background);
+      background-image: url('/images/background.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Modal-style container (matching .modal and .modal-content) */
+    .error-modal {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .error-content {
+      /* Glass morphism effect - matching .modal-content */
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 500px;
+      width: 90%;
+      color: white;
+      text-align: center;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* 404 Error Code */
+    .error-code {
+      font-size: clamp(3rem, 10vw, 6rem);
+      margin-bottom: 1rem;
+      color: var(--color-accent);
+      text-shadow: 0 0 20px var(--color-accent), 0 0 40px rgba(255, 61, 0, 0.5);
+      letter-spacing: 0.5rem;
+      line-height: 1.2;
+      font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+    }
+
+    /* Title - matching h2 in modals */
+    h1 {
+      font-family: 'Press Start 2P', 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-primary);
+      text-shadow: 0 0 20px var(--color-primary), 0 0 40px rgba(0, 230, 118, 0.4);
+      letter-spacing: 2px;
+      line-height: 1.8;
+    }
+
+    /* Description */
+    .error-description {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem 2rem;
+      background: rgba(0, 230, 118, 0.05);
+      border-left: 3px solid var(--color-primary);
+      border-radius: 0.5rem;
+      text-align: left;
+    }
+
+    /* Tetromino animation */
+    .tetromino-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .tetromino {
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      animation: bounce 1.5s infinite ease-in-out;
+    }
+
+    .tetromino:nth-child(1) {
+      background: #00f0f0; /* cyan - I piece */
+      animation-delay: 0s;
+    }
+
+    .tetromino:nth-child(2) {
+      background: #f0f000; /* yellow - O piece */
+      animation-delay: 0.2s;
+    }
+
+    .tetromino:nth-child(3) {
+      background: #00f000; /* green - S piece */
+      animation-delay: 0.4s;
+    }
+
+    .tetromino:nth-child(4) {
+      background: #f00000; /* red - Z piece */
+      animation-delay: 0.6s;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-15px) rotate(5deg);
+      }
+      50% {
+        transform: translateY(0) rotate(0deg);
+      }
+      75% {
+        transform: translateY(-8px) rotate(-5deg);
+      }
+    }
+
+    /* Buttons container */
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Button styling - matching .game-button */
+    .game-button {
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      flex: 1;
+      min-width: 140px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .game-button:hover {
+      background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+      box-shadow: 0 6px 20px rgba(0, 230, 118, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .game-button:active {
+      transform: translateY(0);
+    }
+
+    /* Icon in buttons */
+    .iconify {
+      flex-shrink: 0;
+    }
+
+    /* Support message - matching game-over-support */
+    .support-message {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin: 1rem 0;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 3px solid rgba(255, 193, 7, 0.6);
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+
+    .support-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ffc107;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s;
+      font-size: 0.75rem;
+      margin: 0 0.25rem;
+    }
+
+    .support-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 576px) {
+      .error-content {
+        padding: 1.5rem;
+        width: 95%;
+      }
+
+      .error-code {
+        font-size: 3rem;
+        letter-spacing: 0.3rem;
+      }
+
+      h1 {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      .error-description {
+        font-size: 0.75rem;
+        padding: 1rem 1.5rem;
+      }
+
+      .modal-buttons {
+        flex-direction: column;
+      }
+
+      .game-button {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-modal">
+    <div class="error-content">
+      <div class="error-code">404</div>
+      <h1>PAGE NOT FOUND</h1>
+
+      <div class="tetromino-container">
+        <span class="tetromino"></span>
+        <span class="tetromino"></span>
+        <span class="tetromino"></span>
+        <span class="tetromino"></span>
+      </div>
+
+      <div class="error-description">
+        <p style="margin: 0;">
+          Oops! This Tetromino fell off the board.
+        </p>
+        <p style="margin-top: 1rem; margin-bottom: 0;">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+      </div>
+
+      <div class="support-message">
+        <p style="margin: 0 0 0.5rem 0;">Lost? Let's get you back to the game!</p>
+      </div>
+
+      <div class="modal-buttons">
+        <a href="/" class="game-button">
+          <span class="iconify" data-icon="mdi:gamepad-variant" data-width="18" aria-hidden="true"></span>
+          <span>Play Tetris</span>
+        </a>
+        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" class="game-button" target="_blank" rel="noopener noreferrer">
+          <span class="iconify" data-icon="mdi:github" data-width="18" aria-hidden="true"></span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Structured Data for 404 Page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "404 - Page Not Found",
+    "description": "The requested page was not found on Simplistic Tetris.",
+    "url": "https://simplistic-tetris.netlify.app/404.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Simplistic Tetris",
+      "url": "https://simplistic-tetris.netlify.app/"
+    }
+  }
+  </script>
+</body>
+
+</html>

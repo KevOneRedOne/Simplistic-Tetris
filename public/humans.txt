@@ -1,0 +1,18 @@
+/* TEAM */
+Developer: Kevin Alves (KevOneRedOne)
+Site: https://github.com/KevOneRedOne
+Location: France
+
+/* THANKS */
+Tetris - The Tetris Company
+TypeScript - Microsoft
+Vite - Evan You and team
+
+/* SITE */
+Last update: 2026/02/09
+Language: English / Français
+Doctype: HTML5
+IDE: Visual Studio Code
+Technologies: TypeScript, HTML5 Canvas, Vite, Sass
+Standards: HTML5, CSS3, ES6+
+Components: Canvas API, Web Audio API, LocalStorage

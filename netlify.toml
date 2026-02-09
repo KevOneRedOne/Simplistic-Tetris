@@ -1,22 +1,52 @@
+# Netlify Configuration File
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
 [build]
-  command = "npm run build"
+  # Directory with build output
   publish = "dist"
   
-[build.environment]
-  NODE_VERSION = "20"
+  # Build command
+  command = "npm run build"
 
+[build.environment]
+  # Node version
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
+
+# Redirect rules (backup to _redirects file)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+  # Optional: Configure Lighthouse thresholds
+  [plugins.inputs.thresholds]
+    performance = 0.9
+    accessibility = 0.9
+    best-practices = 0.9
+    seo = 0.9
+
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+
+# Headers (backup to _headers file)
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()"
 
 [[headers]]
   for = "/assets/*"
@@ -33,3 +63,26 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Development context
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"
+
+# Production context
+[context.production]
+  command = "npm run build"
+
+[context.production.environment]
+  NODE_ENV = "production"
