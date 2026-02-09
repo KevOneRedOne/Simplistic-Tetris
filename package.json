@@ -54,7 +54,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/update-sitemap.js && tsc && vite build",
+    "build": "node scripts/update-sitemap.js && npx tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",

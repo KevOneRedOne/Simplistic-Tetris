@@ -12,6 +12,9 @@
   # Node version
   NODE_VERSION = "20"
   NPM_VERSION = "10"
+  
+  # Install devDependencies (required for TypeScript, Vite, etc.)
+  NPM_CONFIG_PRODUCTION = "false"
 
 # Redirect rules (backup to _redirects file)
 [[redirects]]
