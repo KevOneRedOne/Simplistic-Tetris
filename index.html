@@ -1,447 +1,634 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="OO4qBNXKnsP4gPwfSO63aBnPf-zoUQh_zRFHUoGQ-2U" />
+    <meta
+      name="description"
+      content="Play Simplistic Tetris online for free! Modern retro Tetris game built with TypeScript. Features classic & ultra modes, high scores, mobile support. No download needed - play now in your browser!"
+    />
+    <meta
+      name="keywords"
+      content="tetris, free tetris, online tetris, play tetris, tetris game, browser tetris, typescript game, retro tetris, classic tetris, tetris online free, web tetris, mobile tetris, simplistic tetris, tetris no download, puzzle game, arcade game"
+    />
+    <meta name="copyright" content="https://github.com/KevOneRedOne/Simplistic-Tetris" />
+    <meta name="author" content="Kevin Alves" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="language" content="en, fr" />
+    <meta name="application-name" content="Simplistic Tetris" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#00ffff" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Play Simplistic Tetris online for free! Modern retro Tetris game built with TypeScript. Features classic & ultra modes, high scores, mobile support. No download needed - play now in your browser!" />
-  <meta name="keywords" content="tetris, free tetris, online tetris, play tetris, tetris game, browser tetris, typescript game, retro tetris, classic tetris, tetris online free, web tetris, mobile tetris, simplistic tetris, tetris no download, puzzle game, arcade game" />
-  <meta name="copyright" content="https://github.com/KevOneRedOne/Simplistic-Tetris">
-  <meta name="author" content="Kevin Alves" />
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="language" content="en, fr" />
-  <meta name="application-name" content="Simplistic Tetris" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="theme-color" content="#00ffff" />
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://simplistic-tetris.netlify.app/" />
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://simplistic-tetris.netlify.app/" />
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Simplistic Tetris" />
+    <meta
+      property="og:description"
+      content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://simplistic-tetris.netlify.app/" />
+    <meta
+      property="og:image"
+      content="https://simplistic-tetris.netlify.app/images/game-view.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Simplistic Tetris - Game Screenshot" />
+    <meta property="og:site_name" content="Simplistic Tetris" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Simplistic Tetris" />
-  <meta property="og:description" content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://simplistic-tetris.netlify.app/" />
-  <meta property="og:image" content="https://simplistic-tetris.netlify.app/images/game-view.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="Simplistic Tetris - Game Screenshot" />
-  <meta property="og:site_name" content="Simplistic Tetris" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:locale:alternate" content="fr_FR" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Simplistic Tetris" />
+    <meta
+      name="twitter:description"
+      content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://simplistic-tetris.netlify.app/images/game-view.png"
+    />
+    <meta name="twitter:image:alt" content="Simplistic Tetris - Game Screenshot" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Simplistic Tetris" />
-  <meta name="twitter:description" content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!" />
-  <meta name="twitter:image" content="https://simplistic-tetris.netlify.app/images/game-view.png" />
-  <meta name="twitter:image:alt" content="Simplistic Tetris - Game Screenshot" />
+    <!-- Alternate Language Links -->
+    <link rel="alternate" hreflang="en" href="https://simplistic-tetris.netlify.app/" />
+    <link rel="alternate" hreflang="fr" href="https://simplistic-tetris.netlify.app/" />
+    <link rel="alternate" hreflang="x-default" href="https://simplistic-tetris.netlify.app/" />
 
-  <!-- Alternate Language Links -->
-  <link rel="alternate" hreflang="en" href="https://simplistic-tetris.netlify.app/" />
-  <link rel="alternate" hreflang="fr" href="https://simplistic-tetris.netlify.app/" />
-  <link rel="alternate" hreflang="x-default" href="https://simplistic-tetris.netlify.app/" />
+    <title>Simplistic Tetris - Free Online Retro Tetris Game | Play Now</title>
+    <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link type="text/plain" rel="author" href="/humans.txt" />
 
-  <title>Simplistic Tetris - Free Online Retro Tetris Game | Play Now</title>
-  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <link type="text/plain" rel="author" href="/humans.txt" />
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Simplistic Tetris",
+        "description": "Free retro Tetris game built with TypeScript. Play classic Tetris online with modern features, multiple game modes, and high score tracking.",
+        "url": "https://simplistic-tetris.netlify.app/",
+        "image": "https://simplistic-tetris.netlify.app/images/game-view.png",
+        "author": {
+          "@type": "Person",
+          "name": "Kevin Alves",
+          "url": "https://github.com/KevOneRedOne"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Kevin Alves",
+          "url": "https://github.com/KevOneRedOne"
+        },
+        "applicationCategory": "Game",
+        "genre": ["Puzzle", "Arcade", "Tetris"],
+        "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "1",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "inLanguage": ["en", "fr"],
+        "keywords": "tetris, online tetris, free tetris, browser game, puzzle game, typescript game, retro game, classic tetris"
+      }
+    </script>
 
-  <!-- Structured Data - JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": "Simplistic Tetris",
-    "description": "Free retro Tetris game built with TypeScript. Play classic Tetris online with modern features, multiple game modes, and high score tracking.",
-    "url": "https://simplistic-tetris.netlify.app/",
-    "image": "https://simplistic-tetris.netlify.app/images/game-view.png",
-    "author": {
-      "@type": "Person",
-      "name": "Kevin Alves",
-      "url": "https://github.com/KevOneRedOne"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Kevin Alves",
-      "url": "https://github.com/KevOneRedOne"
-    },
-    "applicationCategory": "Game",
-    "genre": ["Puzzle", "Arcade", "Tetris"],
-    "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "1",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "inLanguage": ["en", "fr"],
-    "keywords": "tetris, online tetris, free tetris, browser game, puzzle game, typescript game, retro game, classic tetris"
-  }
-  </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Simplistic Tetris",
+        "url": "https://simplistic-tetris.netlify.app/",
+        "description": "Play Tetris online for free. Modern TypeScript implementation with classic gameplay, multiple modes, and responsive design.",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Supports all modern browsers.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "screenshot": "https://simplistic-tetris.netlify.app/images/game-view.png"
+      }
+    </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Simplistic Tetris",
-    "url": "https://simplistic-tetris.netlify.app/",
-    "description": "Play Tetris online for free. Modern TypeScript implementation with classic gameplay, multiple modes, and responsive design.",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript. Supports all modern browsers.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "screenshot": "https://simplistic-tetris.netlify.app/images/game-view.png"
-  }
-  </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Simplistic Tetris",
+        "url": "https://simplistic-tetris.netlify.app/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://simplistic-tetris.netlify.app/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://code.iconify.design" />
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/icons/android-chrome-512x512.png" as="image" />
+    <!-- Preload font to prevent layout shift -->
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=optional"
+      rel="stylesheet"
+    />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
+  </head>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Simplistic Tetris",
-    "url": "https://simplistic-tetris.netlify.app/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://simplistic-tetris.netlify.app/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://code.iconify.design" />
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/icons/android-chrome-512x512.png" as="image" />
-  <!-- Preload font to prevent layout shift -->
-  <link rel="preload" href="https://fonts.gstatic.com/s/pressstart2p/v14/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2"
-    as="font" type="font/woff2" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=optional" rel="stylesheet" />
-  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
-</head>
-
-<body>
-  <!-- Header -->
-  <header class="game-header">
-    <div class="header-container">
-      <div class="header-left">
-        <button id="show-mode-selection-button" class="home-button" data-i18n-title="buttons.home"
-          data-i18n-aria-label="buttons.home">
-          <span class="iconify" data-icon="mdi:home" data-width="20"></span>
-        </button>
-      </div>
-      <div class="header-title">
-        <img src="/icons/android-chrome-512x512.png" alt="Tetris" width="50" height="50" fetchpriority="high"
-          class="header-logo-img">
-        <h1>Simplistic Tetris</h1>
-      </div>
-      <div class="header-author">
-        <!-- Language Toggle -->
-        <button id="language-toggle" class="language-button" data-i18n-title="settings.language" aria-label="Change language">
-          <span class="language-flag" id="language-flag">
-            <span class="iconify" data-icon="twemoji:flag-united-kingdom" data-width="20" aria-hidden="true"></span>
-          </span>
-        </button>
-        <a href="https://github.com/KevOneRedOne" target="_blank" class="github-button" title="GitHub Profile"
-          aria-label="GitHub Profile">
-          <span class="iconify" data-icon="mdi:github" data-width="24"></span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <div class="app-container">
-    <div class="game-layout">
-      <!-- Left Panel: High Scores & Controls -->
-      <aside class="side-panel left-panel">
-        <!-- High Scores Section -->
-        <div class="scores-section">
-          <h2 id="highscores-title" data-i18n="stats.highScores">HIGH SCORES</h2>
-          <ol id="highScores" style="min-height: 200px;"></ol>
-          <div class="scores-buttons">
-            <button id="highscores-mode-toggle" class="scores-mode-toggle" aria-label="Toggle score mode">
-              <span id="highscores-mode-text">Classic Mode</span>
-              <span class="iconify" data-icon="mdi:swap-horizontal" data-width="16"></span>
-            </button>
-            <button id="highscores-clear" class="scores-clear-button" data-i18n-title="stats.clearScores" data-i18n-aria-label="stats.clearScores">
-              <span class="iconify" data-icon="mdi:delete-outline" data-width="16"></span>
-            </button>
-          </div>
+  <body>
+    <!-- Header -->
+    <header class="game-header">
+      <div class="header-container">
+        <div class="header-left">
+          <button
+            id="show-mode-selection-button"
+            class="home-button"
+            data-i18n-title="buttons.home"
+            data-i18n-aria-label="buttons.home"
+          >
+            <span class="iconify" data-icon="mdi:home" data-width="20"></span>
+          </button>
         </div>
-
-        <!-- Divider -->
-        <div class="panel-divider"></div>
-
-        <!-- Controls Section -->
-        <div class="controls-section">
-          <h3 data-i18n="controls.title">CONTROLS</h3>
-          <div class="controls-grid">
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.move">Move</span>
-              <span class="key">⬅️ ➡️</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.rotate">Rotate</span>
-              <span class="key">⬆️</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.softDrop">Soft Drop</span>
-              <span class="key">⬇️</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.hardDrop">Hard Drop</span>
-              <span class="key">Space</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.holdSwap">Hold/Swap</span>
-              <span class="key">Shift</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.pauseGame">Pause</span>
-              <span class="key">ESC</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.restartGame">Restart</span>
-              <span class="key">Enter</span>
-            </div>
-            <div class="control-item">
-              <span class="desc" data-i18n="controls.quitGame">Quit</span>
-              <span class="key" data-i18n="controls.keyTab">Tab</span>
-            </div>
-          </div>
+        <div class="header-title">
+          <img
+            src="/icons/android-chrome-512x512.png"
+            alt="Tetris"
+            width="50"
+            height="50"
+            fetchpriority="high"
+            class="header-logo-img"
+          />
+          <h1>Simplistic Tetris</h1>
         </div>
-      </aside>
-
-      <!-- Main Game Area -->
-      <main class="game-canvas-container">
-        <canvas id="tetris" width="400" height="800"></canvas>
-      </main>
-
-      <!-- Right Panel: Stats & Preview -->
-      <aside class="side-panel right-panel">
-        <h2>TETRIS</h2>
-
-        <div class="stats">
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.mode">Mode:</span>
-            <span class="value" id="mode">CLASSIC</span>
-          </div>
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.score">Score:</span>
-            <span class="value" id="score">0</span>
-          </div>
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.lines">Lines:</span>
-            <span class="value" id="lines">0</span>
-          </div>
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.level">Level:</span>
-            <span class="value" id="level">0</span>
-          </div>
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.timer">Time:</span>
-            <span class="value" id="timer">0:00</span>
-          </div>
-          <div class="stat-item">
-            <span class="label" data-i18n="stats.fps">FPS:</span>
-            <span class="value" id="fpsValue">60</span>
-          </div>
-        </div>
-
-        <!-- Preview Pieces -->
-        <div class="preview-row">
-          <div class="preview-container">
-            <h3 data-i18n="stats.nextPiece">Next</h3>
-            <canvas id="next-canvas" width="120" height="120"></canvas>
-          </div>
-
-          <div class="preview-container">
-            <h3 data-i18n="stats.holdPiece">Hold</h3>
-            <canvas id="hold-canvas" width="120" height="120"></canvas>
-          </div>
-        </div>
-
-        <!-- Audio Controls -->
-        <div class="audio-controls-panel">
-          <h3 data-i18n="settings.audio">
-            <span class="iconify" data-icon="mdi:music-note" data-width="20" aria-hidden="true"></span>
-            <span>AUDIO</span>
-          </h3>
-          <div class="audio-buttons">
-            <button id="music-toggle" class="icon-button" data-i18n-title="settings.music">
-              <span class="iconify" data-icon="mdi:music" data-width="24"></span>
-              <span class="button-label" data-i18n="settings.music">Music</span>
-            </button>
-            <button id="sound-toggle" class="icon-button" data-i18n-title="settings.sound">
-              <span class="iconify" data-icon="mdi:volume-high" data-width="24"></span>
-              <span class="button-label" data-i18n="settings.sound">Sound</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="game-footer">
-    <div class="footer-content">
-      <!-- Support Buttons -->
-      <div class="footer-support">
-        <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer"
-          class="support-button support-button-coffee" data-i18n="buttons.tip" aria-label="Buy me a coffee">
-        </a>
-        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose" target="_blank"
-          rel="noopener noreferrer" class="support-button support-button-issues" data-i18n="buttons.issues" aria-label="Report an issue">
-        </a>
-        <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
-          class="support-button support-button-contribute" data-i18n="buttons.contribute" aria-label="Contribute">
-        </a>
-      </div>
-      <!-- Copyright -->
-      <div class="footer-copyright">
-        <p>&copy; 2025 <a href="https://github.com/KevOneRedOne" target="_blank">KevOneRedOne</a></p>
-      </div>
-      <!-- Music Credits (will be populated dynamically if using MP3) -->
-      <div id="music-credits" class="footer-credits" style="display: none;">
-        <p class="credits-text"></p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Game Over Modal (will be created dynamically) -->
-
-  <!-- Pause Modal -->
-  <div id="pause-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
-      <h2 data-i18n="messages.paused">Paused</h2>
-      <p style="margin: 1rem 0;" data-i18n="messages.pausedDescription">Press continue to resume or restart to start a
-        new game.</p>
-      <div class="modal-buttons">
-        <button id="restart-from-pause-button" class="game-button" data-i18n="buttons.restart">
-          <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
-          <span>Restart</span>
-        </button>
-        <button id="continue-button" class="game-button" data-i18n="buttons.continue">
-          <span class="iconify" data-icon="mdi:play" data-width="18" aria-hidden="true"></span>
-          <span>Continue</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Clear Scores Confirmation Modal -->
-  <div id="clear-scores-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
-      <h2 data-i18n="messages.confirmClearScoresTitle">Clear Scores</h2>
-      <p id="clear-scores-message" style="margin: 1rem 0;">
-        Are you sure you want to clear all scores? This action cannot be undone.
-      </p>
-      <div class="modal-buttons">
-        <button id="cancel-clear-scores-button" class="game-button" data-i18n="buttons.cancel">
-          <span class="iconify" data-icon="mdi:close" data-width="18" aria-hidden="true"></span>
-          <span>Cancel</span>
-        </button>
-        <button id="confirm-clear-scores-button" class="game-button game-button-danger" data-i18n="buttons.confirm">
-          <span class="iconify" data-icon="mdi:delete" data-width="18" aria-hidden="true"></span>
-          <span>Clear</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Game Over Modal (created dynamically) -->
-  <div id="game-over-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
-      <h2 data-i18n="messages.gameOver">Game Over</h2>
-
-      <!-- Stats Grid -->
-      <div class="game-over-stats-grid">
-        <div class="stat-card stat-card-primary">
-          <div class="stat-label" data-i18n="results.finalScore">Score</div>
-          <div class="stat-value" id="game-over-score">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label" data-i18n="results.totalLines">Lines</div>
-          <div class="stat-value" id="game-over-lines">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label" data-i18n="results.finalLevel">Level</div>
-          <div class="stat-value" id="game-over-level">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label" data-i18n="results.playTime">Time</div>
-          <div class="stat-value" id="game-over-time">0:00</div>
-        </div>
-      </div>
-      <!-- High Score Input (shown only if it's a high score) -->
-      <div id="high-score-input-container" style="display: none; margin: 1.5rem 0;">
-        <label for="player-name-input" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;"
-          data-i18n="messages.enterName">Enter your name:</label>
-        <input type="text" id="player-name-input" maxlength="3" placeholder="AAA"
-          style="width: 100%; padding: 0.75rem; font-size: 1.2rem; text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; background: rgba(0, 0, 0, 0.5); border: 2px solid var(--color-primary); border-radius: 0.5rem; color: white;"
-          autocomplete="off" />
-        <button id="save-score-button" class="game-button" style="margin-top: 1rem; width: 100%;"
-          data-i18n="buttons.save">Save</button>
-      </div>
-      <!-- Not a high score message -->
-      <div id="not-high-score-message"
-        style="display: none; margin: 1.5rem 0; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.8;">
-        <p id="not-high-score-text"></p>
-      </div>
-      <!-- Support message -->
-      <div class="game-over-support"
-        style="margin: 1rem 0; padding: 0.75rem 1rem; background: rgba(255, 193, 7, 0.1); border-left: 3px solid rgba(255, 193, 7, 0.6); border-radius: 0.5rem; font-size: 0.85rem; opacity: 0.9; text-align: center;">
-        <p style="margin: 0 0 0.5rem 0;" data-i18n="messages.supportMessage"></p>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center;">
-          <a href="https://buymeacoffee.com/kevoneredone" target="_blank" rel="noopener noreferrer" class="support-link"
-            style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
-            <span class="iconify" data-icon="mdi:coffee" data-width="18" aria-hidden="true"></span>
-            <span data-i18n="buttons.tip">Offrir un café</span>
-          </a>
-          <span style="color: rgba(255, 255, 255, 0.5);">•</span>
-          <a href="https://github.com/KevOneRedOne/Simplistic-Tetris" target="_blank" rel="noopener noreferrer"
-            class="support-link"
-            style="display: inline-flex; align-items: center; gap: 0.5rem; color: #ffc107; text-decoration: none; font-weight: bold; transition: opacity 0.2s;">
-            <span class="iconify" data-icon="mdi:code-tags" data-width="18" aria-hidden="true"></span>
-            <span data-i18n="buttons.contribute">Contribuer</span>
+        <div class="header-author">
+          <!-- Language Toggle -->
+          <button
+            id="language-toggle"
+            class="language-button"
+            data-i18n-title="settings.language"
+            aria-label="Change language"
+          >
+            <span class="language-flag" id="language-flag">
+              <span
+                class="iconify"
+                data-icon="twemoji:flag-united-kingdom"
+                data-width="20"
+                aria-hidden="true"
+              ></span>
+            </span>
+          </button>
+          <a
+            href="https://github.com/KevOneRedOne"
+            target="_blank"
+            class="github-button"
+            title="GitHub Profile"
+            aria-label="GitHub Profile"
+          >
+            <span class="iconify" data-icon="mdi:github" data-width="24"></span>
           </a>
         </div>
       </div>
-      <div class="modal-buttons">
-        <button id="play-again-button" class="game-button" data-i18n="buttons.playAgain">
-          <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
-          <span>Play Again</span>
-        </button>
+    </header>
+
+    <div class="app-container">
+      <div class="game-layout">
+        <!-- Left Panel: High Scores & Controls -->
+        <aside class="side-panel left-panel">
+          <!-- High Scores Section -->
+          <div class="scores-section">
+            <h2 id="highscores-title" data-i18n="stats.highScores">HIGH SCORES</h2>
+            <ol id="highScores" style="min-height: 200px"></ol>
+            <div class="scores-buttons">
+              <button
+                id="highscores-mode-toggle"
+                class="scores-mode-toggle"
+                aria-label="Toggle score mode"
+              >
+                <span id="highscores-mode-text">Classic Mode</span>
+                <span class="iconify" data-icon="mdi:swap-horizontal" data-width="16"></span>
+              </button>
+              <button
+                id="highscores-clear"
+                class="scores-clear-button"
+                data-i18n-title="stats.clearScores"
+                data-i18n-aria-label="stats.clearScores"
+              >
+                <span class="iconify" data-icon="mdi:delete-outline" data-width="16"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="panel-divider"></div>
+
+          <!-- Controls Section -->
+          <div class="controls-section">
+            <h3 data-i18n="controls.title">CONTROLS</h3>
+            <div class="controls-grid">
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.move">Move</span>
+                <span class="key">⬅️ ➡️</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.rotate">Rotate</span>
+                <span class="key">⬆️</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.softDrop">Soft Drop</span>
+                <span class="key">⬇️</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.hardDrop">Hard Drop</span>
+                <span class="key">Space</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.holdSwap">Hold/Swap</span>
+                <span class="key">Shift</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.pauseGame">Pause</span>
+                <span class="key">ESC</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.restartGame">Restart</span>
+                <span class="key">Enter</span>
+              </div>
+              <div class="control-item">
+                <span class="desc" data-i18n="controls.quitGame">Quit</span>
+                <span class="key" data-i18n="controls.keyTab">Tab</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Game Area -->
+        <main class="game-canvas-container">
+          <canvas id="tetris" width="400" height="800"></canvas>
+        </main>
+
+        <!-- Right Panel: Stats & Preview -->
+        <aside class="side-panel right-panel">
+          <h2>TETRIS</h2>
+
+          <div class="stats">
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.mode">Mode:</span>
+              <span class="value" id="mode">CLASSIC</span>
+            </div>
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.score">Score:</span>
+              <span class="value" id="score">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.lines">Lines:</span>
+              <span class="value" id="lines">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.level">Level:</span>
+              <span class="value" id="level">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.timer">Time:</span>
+              <span class="value" id="timer">0:00</span>
+            </div>
+            <div class="stat-item">
+              <span class="label" data-i18n="stats.fps">FPS:</span>
+              <span class="value" id="fpsValue">60</span>
+            </div>
+          </div>
+
+          <!-- Preview Pieces -->
+          <div class="preview-row">
+            <div class="preview-container">
+              <h3 data-i18n="stats.nextPiece">Next</h3>
+              <canvas id="next-canvas" width="120" height="120"></canvas>
+            </div>
+
+            <div class="preview-container">
+              <h3 data-i18n="stats.holdPiece">Hold</h3>
+              <canvas id="hold-canvas" width="120" height="120"></canvas>
+            </div>
+          </div>
+
+          <!-- Audio Controls -->
+          <div class="audio-controls-panel">
+            <h3 data-i18n="settings.audio">
+              <span
+                class="iconify"
+                data-icon="mdi:music-note"
+                data-width="20"
+                aria-hidden="true"
+              ></span>
+              <span>AUDIO</span>
+            </h3>
+            <div class="audio-buttons">
+              <button id="music-toggle" class="icon-button" data-i18n-title="settings.music">
+                <span class="iconify" data-icon="mdi:music" data-width="24"></span>
+                <span class="button-label" data-i18n="settings.music">Music</span>
+              </button>
+              <button id="sound-toggle" class="icon-button" data-i18n-title="settings.sound">
+                <span class="iconify" data-icon="mdi:volume-high" data-width="24"></span>
+                <span class="button-label" data-i18n="settings.sound">Sound</span>
+              </button>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
-  </div>
 
-  <!-- Audio element for browser media controls -->
-  <audio id="game-music" preload="auto" loop style="display: none;" aria-label="Game music"
-    crossorigin="anonymous"></audio>
+    <!-- Footer -->
+    <footer class="game-footer">
+      <div class="footer-content">
+        <!-- Support Buttons -->
+        <div class="footer-support">
+          <a
+            href="https://buymeacoffee.com/kevoneredone"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-button support-button-coffee"
+            data-i18n="buttons.tip"
+            aria-label="Buy me a coffee"
+          >
+          </a>
+          <a
+            href="https://github.com/KevOneRedOne/Simplistic-Tetris/issues/new/choose"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-button support-button-issues"
+            data-i18n="buttons.issues"
+            aria-label="Report an issue"
+          >
+          </a>
+          <a
+            href="https://github.com/KevOneRedOne/Simplistic-Tetris"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-button support-button-contribute"
+            data-i18n="buttons.contribute"
+            aria-label="Contribute"
+          >
+          </a>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright">
+          <p>
+            &copy; 2025 <a href="https://github.com/KevOneRedOne" target="_blank">KevOneRedOne</a>
+          </p>
+        </div>
+        <!-- Music Credits (will be populated dynamically if using MP3) -->
+        <div id="music-credits" class="footer-credits" style="display: none">
+          <p class="credits-text"></p>
+        </div>
+      </div>
+    </footer>
 
-  <script type="module" src="/src/main.ts"></script>
-</body>
+    <!-- Game Over Modal (will be created dynamically) -->
 
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
+        <h2 data-i18n="messages.paused">Paused</h2>
+        <p style="margin: 1rem 0" data-i18n="messages.pausedDescription">
+          Press continue to resume or restart to start a new game.
+        </p>
+        <div class="modal-buttons">
+          <button id="restart-from-pause-button" class="game-button" data-i18n="buttons.restart">
+            <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
+            <span>Restart</span>
+          </button>
+          <button id="continue-button" class="game-button" data-i18n="buttons.continue">
+            <span class="iconify" data-icon="mdi:play" data-width="18" aria-hidden="true"></span>
+            <span>Continue</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear Scores Confirmation Modal -->
+    <div id="clear-scores-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
+        <h2 data-i18n="messages.confirmClearScoresTitle">Clear Scores</h2>
+        <p id="clear-scores-message" style="margin: 1rem 0">
+          Are you sure you want to clear all scores? This action cannot be undone.
+        </p>
+        <div class="modal-buttons">
+          <button id="cancel-clear-scores-button" class="game-button" data-i18n="buttons.cancel">
+            <span class="iconify" data-icon="mdi:close" data-width="18" aria-hidden="true"></span>
+            <span>Cancel</span>
+          </button>
+          <button
+            id="confirm-clear-scores-button"
+            class="game-button game-button-danger"
+            data-i18n="buttons.confirm"
+          >
+            <span class="iconify" data-icon="mdi:delete" data-width="18" aria-hidden="true"></span>
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Modal (created dynamically) -->
+    <div id="game-over-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <button class="modal-close" data-i18n-aria-label="buttons.close">&times;</button>
+        <h2 data-i18n="messages.gameOver">Game Over</h2>
+
+        <!-- Stats Grid -->
+        <div class="game-over-stats-grid">
+          <div class="stat-card stat-card-primary">
+            <div class="stat-label" data-i18n="results.finalScore">Score</div>
+            <div class="stat-value" id="game-over-score">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="results.totalLines">Lines</div>
+            <div class="stat-value" id="game-over-lines">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="results.finalLevel">Level</div>
+            <div class="stat-value" id="game-over-level">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="results.playTime">Time</div>
+            <div class="stat-value" id="game-over-time">0:00</div>
+          </div>
+        </div>
+        <!-- High Score Input (shown only if it's a high score) -->
+        <div id="high-score-input-container" style="display: none; margin: 1.5rem 0">
+          <label
+            for="player-name-input"
+            style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem"
+            data-i18n="messages.enterName"
+            >Enter your name:</label
+          >
+          <input
+            type="text"
+            id="player-name-input"
+            maxlength="3"
+            placeholder="AAA"
+            style="
+              width: 100%;
+              padding: 0.75rem;
+              font-size: 1.2rem;
+              text-align: center;
+              text-transform: uppercase;
+              font-family: 'Press Start 2P', cursive;
+              background: rgba(0, 0, 0, 0.5);
+              border: 2px solid var(--color-primary);
+              border-radius: 0.5rem;
+              color: white;
+            "
+            autocomplete="off"
+          />
+          <button
+            id="save-score-button"
+            class="game-button"
+            style="margin-top: 1rem; width: 100%"
+            data-i18n="buttons.save"
+          >
+            Save
+          </button>
+        </div>
+        <!-- Not a high score message -->
+        <div
+          id="not-high-score-message"
+          style="
+            display: none;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+          "
+        >
+          <p id="not-high-score-text"></p>
+        </div>
+        <!-- Support message -->
+        <div
+          class="game-over-support"
+          style="
+            margin: 1rem 0;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid rgba(255, 193, 7, 0.6);
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            text-align: center;
+          "
+        >
+          <p style="margin: 0 0 0.5rem 0" data-i18n="messages.supportMessage"></p>
+          <div
+            style="
+              display: flex;
+              gap: 0.75rem;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <a
+              href="https://buymeacoffee.com/kevoneredone"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="support-link"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #ffc107;
+                text-decoration: none;
+                font-weight: bold;
+                transition: opacity 0.2s;
+              "
+            >
+              <span
+                class="iconify"
+                data-icon="mdi:coffee"
+                data-width="18"
+                aria-hidden="true"
+              ></span>
+              <span data-i18n="buttons.tip">Offrir un café</span>
+            </a>
+            <span style="color: rgba(255, 255, 255, 0.5)">•</span>
+            <a
+              href="https://github.com/KevOneRedOne/Simplistic-Tetris"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="support-link"
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: #ffc107;
+                text-decoration: none;
+                font-weight: bold;
+                transition: opacity 0.2s;
+              "
+            >
+              <span
+                class="iconify"
+                data-icon="mdi:code-tags"
+                data-width="18"
+                aria-hidden="true"
+              ></span>
+              <span data-i18n="buttons.contribute">Contribuer</span>
+            </a>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button id="play-again-button" class="game-button" data-i18n="buttons.playAgain">
+            <span class="iconify" data-icon="mdi:restart" data-width="18" aria-hidden="true"></span>
+            <span>Play Again</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio element for browser media controls -->
+    <audio
+      id="game-music"
+      preload="auto"
+      loop
+      style="display: none"
+      aria-label="Game music"
+      crossorigin="anonymous"
+    ></audio>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
