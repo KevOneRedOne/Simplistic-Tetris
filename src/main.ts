@@ -1072,8 +1072,9 @@ class TetrisGame {
       // Update high scores display (will show last attempt if not in top 10)
       this.updateHighScoresDisplay(this.displayedScoreMode);
 
-      // Hide input container
+      // Hide input container and remove focus
       inputContainer.style.display = 'none';
+      nameInput.blur();
 
       // Show appropriate message
       if (isHighScore) {
@@ -1150,6 +1151,21 @@ class TetrisGame {
 
     this.animationEngine.clearAll();
     this.gameEngine.restart(mode);
+
+    // Restart music when restarting the game
+    this.musicManager.play();
+
+    // Update music button to reflect that music is playing
+    const musicButton = document.getElementById('music-toggle');
+    if (musicButton) {
+      musicButton.classList.add('active');
+      musicButton.classList.remove('muted');
+      const icon = musicButton.querySelector('.iconify');
+      if (icon) {
+        icon.setAttribute('data-icon', 'mdi:music');
+      }
+    }
+
     this.startGameLoop();
   }
 

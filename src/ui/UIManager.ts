@@ -130,6 +130,12 @@ export class UIManager {
           modal.classList.remove('active');
           modal.style.display = 'none';
 
+          // Remove focus from any input elements in the modal
+          const activeElement = document.activeElement as HTMLElement;
+          if (activeElement && modal.contains(activeElement)) {
+            activeElement.blur();
+          }
+
           // Re-enable background scroll
           const openModals = document.querySelectorAll('.modal.active');
           if (openModals.length === 0) {
@@ -148,6 +154,12 @@ export class UIManager {
     if (modal) {
       modal.classList.remove('active');
       modal.style.display = 'none';
+
+      // Remove focus from any input elements in the modal
+      const activeElement = document.activeElement as HTMLElement;
+      if (activeElement && modal.contains(activeElement)) {
+        activeElement.blur();
+      }
 
       // Re-enable background scroll if no other modals are open
       const openModals = document.querySelectorAll('.modal.active');
