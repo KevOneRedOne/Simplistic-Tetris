@@ -1,0 +1,106 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: "Select version bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        id: version
+        run: |
+          NEW_VERSION=$(npm version ${{ github.event.inputs.version_type }} --no-git-tag-version)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "version_number=${NEW_VERSION#v}" >> $GITHUB_OUTPUT
+
+      - name: Update CHANGELOG
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          VERSION="${{ steps.version.outputs.version_number }}"
+          
+          # Create temporary file with new entry
+          echo "# Changelog" > CHANGELOG.tmp
+          echo "" >> CHANGELOG.tmp
+          echo "All notable changes to Simplistic Tetris will be documented in this file." >> CHANGELOG.tmp
+          echo "" >> CHANGELOG.tmp
+          echo "## [$VERSION] - $DATE" >> CHANGELOG.tmp
+          echo "" >> CHANGELOG.tmp
+          echo "### Added" >> CHANGELOG.tmp
+          echo "- Release $VERSION" >> CHANGELOG.tmp
+          echo "" >> CHANGELOG.tmp
+          
+          # Append existing changelog content (skip header)
+          if [ -f CHANGELOG.md ]; then
+            # Skip lines until we find the first version entry
+            sed -n '/^## \[/,$p' CHANGELOG.md >> CHANGELOG.tmp
+          fi
+          
+          # Replace original file
+          mv CHANGELOG.tmp CHANGELOG.md
+
+      - name: Run tests
+        run: npm test -- --run
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit version bump and changelog
+        run: |
+          git add package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): ${{ steps.version.outputs.new_version }}"
+          git tag ${{ steps.version.outputs.new_version }}
+
+      - name: Push changes and tags
+        run: |
+          git push origin HEAD:main
+          git push origin ${{ steps.version.outputs.new_version }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.new_version }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Netlify
+        run: npx netlify-cli deploy --dir=dist --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

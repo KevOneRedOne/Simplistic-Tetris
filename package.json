@@ -62,6 +62,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,scss,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,css,json}\"",
     "sitemap:update": "node scripts/update-sitemap.js",
     "docker:build": "docker build -t simplistic-tetris:latest .",
     "docker:run": "docker run -d --name simplistic-tetris -p 8080:80 simplistic-tetris:latest",
