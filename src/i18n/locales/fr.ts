@@ -103,6 +103,8 @@ export default {
     disabled: 'Désactivé',
     saveSettings: 'Sauvegarder',
     resetSettings: 'Réinitialiser',
+    accessibility: 'Accessibilité',
+    colorblindMode: 'Mode Daltonien',
   },
   themes: {
     classic: 'Classique',

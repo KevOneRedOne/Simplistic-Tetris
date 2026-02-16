@@ -102,6 +102,8 @@ export default {
     disabled: 'Disabled',
     saveSettings: 'Save',
     resetSettings: 'Reset',
+    accessibility: 'Accessibility',
+    colorblindMode: 'Colorblind Mode',
   },
   themes: {
     classic: 'Classic',

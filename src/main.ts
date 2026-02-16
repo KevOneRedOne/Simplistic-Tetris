@@ -113,6 +113,9 @@ class TetrisGame {
     // Setup music toggle button
     this.setupMusicToggle();
 
+    // Setup colorblind mode toggle
+    this.setupColorblindModeToggle();
+
     // Setup pause modal buttons
     this.setupPauseModalButtons();
 
@@ -493,6 +496,84 @@ class TetrisGame {
       // Set initial state
       soundButton.classList.add('active');
     }
+  }
+
+  /**
+   * Setup colorblind mode toggle
+   */
+  private setupColorblindModeToggle(): void {
+    const colorblindButton = document.getElementById('colorblind-toggle');
+    if (!colorblindButton) {
+      return;
+    }
+
+    // Load saved preference
+    const savedMode = localStorage.getItem('tetris_v2_colorblind_mode');
+    let colorblindEnabled = savedMode === 'true';
+
+    // Function to update icon
+    const updateIcon = (enabled: boolean) => {
+      const iconName = enabled ? 'mdi:eye' : 'mdi:eye-off-outline';
+      colorblindButton.innerHTML = `<span class="iconify" data-icon="${iconName}" data-width="20"></span>`;
+    };
+
+    // Set initial state
+    if (colorblindEnabled) {
+      colorblindButton.classList.add('active');
+      colorblindButton.classList.remove('muted');
+      this.renderer.setColorBlindMode(true);
+      updateIcon(true);
+    } else {
+      colorblindButton.classList.add('muted');
+      colorblindButton.classList.remove('active');
+      updateIcon(false);
+    }
+
+    // Add click handler
+    colorblindButton.addEventListener('click', () => {
+      colorblindEnabled = !colorblindEnabled;
+      this.renderer.setColorBlindMode(colorblindEnabled);
+
+      // Update icon and class
+      if (colorblindEnabled) {
+        colorblindButton.classList.add('active');
+        colorblindButton.classList.remove('muted');
+        updateIcon(true);
+      } else {
+        colorblindButton.classList.remove('active');
+        colorblindButton.classList.add('muted');
+        updateIcon(false);
+      }
+
+      // Save preference
+      try {
+        localStorage.setItem('tetris_v2_colorblind_mode', colorblindEnabled.toString());
+      } catch {
+        // Ignore storage errors
+      }
+
+      // Trigger a re-render to apply the pattern
+      if (this.gameEngine) {
+        const state = this.gameEngine.getState();
+        const ghostPiece = this.gameEngine.getGhostPosition();
+        this.renderer.render(state.board, state.currentPiece, ghostPiece);
+
+        // Re-render preview pieces
+        if (state.nextPiece) {
+          const nextCanvas = document.getElementById('next-canvas') as HTMLCanvasElement;
+          if (nextCanvas) {
+            this.renderer.drawPreviewPiece(state.nextPiece, nextCanvas);
+          }
+        }
+
+        if (state.holdPiece) {
+          const holdCanvas = document.getElementById('hold-canvas') as HTMLCanvasElement;
+          if (holdCanvas) {
+            this.renderer.drawPreviewPiece(state.holdPiece, holdCanvas);
+          }
+        }
+      }
+    });
   }
 
   /**

@@ -4,13 +4,20 @@
  */
 
 import type { BoardGrid, Tetromino } from '@/types/index';
-import { BOARD_COLS, BOARD_ROWS, CELL_SIZE, GHOST_PIECE_OPACITY } from '@constants/config';
+import {
+  BOARD_COLS,
+  BOARD_ROWS,
+  CELL_SIZE,
+  GHOST_PIECE_OPACITY,
+  VACANT_COLOR,
+} from '@constants/config';
 import { getTetrominoOccupiedCells } from '@core/Tetromino';
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private cellSize: number;
+  private colorBlindMode: boolean = false;
 
   constructor(canvas: HTMLCanvasElement, cellSize: number = CELL_SIZE) {
     this.canvas = canvas;
@@ -35,9 +42,9 @@ export class CanvasRenderer {
   }
 
   /**
-   * Draw a single square
+   * Draw a single square with optional 3D effects
    */
-  private drawSquare(x: number, y: number, color: string, opacity = 1): void {
+  private drawSquare(x: number, y: number, color: string, opacity = 1, with3D = false): void {
     // Don't draw if off-screen (above board)
     if (y < 0) {
       return;
@@ -46,20 +53,74 @@ export class CanvasRenderer {
     const prevAlpha = this.ctx.globalAlpha;
     this.ctx.globalAlpha = opacity;
 
-    // Fill
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+    const xPos = x * this.cellSize;
+    const yPos = y * this.cellSize;
 
-    // Border
-    this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+    if (with3D) {
+      // Fill with subtle gradient for soft 3D effect
+      const gradient = this.ctx.createLinearGradient(xPos, yPos, xPos, yPos + this.cellSize);
+      gradient.addColorStop(0, this.lightenColor(color, 15));
+      gradient.addColorStop(0.5, color);
+      gradient.addColorStop(1, this.darkenColor(color, 12));
+      this.ctx.fillStyle = gradient;
+      this.ctx.fillRect(xPos, yPos, this.cellSize, this.cellSize);
+
+      // Add subtle highlight at the top
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+      this.ctx.fillRect(xPos + 1, yPos + 1, this.cellSize - 2, this.cellSize * 0.25);
+
+      // Add very subtle shadow at the bottom
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      this.ctx.fillRect(
+        xPos + 1,
+        yPos + this.cellSize * 0.75,
+        this.cellSize - 2,
+        this.cellSize * 0.25 - 1
+      );
+
+      // Thin outer border
+      this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.35)';
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeRect(xPos, yPos, this.cellSize, this.cellSize);
+
+      // Very subtle inner light border (top and left)
+      this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      this.ctx.lineWidth = 1;
+      this.ctx.beginPath();
+      this.ctx.moveTo(xPos + this.cellSize - 1, yPos + 1);
+      this.ctx.lineTo(xPos + 1, yPos + 1);
+      this.ctx.lineTo(xPos + 1, yPos + this.cellSize - 1);
+      this.ctx.stroke();
+
+      // Very subtle inner dark border (bottom and right)
+      this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+      this.ctx.lineWidth = 1;
+      this.ctx.beginPath();
+      this.ctx.moveTo(xPos + 1, yPos + this.cellSize - 1);
+      this.ctx.lineTo(xPos + this.cellSize - 1, yPos + this.cellSize - 1);
+      this.ctx.lineTo(xPos + this.cellSize - 1, yPos + 1);
+      this.ctx.stroke();
+
+      // Draw pattern in colorblind mode
+      if (this.colorBlindMode) {
+        this.drawColorBlindPattern(xPos, yPos, color);
+      }
+    } else {
+      // Simple fill for board squares (no 3D effect)
+      this.ctx.fillStyle = color;
+      this.ctx.fillRect(xPos, yPos, this.cellSize, this.cellSize);
+
+      // Simple border
+      this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeRect(xPos, yPos, this.cellSize, this.cellSize);
+    }
 
     this.ctx.globalAlpha = prevAlpha;
   }
 
   /**
-   * Draw the game board
+   * Draw the game board (with 3D effects only for occupied cells)
    */
   public drawBoard(board: BoardGrid): void {
     for (let row = 0; row < BOARD_ROWS; row++) {
@@ -68,18 +129,19 @@ export class CanvasRenderer {
 
       for (let col = 0; col < BOARD_COLS; col++) {
         const color = boardRow[col];
-        if (color) {
-          this.drawSquare(col, row, color);
+        // Only draw if cell is not vacant
+        if (color && color !== VACANT_COLOR) {
+          this.drawSquare(col, row, color, 1, true); // With 3D effect for occupied cells
         }
       }
     }
   }
 
   /**
-   * Draw grid lines
+   * Draw grid lines (subtle and visible)
    */
   public drawGrid(): void {
-    this.ctx.strokeStyle = 'rgba(100, 100, 100, 0.2)';
+    this.ctx.strokeStyle = 'rgba(120, 120, 120, 0.12)';
     this.ctx.lineWidth = 0.5;
 
     // Vertical lines
@@ -100,13 +162,13 @@ export class CanvasRenderer {
   }
 
   /**
-   * Draw a tetromino
+   * Draw a tetromino (with 3D effects)
    */
   public drawTetromino(tetromino: Tetromino, opacity = 1): void {
     const cells = getTetrominoOccupiedCells(tetromino);
 
     for (const cell of cells) {
-      this.drawSquare(cell.x, cell.y, tetromino.color, opacity);
+      this.drawSquare(cell.x, cell.y, tetromino.color, opacity, true); // With 3D effect
     }
   }
 
@@ -118,7 +180,7 @@ export class CanvasRenderer {
   }
 
   /**
-   * Draw preview piece (smaller scale)
+   * Draw preview piece (smaller scale) with gradient and highlight
    */
   public drawPreviewPiece(tetromino: Tetromino, previewCanvas: HTMLCanvasElement): void {
     const previewCtx = previewCanvas.getContext('2d');
@@ -142,21 +204,68 @@ export class CanvasRenderer {
 
       for (let col = 0; col < shapeRow.length; col++) {
         if (shapeRow[col] === 1) {
-          previewCtx.fillStyle = tetromino.color;
+          const xPos = offsetX + col * previewCellSize;
+          const yPos = offsetY + row * previewCellSize;
+
+          // Fill with subtle gradient
+          const gradient = previewCtx.createLinearGradient(
+            xPos,
+            yPos,
+            xPos,
+            yPos + previewCellSize
+          );
+          gradient.addColorStop(0, this.lightenColor(tetromino.color, 15));
+          gradient.addColorStop(0.5, tetromino.color);
+          gradient.addColorStop(1, this.darkenColor(tetromino.color, 12));
+          previewCtx.fillStyle = gradient;
+          previewCtx.fillRect(xPos, yPos, previewCellSize, previewCellSize);
+
+          // Add subtle highlight at the top
+          previewCtx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+          previewCtx.fillRect(xPos + 1, yPos + 1, previewCellSize - 2, previewCellSize * 0.25);
+
+          // Add very subtle shadow at the bottom
+          previewCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
           previewCtx.fillRect(
-            offsetX + col * previewCellSize,
-            offsetY + row * previewCellSize,
-            previewCellSize,
-            previewCellSize
+            xPos + 1,
+            yPos + previewCellSize * 0.75,
+            previewCellSize - 2,
+            previewCellSize * 0.25 - 1
           );
 
-          previewCtx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-          previewCtx.strokeRect(
-            offsetX + col * previewCellSize,
-            offsetY + row * previewCellSize,
-            previewCellSize,
-            previewCellSize
-          );
+          // Thin outer border
+          previewCtx.strokeStyle = 'rgba(0, 0, 0, 0.35)';
+          previewCtx.lineWidth = 1;
+          previewCtx.strokeRect(xPos, yPos, previewCellSize, previewCellSize);
+
+          // Very subtle inner light border (top and left)
+          previewCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+          previewCtx.lineWidth = 1;
+          previewCtx.beginPath();
+          previewCtx.moveTo(xPos + previewCellSize - 1, yPos + 1);
+          previewCtx.lineTo(xPos + 1, yPos + 1);
+          previewCtx.lineTo(xPos + 1, yPos + previewCellSize - 1);
+          previewCtx.stroke();
+
+          // Very subtle inner dark border (bottom and right)
+          previewCtx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+          previewCtx.lineWidth = 1;
+          previewCtx.beginPath();
+          previewCtx.moveTo(xPos + 1, yPos + previewCellSize - 1);
+          previewCtx.lineTo(xPos + previewCellSize - 1, yPos + previewCellSize - 1);
+          previewCtx.lineTo(xPos + previewCellSize - 1, yPos + 1);
+          previewCtx.stroke();
+
+          // Draw pattern in colorblind mode
+          if (this.colorBlindMode) {
+            this.drawColorBlindPatternPreview(
+              previewCtx,
+              xPos,
+              yPos,
+              previewCellSize,
+              tetromino.color
+            );
+          }
         }
       }
     }
@@ -258,5 +367,201 @@ export class CanvasRenderer {
    */
   public getContext(): CanvasRenderingContext2D {
     return this.ctx;
+  }
+
+  /**
+   * Enable or disable colorblind mode
+   */
+  public setColorBlindMode(enabled: boolean): void {
+    this.colorBlindMode = enabled;
+  }
+
+  /**
+   * Get colorblind mode status
+   */
+  public isColorBlindMode(): boolean {
+    return this.colorBlindMode;
+  }
+
+  /**
+   * Draw pattern for colorblind mode based on color
+   */
+  private drawColorBlindPattern(xPos: number, yPos: number, color: string): void {
+    this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    this.ctx.lineWidth = 1.5;
+
+    const center = this.cellSize / 2;
+    const padding = this.cellSize * 0.2;
+
+    // Pattern based on Tetromino color
+    switch (color) {
+      case '#00f0f0': // I - Cyan - Horizontal lines
+        for (let i = 1; i <= 3; i++) {
+          const y = yPos + (this.cellSize / 4) * i;
+          this.ctx.beginPath();
+          this.ctx.moveTo(xPos + padding, y);
+          this.ctx.lineTo(xPos + this.cellSize - padding, y);
+          this.ctx.stroke();
+        }
+        break;
+
+      case '#f0a000': // J - Orange - L shape
+        this.ctx.beginPath();
+        this.ctx.moveTo(xPos + padding, yPos + padding);
+        this.ctx.lineTo(xPos + padding, yPos + this.cellSize - padding);
+        this.ctx.lineTo(xPos + this.cellSize - padding, yPos + this.cellSize - padding);
+        this.ctx.stroke();
+        break;
+
+      case '#0000f0': // L - Blue - Reversed L shape
+        this.ctx.beginPath();
+        this.ctx.moveTo(xPos + this.cellSize - padding, yPos + padding);
+        this.ctx.lineTo(xPos + this.cellSize - padding, yPos + this.cellSize - padding);
+        this.ctx.lineTo(xPos + padding, yPos + this.cellSize - padding);
+        this.ctx.stroke();
+        break;
+
+      case '#f0f000': // O - Yellow - Square
+        this.ctx.strokeRect(
+          xPos + padding,
+          yPos + padding,
+          this.cellSize - padding * 2,
+          this.cellSize - padding * 2
+        );
+        break;
+
+      case '#00f000': // S - Green - Diagonal /
+        this.ctx.beginPath();
+        this.ctx.moveTo(xPos + padding, yPos + this.cellSize - padding);
+        this.ctx.lineTo(xPos + this.cellSize - padding, yPos + padding);
+        this.ctx.stroke();
+        break;
+
+      case '#a000f0': // T - Purple - T shape
+        this.ctx.beginPath();
+        this.ctx.moveTo(xPos + padding, yPos + center);
+        this.ctx.lineTo(xPos + this.cellSize - padding, yPos + center);
+        this.ctx.moveTo(xPos + center, yPos + center);
+        this.ctx.lineTo(xPos + center, yPos + this.cellSize - padding);
+        this.ctx.stroke();
+        break;
+
+      case '#f00000': // Z - Red - Diagonal \
+        this.ctx.beginPath();
+        this.ctx.moveTo(xPos + padding, yPos + padding);
+        this.ctx.lineTo(xPos + this.cellSize - padding, yPos + this.cellSize - padding);
+        this.ctx.stroke();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Draw pattern for colorblind mode in preview canvas
+   */
+  private drawColorBlindPatternPreview(
+    ctx: CanvasRenderingContext2D,
+    xPos: number,
+    yPos: number,
+    cellSize: number,
+    color: string
+  ): void {
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    ctx.lineWidth = 1.2;
+
+    const center = cellSize / 2;
+    const padding = cellSize * 0.2;
+
+    // Pattern based on Tetromino color
+    switch (color) {
+      case '#00f0f0': // I - Cyan - Horizontal lines
+        for (let i = 1; i <= 3; i++) {
+          const y = yPos + (cellSize / 4) * i;
+          ctx.beginPath();
+          ctx.moveTo(xPos + padding, y);
+          ctx.lineTo(xPos + cellSize - padding, y);
+          ctx.stroke();
+        }
+        break;
+
+      case '#f0a000': // J - Orange - L shape
+        ctx.beginPath();
+        ctx.moveTo(xPos + padding, yPos + padding);
+        ctx.lineTo(xPos + padding, yPos + cellSize - padding);
+        ctx.lineTo(xPos + cellSize - padding, yPos + cellSize - padding);
+        ctx.stroke();
+        break;
+
+      case '#0000f0': // L - Blue - Reversed L shape
+        ctx.beginPath();
+        ctx.moveTo(xPos + cellSize - padding, yPos + padding);
+        ctx.lineTo(xPos + cellSize - padding, yPos + cellSize - padding);
+        ctx.lineTo(xPos + padding, yPos + cellSize - padding);
+        ctx.stroke();
+        break;
+
+      case '#f0f000': // O - Yellow - Square
+        ctx.strokeRect(
+          xPos + padding,
+          yPos + padding,
+          cellSize - padding * 2,
+          cellSize - padding * 2
+        );
+        break;
+
+      case '#00f000': // S - Green - Diagonal /
+        ctx.beginPath();
+        ctx.moveTo(xPos + padding, yPos + cellSize - padding);
+        ctx.lineTo(xPos + cellSize - padding, yPos + padding);
+        ctx.stroke();
+        break;
+
+      case '#a000f0': // T - Purple - T shape
+        ctx.beginPath();
+        ctx.moveTo(xPos + padding, yPos + center);
+        ctx.lineTo(xPos + cellSize - padding, yPos + center);
+        ctx.moveTo(xPos + center, yPos + center);
+        ctx.lineTo(xPos + center, yPos + cellSize - padding);
+        ctx.stroke();
+        break;
+
+      case '#f00000': // Z - Red - Diagonal \
+        ctx.beginPath();
+        ctx.moveTo(xPos + padding, yPos + padding);
+        ctx.lineTo(xPos + cellSize - padding, yPos + cellSize - padding);
+        ctx.stroke();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Lighten a hex color by a percentage
+   */
+  private lightenColor(color: string, percent: number): string {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.min(255, (num >> 16) + amt);
+    const G = Math.min(255, ((num >> 8) & 0x00ff) + amt);
+    const B = Math.min(255, (num & 0x0000ff) + amt);
+    return `#${((1 << 24) + (R << 16) + (G << 8) + B).toString(16).slice(1)}`;
+  }
+
+  /**
+   * Darken a hex color by a percentage
+   */
+  private darkenColor(color: string, percent: number): string {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, (num >> 16) - amt);
+    const G = Math.max(0, ((num >> 8) & 0x00ff) - amt);
+    const B = Math.max(0, (num & 0x0000ff) - amt);
+    return `#${((1 << 24) + (R << 16) + (G << 8) + B).toString(16).slice(1)}`;
   }
 }
