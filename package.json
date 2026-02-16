@@ -1,6 +1,6 @@
 {
   "name": "simplistic-tetris",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Simplistic Tetris - Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!",
   "type": "module",
   "main": "index.html",
