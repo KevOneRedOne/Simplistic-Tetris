@@ -52,20 +52,161 @@ jobs:
           DATE=$(date +%Y-%m-%d)
           VERSION="${{ steps.version.outputs.version_number }}"
           
-          # Create temporary file with new entry
-          echo "# Changelog" > CHANGELOG.tmp
-          echo "" >> CHANGELOG.tmp
-          echo "All notable changes to Simplistic Tetris will be documented in this file." >> CHANGELOG.tmp
-          echo "" >> CHANGELOG.tmp
+          # Get the previous version tag
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
+          # Create temporary file with header
+          cat > CHANGELOG.tmp << 'HEADER'
+          # Changelog
+          
+          All notable changes to Simplistic Tetris V2 will be documented in this file.
+          
+          The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+          and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+          
+          HEADER
+          
           echo "## [$VERSION] - $DATE" >> CHANGELOG.tmp
           echo "" >> CHANGELOG.tmp
-          echo "### Added" >> CHANGELOG.tmp
-          echo "- Release $VERSION" >> CHANGELOG.tmp
-          echo "" >> CHANGELOG.tmp
           
-          # Append existing changelog content (skip header)
+          # Generate changelog from commits
+          if [ -n "$PREV_TAG" ]; then
+            # Arrays to store commits by category
+            declare -a features=()
+            declare -a fixes=()
+            declare -a docs=()
+            declare -a styles=()
+            declare -a refactors=()
+            declare -a perfs=()
+            declare -a tests=()
+            declare -a others=()
+            
+            # Get commits between tags
+            while IFS= read -r commit; do
+              # Remove conventional commit prefix for cleaner display
+              clean_commit="$commit"
+              
+              case "$commit" in
+                feat:*|feat\(*)
+                  clean_commit="${commit#feat:}"
+                  clean_commit="${clean_commit#feat(*)}"
+                  features+=("$clean_commit")
+                  ;;
+                fix:*|fix\(*)
+                  clean_commit="${commit#fix:}"
+                  clean_commit="${clean_commit#fix(*)}"
+                  fixes+=("$clean_commit")
+                  ;;
+                docs:*|docs\(*)
+                  clean_commit="${commit#docs:}"
+                  clean_commit="${clean_commit#docs(*)}"
+                  docs+=("$clean_commit")
+                  ;;
+                style:*|style\(*)
+                  clean_commit="${commit#style:}"
+                  clean_commit="${clean_commit#style(*)}"
+                  styles+=("$clean_commit")
+                  ;;
+                refactor:*|refactor\(*)
+                  clean_commit="${commit#refactor:}"
+                  clean_commit="${clean_commit#refactor(*)}"
+                  refactors+=("$clean_commit")
+                  ;;
+                perf:*|perf\(*)
+                  clean_commit="${commit#perf:}"
+                  clean_commit="${clean_commit#perf(*)}"
+                  perfs+=("$clean_commit")
+                  ;;
+                test:*|test\(*)
+                  clean_commit="${commit#test:}"
+                  clean_commit="${clean_commit#test(*)}"
+                  tests+=("$clean_commit")
+                  ;;
+                chore:*|chore\(*)
+                  # Skip chore commits
+                  ;;
+                Merge*)
+                  # Skip merge commits
+                  ;;
+                *)
+                  others+=("$commit")
+                  ;;
+              esac
+            done < <(git log $PREV_TAG..HEAD --pretty=format:"%s")
+            
+            # Write categorized commits
+            if [ ${#features[@]} -gt 0 ]; then
+              echo "### Added" >> CHANGELOG.tmp
+              for item in "${features[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#fixes[@]} -gt 0 ]; then
+              echo "### Fixed" >> CHANGELOG.tmp
+              for item in "${fixes[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#perfs[@]} -gt 0 ]; then
+              echo "### Performance" >> CHANGELOG.tmp
+              for item in "${perfs[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#refactors[@]} -gt 0 ]; then
+              echo "### Refactored" >> CHANGELOG.tmp
+              for item in "${refactors[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#styles[@]} -gt 0 ]; then
+              echo "### Style" >> CHANGELOG.tmp
+              for item in "${styles[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#docs[@]} -gt 0 ]; then
+              echo "### Documentation" >> CHANGELOG.tmp
+              for item in "${docs[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#tests[@]} -gt 0 ]; then
+              echo "### Tests" >> CHANGELOG.tmp
+              for item in "${tests[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+            
+            if [ ${#others[@]} -gt 0 ]; then
+              echo "### Other Changes" >> CHANGELOG.tmp
+              for item in "${others[@]}"; do
+                echo "- $item" >> CHANGELOG.tmp
+              done
+              echo "" >> CHANGELOG.tmp
+            fi
+          else
+            echo "### Initial Release" >> CHANGELOG.tmp
+            echo "" >> CHANGELOG.tmp
+            echo "- First release of Simplistic Tetris" >> CHANGELOG.tmp
+            echo "" >> CHANGELOG.tmp
+          fi
+          
+          # Append existing changelog content (skip header until first version)
           if [ -f CHANGELOG.md ]; then
-            # Skip lines until we find the first version entry
             sed -n '/^## \[/,$p' CHANGELOG.md >> CHANGELOG.tmp
           fi
           
@@ -98,9 +239,3 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy to Netlify
-        run: npx netlify-cli deploy --dir=dist --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
