@@ -27,10 +27,10 @@
     <link rel="canonical" href="https://simplistic-tetris.netlify.app/" />
 
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Simplistic Tetris" />
+    <meta property="og:title" content="Simplistic Tetris - Free Online Retro Tetris Game | Play Now" />
     <meta
       property="og:description"
-      content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!"
+      content="Play Simplistic Tetris online for free! Modern retro Tetris with Classic & Ultra modes, high scores, mobile support. No download — play in your browser."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://simplistic-tetris.netlify.app/" />
@@ -48,10 +48,10 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Simplistic Tetris" />
+    <meta name="twitter:title" content="Simplistic Tetris - Free Online Retro Tetris Game | Play Now" />
     <meta
       name="twitter:description"
-      content="Retro Tetris game made with TypeScript. Play Tetris anywhere, anytime. Have a break play Tetris!"
+      content="Play Simplistic Tetris online for free! Modern retro Tetris with Classic & Ultra modes, high scores, mobile support. No download — play in your browser."
     />
     <meta
       name="twitter:image"
@@ -70,6 +70,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://simplistic-tetris.netlify.app/sitemap.xml" />
     <link type="text/plain" rel="author" href="/humans.txt" />
 
     <!-- Structured Data - JSON-LD -->
@@ -145,6 +146,20 @@
         }
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Simplistic Tetris",
+            "item": "https://simplistic-tetris.netlify.app/"
+          }
+        ]
+      }
+    </script>
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -167,10 +182,17 @@
   </head>
 
   <body>
+    <noscript>
+      <div style="padding:2rem;text-align:center;font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;">
+        <h2>Simplistic Tetris</h2>
+        <p>This game requires JavaScript to run. Please enable JavaScript in your browser and <a href="https://simplistic-tetris.netlify.app/">reload the page</a> to play.</p>
+        <p>Play free online Tetris with Classic and Ultra modes, high scores, and mobile support.</p>
+      </div>
+    </noscript>
     <!-- Header -->
-    <header class="game-header">
+    <header class="game-header" role="banner">
       <div class="header-container">
-        <div class="header-left">
+        <nav class="header-left" aria-label="Main navigation">
           <button
             id="show-mode-selection-button"
             class="home-button"
@@ -179,11 +201,11 @@
           >
             <span class="iconify" data-icon="mdi:home" data-width="20"></span>
           </button>
-        </div>
+        </nav>
         <div class="header-title">
           <img
             src="/icons/android-chrome-512x512.png"
-            alt="Tetris"
+            alt="Simplistic Tetris - Game logo"
             width="50"
             height="50"
             fetchpriority="high"
@@ -191,7 +213,7 @@
           />
           <h1>Simplistic Tetris</h1>
         </div>
-        <div class="header-author">
+        <nav class="header-author" aria-label="Settings and links">
           <!-- Colorblind Mode Toggle -->
           <button
             id="colorblind-toggle"
@@ -221,13 +243,14 @@
           <a
             href="https://github.com/KevOneRedOne"
             target="_blank"
+            rel="noopener noreferrer"
             class="github-button"
             title="GitHub Profile"
             aria-label="GitHub Profile"
           >
             <span class="iconify" data-icon="mdi:github" data-width="24"></span>
           </a>
-        </div>
+        </nav>
       </div>
     </header>
 

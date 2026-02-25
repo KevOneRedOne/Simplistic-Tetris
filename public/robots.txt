@@ -1,15 +1,16 @@
-# Robots.txt for Simplistic Tetris
+# Simplistic Tetris - robots.txt for search engine crawlers
 # https://simplistic-tetris.netlify.app
 
 User-agent: *
 Allow: /
+Allow: /icons/
+Allow: /images/
 Disallow: /reports/
+# Built assets (hashed filenames) - no need to index
+Disallow: /assets/
 
-# Crawl-delay (be nice to servers)
-Crawl-delay: 1
-
-# Sitemaps
+# Sitemap (recommended for indexing)
 Sitemap: https://simplistic-tetris.netlify.app/sitemap.xml
 
-# Additional info
+# Optional: human-friendly credits
 # Humans: https://simplistic-tetris.netlify.app/humans.txt

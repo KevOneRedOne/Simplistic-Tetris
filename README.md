@@ -313,6 +313,17 @@ See [Testing Guide](./docs/TESTING.md) for detailed information.
 
 ---
 
+## 🔍 SEO & discoverability
+
+The site is set up for search engines and crawlers:
+
+- **Meta & Open Graph**: Title, description, and social cards are set in `index.html`; align with the main tagline when changing copy.
+- **robots.txt** (`public/robots.txt`): Allows indexing of the app and static assets; disallows `/reports/` and `/assets/` (build artifacts). Points to the sitemap.
+- **sitemap.xml** (`public/sitemap.xml`): Single-page sitemap with alternates and image entries. Update `lastmod` when you make meaningful content or SEO changes.
+- **Structured data**: JSON-LD for `VideoGame`, `WebApplication`, `WebSite`, and `BreadcrumbList` is included in the main HTML.
+
+---
+
 ## 🤝 Contributing
 
 This is a portfolio project, but suggestions and feedback are welcome! Feel free to open an issue or submit a pull request.
