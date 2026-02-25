@@ -5,6 +5,7 @@
 import { GameEventType, GameMode } from '@/types/index';
 import { APP_VERSION, MAX_HIGH_SCORES } from '@constants/config';
 import { GameEngine } from '@core/GameEngine';
+import { getDropSpeed } from '@core/ScoringSystem';
 import { i18n } from '@i18n/i18n';
 import { InputHandler } from '@input/InputHandler';
 import { AnimationEngine } from '@rendering/AnimationEngine';
@@ -925,6 +926,9 @@ class TetrisGame {
       this.quit();
     });
 
+    // Initial input speed scaling based on current level/drop speed
+    this.updateInputSpeedScaling();
+
     // Setup game event listeners
     this.gameEngine.addEventListener(GameEventType.LINE_CLEARED, (event) => {
       this.audioManager.play('lineClear');
@@ -938,6 +942,9 @@ class TetrisGame {
       const data = event.data as { level: number };
       const message = i18n.t('messages.levelUp', { level: data.level });
       this.uiManager.showNotification(message, 'success', 2000);
+
+      // Adjust input responsiveness as falling speed increases
+      this.updateInputSpeedScaling();
     });
 
     this.gameEngine.addEventListener(GameEventType.GAME_OVER, (event) => {
@@ -1268,6 +1275,24 @@ class TetrisGame {
 
     // Show mode selection modal
     this.showModeSelection();
+  }
+
+  /**
+   * Update input speed scaling so horizontal movement and rotation
+   * stay responsive as the falling speed increases with level.
+   */
+  private updateInputSpeedScaling(): void {
+    if (!this.gameEngine || !this.inputHandler) {
+      return;
+    }
+
+    const state = this.gameEngine.getState();
+    const currentDrop = getDropSpeed(state.level);
+    const baseDrop = getDropSpeed(0);
+
+    // Higher factor when pieces fall faster
+    const speedFactor = baseDrop / currentDrop;
+    this.inputHandler.updateSpeedScaling(speedFactor);
   }
 }
 
