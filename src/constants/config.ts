@@ -21,6 +21,9 @@ type InputAction =
 // App version from package.json
 export const APP_VERSION = packageJson.version;
 
+// GitHub releases URL (for footer version link)
+export const REPO_RELEASES_URL = 'https://github.com/KevOneRedOne/Simplistic-Tetris/releases';
+
 // Board dimensions
 export const BOARD_ROWS = 20;
 export const BOARD_COLS = 10;

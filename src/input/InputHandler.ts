@@ -24,6 +24,9 @@ export class InputHandler {
   private actionCallbacks: Map<InputAction, ActionCallback>;
   private pressedKeys: Set<string>;
   private lastActionTime: Map<InputAction, number>;
+  private movementInitialDelay: number;
+  private movementRepeatInterval: number;
+  private debounceOverrides: Partial<Record<InputAction, number>>;
   private touchStartY: number | null = null;
   private touchStartX: number | null = null;
   private touchStartTime: number = 0;
@@ -36,6 +39,9 @@ export class InputHandler {
     this.actionCallbacks = new Map();
     this.pressedKeys = new Set();
     this.lastActionTime = new Map();
+    this.movementInitialDelay = 150;
+    this.movementRepeatInterval = 50;
+    this.debounceOverrides = {};
 
     this.setupEventListeners();
   }
@@ -113,10 +119,10 @@ export class InputHandler {
             } else {
               clearInterval(interval);
             }
-          }, 50); // Repeat every 50ms
+          }, this.movementRepeatInterval); // Repeat at configured interval
 
           this.repeatIntervals.set(key, interval);
-        }, 150); // Wait 150ms before starting repeat
+        }, this.movementInitialDelay); // Wait before starting repeat
 
         this.repeatIntervals.set(key + '_initial', initialDelay);
       }
@@ -258,7 +264,11 @@ export class InputHandler {
    */
   private executeAction(action: InputAction): void {
     // Check debounce for certain actions
-    const debounceTime = INPUT_DEBOUNCE[action as keyof typeof INPUT_DEBOUNCE];
+    const overrideDebounce = this.debounceOverrides[action];
+    const debounceTime =
+      overrideDebounce !== undefined
+        ? overrideDebounce
+        : INPUT_DEBOUNCE[action as keyof typeof INPUT_DEBOUNCE];
     if (debounceTime) {
       const lastTime = this.lastActionTime.get(action) || 0;
       const now = Date.now();
@@ -317,6 +327,27 @@ export class InputHandler {
    */
   public clearPressed(): void {
     this.pressedKeys.clear();
+  }
+
+  /**
+   * Update input speed scaling based on game speed.
+   * speedFactor >= 1.0 means faster falling => faster inputs.
+   */
+  public updateSpeedScaling(speedFactor: number): void {
+    const clamped = Math.max(1, Math.min(speedFactor, 3));
+
+    // Smooth the scaling to avoid too fast inputs
+    const effectiveFactor = 1 + (clamped - 1) * 0.5;
+
+    const baseInitialDelay = 150;
+    const baseInterval = 50;
+    const baseRotateDebounce = INPUT_DEBOUNCE.rotate ?? 150;
+
+    // Keep reasonable minimums for playability
+    this.movementInitialDelay = Math.max(90, baseInitialDelay / effectiveFactor);
+    this.movementRepeatInterval = Math.max(25, baseInterval / effectiveFactor);
+
+    this.debounceOverrides.rotate = Math.max(90, baseRotateDebounce / effectiveFactor);
   }
 
   /**
