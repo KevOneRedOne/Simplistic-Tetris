@@ -230,11 +230,25 @@ jobs:
           git push origin HEAD:main
           git push origin ${{ steps.version.outputs.new_version }}
 
+      - name: Extract release notes from CHANGELOG
+        id: release_notes
+        run: |
+          VERSION="${{ steps.version.outputs.version_number }}"
+          awk -v v="$VERSION" '
+            /^## \[/ {
+              if (start && $0 !~ "\\[" v "\\]") exit
+              if ($0 ~ "\\[" v "\\]") start = 1
+            }
+            start { print }
+          ' CHANGELOG.md > release_notes.md
+          echo "Notes length: $(wc -c < release_notes.md)"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.new_version }}
-          generate_release_notes: true
+          body_path: release_notes.md
+          generate_release_notes: false
           draft: false
           prerelease: false
         env:
