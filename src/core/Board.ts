@@ -116,28 +116,27 @@ export function findCompleteLines(board: BoardGrid): number[] {
 }
 
 /**
- * Clear specified lines and shift rows down
+ * Clear specified lines and shift rows down.
+ * All given lines are removed in one pass to avoid index shifting when clearing multiple lines.
  */
 export function clearLines(board: BoardGrid, lineIndices: number[]): BoardGrid {
   if (lineIndices.length === 0) {
     return board;
   }
 
-  const newBoard = cloneBoard(board);
+  const toRemove = new Set(lineIndices);
+  const cloned = cloneBoard(board);
 
-  // Sort line indices in descending order to clear from bottom to top
-  const sortedLines = [...lineIndices].sort((a, b) => b - a);
+  // Remove all complete lines at once (keeps row order)
+  const filtered = cloned.filter((_, rowIndex) => !toRemove.has(rowIndex));
 
-  for (const lineIndex of sortedLines) {
-    // Remove the complete line
-    newBoard.splice(lineIndex, 1);
-
-    // Add a new empty line at the top
-    const emptyLine: CellValue[] = Array.from({ length: BOARD_COLS }, () => VACANT_COLOR);
-    newBoard.unshift(emptyLine);
+  // Restore board height by adding empty lines at the top
+  const emptyLine: CellValue[] = Array.from({ length: BOARD_COLS }, () => VACANT_COLOR);
+  for (let i = 0; i < lineIndices.length; i++) {
+    filtered.unshift([...emptyLine]);
   }
 
-  return newBoard;
+  return filtered;
 }
 
 /**

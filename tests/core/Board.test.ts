@@ -111,6 +111,28 @@ describe('Board', () => {
       // Check that cleared line is now at top and empty
       expect(newBoard[0]?.every((cell) => cell === VACANT_COLOR)).toBe(true);
     });
+
+    it('should clear multiple complete lines simultaneously', () => {
+      const board = createBoard();
+      const lastRow = BOARD_ROWS - 1;
+      const secondLast = BOARD_ROWS - 2;
+      // Fill bottom two lines
+      for (const row of [lastRow, secondLast]) {
+        if (board[row]) {
+          for (let col = 0; col < BOARD_COLS; col++) {
+            board[row][col] = 'red';
+          }
+        }
+      }
+
+      const newBoard = clearLines(board, [secondLast, lastRow]);
+
+      // Both cleared lines must be empty and at the top
+      expect(newBoard[0]?.every((cell) => cell === VACANT_COLOR)).toBe(true);
+      expect(newBoard[1]?.every((cell) => cell === VACANT_COLOR)).toBe(true);
+      // Board height unchanged
+      expect(newBoard.length).toBe(BOARD_ROWS);
+    });
   });
 
   describe('isBoardEmpty', () => {
