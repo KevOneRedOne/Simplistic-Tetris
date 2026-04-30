@@ -19,7 +19,7 @@
     "npm": ">=10.0.0"
   },
   "dependencies": {
-    "vite": "^6.0.3"
+    "vite": "^6.4.2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.0.0",
