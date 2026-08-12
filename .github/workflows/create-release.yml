@@ -22,12 +22,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -46,7 +46,8 @@ jobs:
       - name: Bump version
         id: version
         run: |
-          NEW_VERSION=$(pnpm version ${{ github.event.inputs.version_type }} --no-git-tag-version)
+          pnpm version ${{ github.event.inputs.version_type }} --no-git-tag-version
+          NEW_VERSION="v$(node -p "require('./package.json').version")"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "version_number=${NEW_VERSION#v}" >> $GITHUB_OUTPUT
 
