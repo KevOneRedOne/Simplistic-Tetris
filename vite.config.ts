@@ -1,10 +1,22 @@
 import { resolve } from 'node:path';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vitest/config';
 
 const rootDir = import.meta.dirname;
+const isAnalyze = process.env['ANALYZE'] === 'true';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  plugins: isAnalyze
+    ? [
+        visualizer({
+          open: true,
+          filename: 'dist/stats.html',
+          gzipSize: true,
+          brotliSize: true,
+        }),
+      ]
+    : [],
   resolve: {
     alias: {
       '@': resolve(rootDir, './src'),

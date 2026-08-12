@@ -5,6 +5,22 @@ All notable changes to Simplistic Tetris V2 will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Security
+
+- SHA pinning de toutes les GitHub Actions (checkout v5.1.0, setup-node v4.4.0, pnpm/action-setup v6.0.10, softprops/action-gh-release v2.3.2)
+
+### Added
+
+- Hook `pre-push` Husky : type-check TypeScript (`tsc --noEmit`) + suite de tests complète avant chaque push
+- `.vscode/extensions.json` : recommandations d'extensions VS Code pour le projet
+- Bundle analyzer via `rollup-plugin-visualizer` (script `build:analyze`)
+
+### Changed
+
+- `verbatimModuleSyntax` activé dans `tsconfig.json` pour forcer `import type` explicite
+
 ## [3.3.0] - 2026-08-13
 
 ### Changed

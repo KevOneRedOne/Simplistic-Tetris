@@ -21,7 +21,7 @@ import { ThemeManager } from '@rendering/ThemeManager';
 import { AudioManager } from '@ui/AudioManager';
 import { FPSCounter } from '@ui/FPSCounter';
 import { HighScoreManager } from '@ui/HighScoreManager';
-import { MusicCredits, MusicManager } from '@ui/MusicManager';
+import { type MusicCredits, MusicManager } from '@ui/MusicManager';
 import { UIManager } from '@ui/UIManager';
 
 function debounce<T extends (...args: unknown[]) => void>(
