@@ -9,17 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- SHA pinning de toutes les GitHub Actions (checkout v5.1.0, setup-node v4.4.0, pnpm/action-setup v6.0.10, softprops/action-gh-release v2.3.2)
+- SHA pinning de toutes les GitHub Actions (checkout v5.1.0, setup-node v4.4.0, pnpm/action-setup v6.0.10, softprops/action-gh-release v2.3.2, upload-artifact v4.6.2)
+- `permissions: contents: read` explicite sur le workflow CI (principe du moindre privilège)
+- `pnpm audit --audit-level=high` dans la CI pour bloquer uniquement les vulnérabilités critiques
+- Ajout de `SECURITY.md` avec politique de divulgation responsable
 
 ### Added
 
 - Hook `pre-push` Husky : type-check TypeScript (`tsc --noEmit`) + suite de tests complète avant chaque push
-- `.vscode/extensions.json` : recommandations d'extensions VS Code pour le projet
+- `.vscode/extensions.json` : recommandations d'extensions VS Code ciblées pour ce projet
+- `.vscode/settings.json` : formatOnSave, TS SDK workspace, ESLint fix on save, rulers à 100 chars
 - Bundle analyzer via `rollup-plugin-visualizer` (script `build:analyze`)
+- Étape `tsc --noEmit` explicite dans la CI pour un feedback d'erreur de type clair
+- Upload du rapport de coverage en artifact CI (retention 7 jours)
 
 ### Changed
 
-- `verbatimModuleSyntax` activé dans `tsconfig.json` pour forcer `import type` explicite
+- `verbatimModuleSyntax` activé dans `tsconfig.json` et `tsconfig.node.json` pour forcer `import type` explicite
 
 ## [3.3.0] - 2026-08-13
 
