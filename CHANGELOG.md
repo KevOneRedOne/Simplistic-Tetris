@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bundle analyzer via `rollup-plugin-visualizer` (script `build:analyze`)
 - Étape `tsc --noEmit` explicite dans la CI pour un feedback d'erreur de type clair
 - Upload du rapport de coverage en artifact CI (retention 7 jours)
+- Exclusion du coverage pour les fichiers non-testables (Canvas API, Web Audio, DOM setup, entry point, locales statiques) ; seuils calibrés sur le code réellement mesurable
 
 ### Changed
 
