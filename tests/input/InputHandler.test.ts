@@ -246,9 +246,9 @@ describe('InputHandler', () => {
       };
 
       const event = new TouchEvent('touchstart', {
-        touches: [touch as Touch],
-        changedTouches: [touch as Touch],
-        targetTouches: [touch as Touch],
+        touches: [touch],
+        changedTouches: [touch],
+        targetTouches: [touch],
       });
 
       // Should not throw
@@ -276,16 +276,16 @@ describe('InputHandler', () => {
 
       // Touch start
       const startEvent = new TouchEvent('touchstart', {
-        touches: [touch as Touch],
-        changedTouches: [touch as Touch],
-        targetTouches: [touch as Touch],
+        touches: [touch],
+        changedTouches: [touch],
+        targetTouches: [touch],
       });
       document.dispatchEvent(startEvent);
 
       // Touch end (tap)
       const endEvent = new TouchEvent('touchend', {
         touches: [],
-        changedTouches: [touch as Touch],
+        changedTouches: [touch],
         targetTouches: [],
       });
       document.dispatchEvent(endEvent);

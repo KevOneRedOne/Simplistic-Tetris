@@ -1,0 +1,7 @@
+allowBuilds:
+  "@parcel/watcher": true
+  canvas: true
+
+# pnpm 11 defaults to 1 day minimum release age as a supply-chain security measure.
+# Set to 0 to allow freshly-published packages during active development.
+minimumReleaseAge: 0

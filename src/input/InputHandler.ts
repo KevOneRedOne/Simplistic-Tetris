@@ -265,10 +265,7 @@ export class InputHandler {
   private executeAction(action: InputAction): void {
     // Check debounce for certain actions
     const overrideDebounce = this.debounceOverrides[action];
-    const debounceTime =
-      overrideDebounce !== undefined
-        ? overrideDebounce
-        : INPUT_DEBOUNCE[action as keyof typeof INPUT_DEBOUNCE];
+    const debounceTime = overrideDebounce !== undefined ? overrideDebounce : INPUT_DEBOUNCE[action];
     if (debounceTime) {
       const lastTime = this.lastActionTime.get(action) || 0;
       const now = Date.now();

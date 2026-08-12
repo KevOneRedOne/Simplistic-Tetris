@@ -23,18 +23,17 @@
     "forceConsistentCasingInFileNames": true,
 
     /* Path aliases */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@core/*": ["src/core/*"],
-      "@rendering/*": ["src/rendering/*"],
-      "@input/*": ["src/input/*"],
-      "@ui/*": ["src/ui/*"],
-      "@i18n/*": ["src/i18n/*"],
-      "@types/*": ["src/types/*"],
-      "@constants/*": ["src/constants/*"],
-      "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@/*": ["./src/*"],
+      "@core/*": ["./src/core/*"],
+      "@rendering/*": ["./src/rendering/*"],
+      "@input/*": ["./src/input/*"],
+      "@ui/*": ["./src/ui/*"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@types/*": ["./src/types/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": ["src"],

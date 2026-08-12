@@ -15,7 +15,7 @@ Thank you for your interest in contributing! 🎮
 ## 📝 Code Style
 
 - Follow TypeScript strict mode guidelines
-- Use ESLint and Prettier (run `npm run lint` and `npm run format`)
+- Use ESLint and Prettier (run `pnpm lint` and `pnpm format`)
 - Write meaningful commit messages following [Conventional Commits](https://www.conventionalcommits.org/)
 - Add tests for new features
 
@@ -38,10 +38,10 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) w
 ## 🧪 Testing
 
 Before submitting a PR, make sure:
-- All tests pass: `npm test`
-- No linting errors: `npm run lint`
-- Code is formatted: `npm run format`
-- Build succeeds: `npm run build`
+- All tests pass: `pnpm test`
+- No linting errors: `pnpm lint`
+- Code is formatted: `pnpm format`
+- Build succeeds: `pnpm build`
 
 ## 🎯 Areas for Contribution
 

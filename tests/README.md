@@ -4,13 +4,13 @@
 
 ```bash
 # Run tests
-npm test
+pnpm test
 
 # Run with UI
-npm run test:ui
+pnpm test:ui
 
 # Generate coverage
-npm run test:coverage
+pnpm test:coverage
 
 # View coverage
 open coverage/index.html
@@ -76,7 +76,7 @@ describe('Component', () => {
 
 ## 🔧 Configuration
 
-- **Framework:** Vitest 4.0.18
+- **Framework:** Vitest 4.1
 - **Environment:** jsdom
 - **Coverage:** v8
 

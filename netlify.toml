@@ -6,12 +6,11 @@
   publish = "dist"
   
   # Build command
-  command = "npm run build"
+  command = "pnpm build"
 
 [build.environment]
   # Node version
-  NODE_VERSION = "20"
-  NPM_VERSION = "10"
+  NODE_VERSION = "22"
   
   # Install devDependencies (required for TypeScript, Vite, etc.)
   NPM_CONFIG_PRODUCTION = "false"
@@ -98,14 +97,14 @@
 
 # Development context
 [context.deploy-preview]
-  command = "npm run build"
+  command = "pnpm build"
 
 [context.branch-deploy]
-  command = "npm run build"
+  command = "pnpm build"
 
 # Production context
 [context.production]
-  command = "npm run build"
+  command = "pnpm build"
 
 [context.production.environment]
   NODE_ENV = "production"

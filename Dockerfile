@@ -2,23 +2,26 @@
 # Multi-stage build and deployment
 
 # Stage 1: Build
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 # Set the working directory
 WORKDIR /tetris
 
-# Copy the dependency files (Docker cache optimization)
-COPY package.json package-lock.json ./
+# Enable pnpm via Corepack (version pinned in package.json)
+RUN corepack enable
 
-# Install the dependencies (npm ci installe toutes les dépendances par défaut)
-RUN npm ci && \
-    npm cache clean --force
+# Copy the dependency files (Docker cache optimization)
+COPY package.json pnpm-lock.yaml ./
+
+# Install the dependencies
+RUN pnpm install --frozen-lockfile && \
+    pnpm store prune
 
 # Copy the rest of the source files
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm build
 
 # Stage 2: Production with Nginx
 FROM nginx:1.27-alpine AS production

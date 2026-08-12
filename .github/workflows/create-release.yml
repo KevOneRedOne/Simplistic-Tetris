@@ -26,14 +26,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Configure Git
         run: |
@@ -43,7 +46,7 @@ jobs:
       - name: Bump version
         id: version
         run: |
-          NEW_VERSION=$(npm version ${{ github.event.inputs.version_type }} --no-git-tag-version)
+          NEW_VERSION=$(pnpm version ${{ github.event.inputs.version_type }} --no-git-tag-version)
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "version_number=${NEW_VERSION#v}" >> $GITHUB_OUTPUT
 
@@ -214,14 +217,14 @@ jobs:
           mv CHANGELOG.tmp CHANGELOG.md
 
       - name: Run tests
-        run: npm test -- --run
+        run: pnpm test -- --run
 
       - name: Build
-        run: npm run build
+        run: pnpm build
 
       - name: Commit version bump and changelog
         run: |
-          git add package.json package-lock.json CHANGELOG.md
+          git add package.json pnpm-lock.yaml CHANGELOG.md
           git commit -m "chore(release): ${{ steps.version.outputs.new_version }}"
           git tag ${{ steps.version.outputs.new_version }}
 

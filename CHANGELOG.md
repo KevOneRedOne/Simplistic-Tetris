@@ -5,6 +5,16 @@ All notable changes to Simplistic Tetris V2 will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Migrated package manager from npm to pnpm 11
+- Bumped Node.js requirement to >=22.22.2 (LTS)
+- Updated toolchain: Vite 8 (Rolldown), TypeScript 6, ESLint 10, Vitest 4.1, jsdom 30, commitlint 21, and all related dependencies
+- Migrated `vite.config.ts` to use `import.meta.dirname` and Rolldown-native `rolldownOptions`/`codeSplitting`
+- Migrated pnpm build-script permissions from `package.json#pnpm` to `pnpm-workspace.yaml` (`allowBuilds`)
+
 ## [3.2.0] - 2026-02-25
 
 ### Added

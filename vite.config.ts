@@ -1,69 +1,47 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
+
+const rootDir = import.meta.dirname;
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
-      '@core': resolve(__dirname, './src/core'),
-      '@rendering': resolve(__dirname, './src/rendering'),
-      '@input': resolve(__dirname, './src/input'),
-      '@ui': resolve(__dirname, './src/ui'),
-      '@i18n': resolve(__dirname, './src/i18n'),
-      '@types': resolve(__dirname, './src/types'),
-      '@constants': resolve(__dirname, './src/constants'),
-      '@styles': resolve(__dirname, './src/styles'),
-      '@assets': resolve(__dirname, './src/assets'),
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // Modern Sass architecture with @use - no need for global imports
-        api: 'modern-compiler',
-      },
+      '@': resolve(rootDir, './src'),
+      '@core': resolve(rootDir, './src/core'),
+      '@rendering': resolve(rootDir, './src/rendering'),
+      '@input': resolve(rootDir, './src/input'),
+      '@ui': resolve(rootDir, './src/ui'),
+      '@i18n': resolve(rootDir, './src/i18n'),
+      '@types': resolve(rootDir, './src/types'),
+      '@constants': resolve(rootDir, './src/constants'),
+      '@styles': resolve(rootDir, './src/styles'),
+      '@assets': resolve(rootDir, './src/assets'),
     },
   },
   build: {
     target: 'es2020',
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: false, // Disable sourcemaps in production for smaller bundle
-    minify: 'esbuild',
-    cssMinify: true,
-    rollupOptions: {
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rolldownOptions: {
       output: {
-        manualChunks: (id) => {
-          // Split vendor chunks
-          if (id.includes('node_modules')) {
-            if (id.includes('iconify')) {
-              return 'vendor-iconify';
-            }
-            return 'vendor';
-          }
-          // Split game chunks
-          if (id.includes('/core/')) {
-            return 'game-core';
-          }
-          if (id.includes('/rendering/')) {
-            return 'rendering';
-          }
-          if (id.includes('/ui/')) {
-            return 'ui';
-          }
-          if (id.includes('/i18n/')) {
-            return 'i18n';
-          }
-        },
-        // Optimize chunk size
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        codeSplitting: {
+          groups: [
+            { name: 'vendor-iconify', test: /[\\/]node_modules[\\/].*iconify/ },
+            { name: 'vendor', test: /[\\/]node_modules[\\/]/ },
+            { name: 'game-core', test: /[\\/]core[\\/]/ },
+            { name: 'rendering', test: /[\\/]rendering[\\/]/ },
+            { name: 'ui', test: /[\\/]ui[\\/]/ },
+            { name: 'i18n', test: /[\\/]i18n[\\/]/ },
+          ],
         },
       },
-    // Optimize chunk size
-    chunkSizeWarningLimit: 1000,
+    },
   },
   test: {
     globals: true,
@@ -82,11 +60,12 @@ export default defineConfig({
         'scripts/**',
       ],
       include: ['src/**/*.ts'],
-      all: true,
-      lines: 70,
-      functions: 70,
-      branches: 70,
-      statements: 70,
+      thresholds: {
+        lines: 70,
+        functions: 70,
+        branches: 70,
+        statements: 70,
+      },
     },
   },
 });

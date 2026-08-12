@@ -64,8 +64,8 @@ This project is a modern TypeScript rewrite of my first-year Bachelor's group pr
 
 ### 🛠️ Built With
 
-- **TypeScript 5.x** - Strict mode for type safety
-- **Vite 6.x** - Fast build tool with HMR
+- **TypeScript 6.x** - Strict mode for type safety
+- **Vite 8.x** - Fast build tool with HMR
 - **Vitest** - Unit testing framework
 - **SCSS** - CSS preprocessor with modules
 - **Canvas API** - Game rendering
@@ -76,8 +76,8 @@ This project is a modern TypeScript rewrite of my first-year Bachelor's group pr
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js 22.22+
+- pnpm 11+
 
 ### Installation
 
@@ -91,13 +91,13 @@ This project is a modern TypeScript rewrite of my first-year Bachelor's group pr
 2. Install dependencies
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Start development server
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 4. Open [http://localhost:5173](http://localhost:5173)
@@ -105,13 +105,13 @@ This project is a modern TypeScript rewrite of my first-year Bachelor's group pr
 ### Available Scripts
 
 ```bash
-npm run dev          # Start dev server with HMR
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm test             # Run unit tests
-npm run test:ui      # Run tests with UI
-npm run lint         # Lint code
-npm run format       # Format code with Prettier
+pnpm dev            # Start dev server with HMR
+pnpm build          # Build for production
+pnpm preview        # Preview production build
+pnpm test           # Run unit tests
+pnpm test:ui        # Run tests with UI
+pnpm lint           # Lint code
+pnpm format         # Format code with Prettier
 ```
 
 ---
@@ -270,13 +270,13 @@ graph TD
 
 ```bash
 # Run all tests
-npm test
+pnpm test
 
 # Run tests with UI
-npm run test:ui
+pnpm test:ui
 
 # Generate coverage report
-npm run test:coverage
+pnpm test:coverage
 
 # View coverage HTML
 open coverage/index.html

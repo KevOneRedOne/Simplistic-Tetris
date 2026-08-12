@@ -267,7 +267,7 @@ export function rotateTetromino(tetromino: Tetromino): Tetromino {
   return {
     ...tetromino,
     rotation: newRotation,
-    shape: newShape as number[][],
+    shape: newShape,
   };
 }
 

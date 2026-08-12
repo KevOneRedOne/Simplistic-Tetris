@@ -20,10 +20,10 @@ Closes #(issue number)
 <!-- Describe the tests you ran and how to verify your changes -->
 - [ ] I have tested this locally
 - [ ] I have added/updated tests for my changes
-- [ ] All tests pass (`npm test`)
-- [ ] No linting errors (`npm run lint`)
-- [ ] No format errors (`npm run format`)
-- [ ] Build succeeds (`npm run build`)
+- [ ] All tests pass (`pnpm test`)
+- [ ] No linting errors (`pnpm lint`)
+- [ ] No format errors (`pnpm format`)
+- [ ] Build succeeds (`pnpm build`)
 
 ## 📸 Screenshots (if applicable)
 <!-- Add screenshots or GIFs to help explain your changes, especially for UI changes -->
